@@ -1,20 +1,31 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, StyleSheet, Platform, StatusBar } from 'react-native';
+import { useFonts } from 'expo-font';
+
+import Navigator from './src/navigation/Navigator';
+import { COLORS } from './src/global/theme';
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+  const [fontsLoaded, fontError] = useFonts({
+    Lato: require("./src/assets/fonts/Lato-Regular.ttf"),
+  });
+
+  if(!fontsLoaded || fontError) {
+    return null;
+  }
+
+  if(fontsLoaded && !fontError) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <Navigator />
+      </SafeAreaView>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
   container: {
+    marginTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: COLORS.YELLOW,
   },
 });
