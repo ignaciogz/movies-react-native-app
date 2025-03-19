@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 
-import AuthStackNavigator from './stacks/AuthStackNavigator';
+//import AuthStackNavigator from './stacks/AuthStackNavigator';
 import BottomTabNavigator from './BottomTabNavigator';
 
 const Navigator = () => {
@@ -13,7 +12,7 @@ const Navigator = () => {
       {
         user
           ? <BottomTabNavigator />
-          : <AuthStackNavigator />
+          : <BottomTabNavigator />/* <AuthStackNavigator />*/
       }
     </NavigationContainer>
   );

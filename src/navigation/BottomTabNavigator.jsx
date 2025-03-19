@@ -4,11 +4,11 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons, MaterialIcons, Ionicons } from '@expo/vector-icons';
 
 import HomeStackNavigator from './stacks/HomeStackNavigator';
-import ProfileStackNavigator from './stacks/ProfileStackNavigator';
-import SearchStackNavigator from './stacks/SearchStackNavigator';
-import TicketsStackNavigator from './stacks/TicketsStackNavigator';
+// import ProfileStackNavigator from './stacks/ProfileStackNavigator';
+// import SearchStackNavigator from './stacks/SearchStackNavigator';
+// import TicketsStackNavigator from './stacks/TicketsStackNavigator';
 
-import { COLORS, SPACE } from '../global/theme';
+import { COLORS, FONT_SIZE, SPACE } from '../global/theme';
 
 const Tab = createBottomTabNavigator();
 
@@ -16,10 +16,10 @@ const BottomTabNavigator = () => {
   return (
     <Tab.Navigator
       screenOptions={() => ({
+        headerShown: false,
+        tabBarHideOnKeyboard: true,
         tabBarShowLabel: false,
         tabBarStyle: styles.tabBar,
-        tabBarHideOnKeyboard: true,
-        headerShown: false,
       })}
     >
 
@@ -32,8 +32,8 @@ const BottomTabNavigator = () => {
               <View>
                 <MaterialIcons
                   name="local-movies"
-                  size={24}
-                  color={focused ? COLORS.YELLOW : COLORS.BLACK}
+                  size={FONT_SIZE.ICON_TAB_NAVBAR}
+                  color={focused ? COLORS.WHITE : COLORS.VIOLET_LIGHT}
                 />
               </View>
             );
@@ -41,7 +41,7 @@ const BottomTabNavigator = () => {
         }}
       />
 
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Search"
         component={SearchStackNavigator}
         options={{
@@ -50,8 +50,8 @@ const BottomTabNavigator = () => {
               <View>
                 <MaterialCommunityIcons
                   name="movie-search"
-                  size={24}
-                  color={focused ? COLORS.YELLOW : COLORS.BLACK}
+                  size={FONT_SIZE.ICON_TAB_NAVBAR}
+                  color={focused ? COLORS.WHITE : COLORS.VIOLET_LIGHT}
                 />
               </View>
             );
@@ -68,8 +68,8 @@ const BottomTabNavigator = () => {
               <View>
                 <Ionicons
                   name="ticket"
-                  size={24}
-                  color={focused ? COLORS.YELLOW : COLORS.BLACK}
+                  size={FONT_SIZE.ICON_TAB_NAVBAR}
+                  color={focused ? COLORS.WHITE : COLORS.VIOLET_LIGHT}
                 />
               </View>
             );
@@ -86,14 +86,14 @@ const BottomTabNavigator = () => {
               <View>
                 <Ionicons
                   name="person"
-                  size={24}
-                  color={focused ? COLORS.YELLOW : COLORS.BLACK}
+                  size={FONT_SIZE.ICON_TAB_NAVBAR}
+                  color={focused ? COLORS.WHITE : COLORS.VIOLET_LIGHT}
                 />
               </View>
             );
           }
         }}
-      />
+      /> */}
     </Tab.Navigator>
   );
 }
@@ -102,8 +102,10 @@ export default BottomTabNavigator;
 
 const styles = StyleSheet.create({
   tabBar: {
-    backgroundColor: COLORS.ROSE,
-    borderTopWidth: 0,
-    height: SPACE.MD * 10
+    backgroundColor: COLORS.BLACK,
+    borderColor: COLORS.GREY,
+    borderTopWidth: 2,
+    height: SPACE.MD * 10,
+    paddingTop: SPACE.LG * 1.5
   },
 });
