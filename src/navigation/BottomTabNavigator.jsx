@@ -6,7 +6,7 @@ import { MaterialCommunityIcons, MaterialIcons, Ionicons } from '@expo/vector-ic
 import HomeStackNavigator from './stacks/HomeStackNavigator';
 // import ProfileStackNavigator from './stacks/ProfileStackNavigator';
 // import SearchStackNavigator from './stacks/SearchStackNavigator';
-// import TicketsStackNavigator from './stacks/TicketsStackNavigator';
+// import TicketsStackNavigator from './stacks/TicketStackNavigator';
 
 import { COLORS, FONT_SIZE, SPACE } from '../global/theme';
 
@@ -32,7 +32,7 @@ const BottomTabNavigator = () => {
               <View>
                 <MaterialIcons
                   name="local-movies"
-                  size={FONT_SIZE.ICON_TAB_NAVBAR}
+                  size={FONT_SIZE.ICON_NAVIGATION}
                   color={focused ? COLORS.WHITE : COLORS.VIOLET_LIGHT}
                 />
               </View>
@@ -50,7 +50,7 @@ const BottomTabNavigator = () => {
               <View>
                 <MaterialCommunityIcons
                   name="movie-search"
-                  size={FONT_SIZE.ICON_TAB_NAVBAR}
+                  size={FONT_SIZE.ICON_NAVIGATION}
                   color={focused ? COLORS.WHITE : COLORS.VIOLET_LIGHT}
                 />
               </View>
@@ -68,7 +68,7 @@ const BottomTabNavigator = () => {
               <View>
                 <Ionicons
                   name="ticket"
-                  size={FONT_SIZE.ICON_TAB_NAVBAR}
+                  size={FONT_SIZE.ICON_NAVIGATION}
                   color={focused ? COLORS.WHITE : COLORS.VIOLET_LIGHT}
                 />
               </View>
@@ -86,7 +86,7 @@ const BottomTabNavigator = () => {
               <View>
                 <Ionicons
                   name="person"
-                  size={FONT_SIZE.ICON_TAB_NAVBAR}
+                  size={FONT_SIZE.ICON_NAVIGATION}
                   color={focused ? COLORS.WHITE : COLORS.VIOLET_LIGHT}
                 />
               </View>
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.BLACK,
     borderColor: COLORS.GREY,
     borderTopWidth: 2,
-    height: SPACE.MD * 10,
+    height: SPACE.MD * 8,
     paddingTop: SPACE.LG * 1.5
   },
 });

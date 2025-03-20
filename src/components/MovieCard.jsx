@@ -27,13 +27,13 @@ const MovieCard = (props) => {
         />
 
         <View>
-          <View style={styles.durationContainer}>
+          <View style={styles.runtimeContainer}>
             <MaterialIcons
               name="access-time"
               size={FONT_SIZE.ICON}
               color={COLORS.WHITE}
             />
-            <Text style={styles.durationText}>
+            <Text style={styles.runtimeText}>
               {props.duration}
             </Text>
           </View>
@@ -43,9 +43,9 @@ const MovieCard = (props) => {
           </Text>
 
           <View style={styles.genreContainer}>
-            {props.genres.map((item) => {
+            {props.genres.map((item, index) => {
               return (
-                <View key={item} style={styles.genreBox}>
+                <View key={index} style={styles.genreBox}>
                   <Text style={styles.genreText}>{item}</Text>
                 </View>
               );
@@ -68,14 +68,14 @@ const styles = StyleSheet.create({
     aspectRatio: 2 / 3,
     borderRadius: BORDER_RADIUS.MD * 2,
   },
-  durationContainer: {
+  runtimeContainer: {
     alignItems: 'center',
     flexDirection: 'row',
     gap: SPACE.MD,
     justifyContent: 'center',
     marginTop: SPACE.LG,
   },
-  durationText: {
+  runtimeText: {
     color: COLORS.WHITE,
     fontFamily: FONTS.TEXT,
     fontSize: FONT_SIZE.TEXT,

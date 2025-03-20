@@ -1,9 +1,9 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import BookingScreen from '../screens/BookingScreen';
-import CandyBarScreen from '../screens/CandyBarScreen';
-import CartScreen from '../screens/CartScreen';
+import BookingScreen from '../../screens/BookingScreen';
+import CandyBarScreen from '../../screens/CandyBarScreen';
+import CartScreen from '../../screens/CartScreen';
 
 const Stack = createNativeStackNavigator();
 

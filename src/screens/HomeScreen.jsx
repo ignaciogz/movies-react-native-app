@@ -46,7 +46,10 @@ const HomeScreen = ({ navigation }) => {
             return (
               <MovieCard
                 cardFunction={() => {
-                  navigation.navigate('MovieDetail', { movie_id: item.id });
+                  navigation.navigate('MovieDetail', { data: {
+                    ...item,
+                    genres: item.genre_ids.slice(0, 3).map((genre_id) => genresList[genre_id]).sort()
+                  }});
                 }}
                 cardWidth={width * 0.7}
                 duration={item.runtime}
@@ -77,7 +80,7 @@ const styles = StyleSheet.create({
   },
   nowPlayingContainer: {
     gap: SPACE.LG * 3,
-    marginTop: SPACE.LG * 7,
+    marginTop: SPACE.LG * 5,
   },
   searchBoxHeaderContainer: {
     marginHorizontal: SPACE.LG * 3,
