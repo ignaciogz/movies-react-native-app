@@ -9,9 +9,15 @@ import CloseButton from '../components/CloseButton';
 
 import { CONFIG } from '../global/config';
 import { BORDER_RADIUS, COLORS, FONTS, FONT_SIZE, SPACE } from '../global/theme';
+import { formatMovieReleaseDate, formatMovieRuntime, formatMovieVotes } from '../utils/formatter';
 
 const MovieDetailScreen = ({ navigation, route }) => {
   const movieData = route.params.data;
+
+  const {
+    votes_average,
+    votes_count
+  } = formatMovieVotes(movieData.vote_average, movieData.vote_count);
 
   return (
     <ScrollView
@@ -44,8 +50,7 @@ const MovieDetailScreen = ({ navigation, route }) => {
                   color={COLORS.WHITE}
                 />
                 <Text style={styles.runtimeText}>
-                  1h 30m
-                  {/*movieData.runtime*/}
+                  {formatMovieRuntime(movieData.runtime)}
                 </Text>
               </View>
             </View>
@@ -81,12 +86,13 @@ const MovieDetailScreen = ({ navigation, route }) => {
             color={COLORS.YELLOW}
           />
           <Text style={styles.votesText}>
-            {`${movieData.vote_average}  (${movieData.vote_count} Comentarios)`}
+            <Text style={styles.votesAverageText}>{votes_average}</Text>
+            <Text>{votes_count}</Text>
           </Text>
         </View>
 
         <Text style={styles.release}>
-          {movieData.release_date}
+          {formatMovieReleaseDate(movieData.release_date)}
         </Text>
 
         <Text style={styles.descriptionText}>{movieData.overview}</Text>
@@ -168,8 +174,8 @@ const styles = StyleSheet.create({
   genreContainer: {
     flex: 1,
     flexDirection: 'row',
-    gap: SPACE.LG,
     flexWrap: 'wrap',
+    gap: SPACE.SM,
     justifyContent: 'center',
   },
   genreBox: {
@@ -216,5 +222,5 @@ const styles = StyleSheet.create({
     color: COLORS.YELLOW,
     fontWeight: 'bold',
     marginRight: SPACE.MD,
-  }
+  },
 });

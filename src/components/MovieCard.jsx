@@ -3,6 +3,7 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
 import { BORDER_RADIUS, COLORS, FONTS, FONT_SIZE, SPACE } from '../global/theme';
+import { formatMovieRuntime } from '../utils/formatter';
 
 const MovieCard = (props) => {
   return (
@@ -34,7 +35,7 @@ const MovieCard = (props) => {
               color={COLORS.WHITE}
             />
             <Text style={styles.runtimeText}>
-              {props.duration}
+              {formatMovieRuntime(props.runtime)}
             </Text>
           </View>
 
@@ -85,7 +86,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: SPACE.MD,
+    gap: SPACE.SM,
     justifyContent: 'center',
   },
   genreBox: {

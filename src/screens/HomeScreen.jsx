@@ -14,7 +14,7 @@ import nowPlaying from '../global/data/nowplaying.json';
 const { width, height } = Dimensions.get('window');
 
 const HomeScreen = ({ navigation }) => {
-  const [nowPlayingMoviesList, setNowPlayingMoviesList] = useState(nowPlaying);
+  const [nowPlayingMovies, setNowPlayingMovies] = useState(nowPlaying);
 
   const searchMoviesFunction = () => {
     navigation.navigate('Search');
@@ -34,7 +34,7 @@ const HomeScreen = ({ navigation }) => {
         </View>
 
         <FlatList
-          data={nowPlayingMoviesList}
+          data={nowPlayingMovies}
           keyExtractor={(item) => item.id}
           bounces={false}
           snapToInterval={width * 0.7 + SPACE.LG * 3}
@@ -52,7 +52,7 @@ const HomeScreen = ({ navigation }) => {
                   }});
                 }}
                 cardWidth={width * 0.7}
-                duration={item.runtime}
+                runtime={item.runtime}
                 genres={item.genre_ids.slice(0, 3).map((genre_id) => genresList[genre_id]).sort()}
                 imagePath={CONFIG.GET_IMAGE_PATH('w780', item.poster_path)}
                 isFirst={index == 0 ? true : false}
