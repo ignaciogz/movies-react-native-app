@@ -1,15 +1,27 @@
 import React from 'react';
 import { Pressable, StyleSheet, Text } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 
 import { BORDER_RADIUS, COLORS, FONTS, FONT_SIZE, SPACE } from '../global/theme';
 
-const AppButton = ({ title = "", onPress = () => {}, buttonColor = COLORS.VIOLET_LIGHT }) => {
-  return (
+const AppButton = ({
+      title = "",
+      onPress = () => {},
+      startColor = COLORS.VIOLET_DARK,
+      endColor = COLORS.VIOLET_LIGHT
+    }) => {
+
+    return (
     <Pressable
-      style={{ ...styles.appButton, backgroundColor: buttonColor }}
       onPress={onPress}
     >
-      <Text style={styles.appButtonText}>{title.toUpperCase()}</Text>
+      <LinearGradient
+        colors={[startColor, endColor]}
+        style={styles.appButton}
+        start={{ x: 0.4, y: 0.2 }}
+      >
+        <Text style={styles.appButtonText}>{title.toUpperCase()}</Text>
+      </LinearGradient>
     </Pressable>
   );
 };
@@ -28,5 +40,5 @@ const styles = StyleSheet.create({
     color: COLORS.WHITE,
     fontFamily: FONTS.TEXT,
     fontSize: FONT_SIZE.TEXT,
-  }
+  },
 });

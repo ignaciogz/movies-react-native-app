@@ -56,7 +56,7 @@ const HomeScreen = ({ navigation }) => {
                 genres={item.genre_ids.slice(0, 3).map((genre_id) => genresList[genre_id]).sort()}
                 imagePath={CONFIG.GET_IMAGE_PATH('w780', item.poster_path)}
                 isFirst={index == 0 ? true : false}
-                isLast={index == nowPlayingMoviesList?.length - 1 ? true : false}
+                isLast={index == nowPlayingMovies?.length - 1 ? true : false}
                 title={item.title}
                 withMarginAtEnd={true}
               />

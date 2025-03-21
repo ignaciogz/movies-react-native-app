@@ -27,5 +27,5 @@ const styles = StyleSheet.create({
     borderRadius: BORDER_RADIUS.CIRCLE,
     paddingHorizontal: SPACE.MD,
     paddingVertical: SPACE.MD,
-  }
+  },
 });
