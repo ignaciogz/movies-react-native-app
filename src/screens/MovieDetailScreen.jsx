@@ -1,10 +1,9 @@
 import React from 'react';
 import { Text, View, StyleSheet, ScrollView, StatusBar, ImageBackground, Image } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import Ionicons from '@expo/vector-icons/Ionicons';
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
 import AppButton from '../components/AppButton';
+import AppLabel from '../components/AppLabel';
 import CloseButton from '../components/CloseButton';
 
 import { CONFIG } from '../global/config';
@@ -43,20 +42,18 @@ const MovieDetailScreen = ({ navigation, route }) => {
                 onPress={() => navigation.goBack()}
               />
 
-              <View style={styles.runtimeBox}>
-                <MaterialIcons
-                  name="access-time"
-                  size={FONT_SIZE.ICON}
-                  color={COLORS.WHITE}
-                />
-                <Text style={styles.runtimeText}>
-                  {formatMovieRuntime(movieData.runtime)}
-                </Text>
-              </View>
+              <AppLabel
+                title={formatMovieRuntime(movieData.runtime)}
+                fontSize={FONT_SIZE.TEXT_LG}
+                icon="access-time"
+                iconOrigin="MaterialIcons"
+              />
             </View>
           </LinearGradient>
         </ImageBackground>
+
         <View style={styles.imageBG}></View>
+
         <Image
           source={{uri: CONFIG.GET_IMAGE_PATH('w342', movieData.poster_path)}}
           style={styles.cardImage}
@@ -67,11 +64,12 @@ const MovieDetailScreen = ({ navigation, route }) => {
       <View>
         <Text style={styles.title}>{movieData.title}</Text>
         <View style={styles.genreContainer}>
-          {movieData.genres.map((item, index) => {
+          {movieData.genres.map((genre, index) => {
             return (
-              <View key={index} style={styles.genreBox}>
-                  <Text style={styles.genreText}>{item}</Text>
-                </View>
+              <AppLabel key={index}
+                title={genre}
+                fontSize={FONT_SIZE.TEXT_SM}
+              />
             );
           })}
         </View>
@@ -80,15 +78,18 @@ const MovieDetailScreen = ({ navigation, route }) => {
       {/* ESTRELLA VOTOS y FECHA DE ESTRENO */ }
       <View style={styles.infoContainer}>
         <View style={styles.rateContainer}>
-          <Ionicons
-            name="star"
-            size={FONT_SIZE.ICON}
-            color={COLORS.YELLOW}
+          <AppLabel
+            title={
+              <>
+                <Text style={styles.votesAverageText}>{votes_average}</Text>
+                <Text>{votes_count}</Text>
+              </>
+            }
+            bgColor={"transparent"}
+            fontSize={FONT_SIZE.TEXT_LG}
+            icon="star"
+            iconOrigin="Ionicons"
           />
-          <Text style={styles.votesText}>
-            <Text style={styles.votesAverageText}>{votes_average}</Text>
-            <Text>{votes_count}</Text>
-          </Text>
         </View>
 
         <Text style={styles.release}>
@@ -147,22 +148,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: '60%',
   },
-  runtimeBox: {
-    alignItems: 'center',
-    backgroundColor: COLORS.GREY,
-    borderRadius: BORDER_RADIUS.MD * 2.5,
-    display: 'flex',
-    flexDirection: 'row',
-    gap: SPACE.MD,
-    justifyContent: 'space-between',
-    paddingVertical: SPACE.MD,
-    paddingHorizontal: SPACE.LG * 1.5,
-  },
-  runtimeText: {
-    color: COLORS.WHITE,
-    fontFamily: FONTS.TEXT,
-    fontSize: FONT_SIZE.TEXT_LG,
-  },
   title: {
     color: COLORS.WHITE,
     fontFamily: FONTS.TEXT,
@@ -212,11 +197,6 @@ const styles = StyleSheet.create({
     color: COLORS.WHITE,
     fontFamily: FONTS.TEXT,
     fontSize: FONT_SIZE.TEXT,
-  },
-  votesText: {
-    color: COLORS.WHITE,
-    fontFamily: FONTS.TEXT,
-    fontSize: FONT_SIZE.TEXT_LG,
   },
   votesAverageText: {
     color: COLORS.YELLOW,

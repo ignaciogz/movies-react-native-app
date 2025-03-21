@@ -5,16 +5,14 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { BORDER_RADIUS, COLORS, FONTS, FONT_SIZE, SPACE } from '../global/theme';
 
 const AppButton = ({
-      title = "",
-      onPress = () => {},
-      startColor = COLORS.VIOLET_DARK,
-      endColor = COLORS.VIOLET_LIGHT
-    }) => {
+    title = "",
+    onPress = () => {},
+    startColor = COLORS.VIOLET_DARK,
+    endColor = COLORS.VIOLET_LIGHT
+  }) => {
 
-    return (
-    <Pressable
-      onPress={onPress}
-    >
+  return (
+    <Pressable onPress={onPress}>
       <LinearGradient
         colors={[startColor, endColor]}
         style={styles.appButton}

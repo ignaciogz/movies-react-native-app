@@ -1,6 +1,7 @@
 import React from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+
+import AppLabel from '../components/AppLabel';
 
 import { BORDER_RADIUS, COLORS, FONTS, FONT_SIZE, SPACE } from '../global/theme';
 import { formatMovieRuntime } from '../utils/formatter';
@@ -29,14 +30,13 @@ const MovieCard = (props) => {
 
         <View>
           <View style={styles.runtimeContainer}>
-            <MaterialIcons
-              name="access-time"
-              size={FONT_SIZE.ICON}
-              color={COLORS.WHITE}
+            <AppLabel
+              title={formatMovieRuntime(props.runtime)}
+              bgColor={"transparent"}
+              fontSize={FONT_SIZE.TEXT_LG}
+              icon="access-time"
+              iconOrigin="MaterialIcons"
             />
-            <Text style={styles.runtimeText}>
-              {formatMovieRuntime(props.runtime)}
-            </Text>
           </View>
 
           <Text numberOfLines={1} style={styles.titleText}>
@@ -44,11 +44,12 @@ const MovieCard = (props) => {
           </Text>
 
           <View style={styles.genreContainer}>
-            {props.genres.map((item, index) => {
+            {props.genres.map((genre, index) => {
               return (
-                <View key={index} style={styles.genreBox}>
-                  <Text style={styles.genreText}>{item}</Text>
-                </View>
+                <AppLabel key={index}
+                  title={genre}
+                  fontSize={FONT_SIZE.TEXT_SM}
+                />
               );
             })}
           </View>
@@ -76,30 +77,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: SPACE.LG,
   },
-  runtimeText: {
-    color: COLORS.WHITE,
-    fontFamily: FONTS.TEXT,
-    fontSize: FONT_SIZE.TEXT,
-    lineHeight: FONT_SIZE.ICON,
-  },
   genreContainer: {
     flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: SPACE.SM,
     justifyContent: 'center',
-  },
-  genreBox: {
-    backgroundColor: COLORS.GREY,
-    borderRadius: BORDER_RADIUS.MD * 2.5,
-    borderWidth: 1,
-    paddingVertical: SPACE.MD,
-    paddingHorizontal: SPACE.LG * 1.5,
-  },
-  genreText: {
-    color: COLORS.WHITE,
-    fontFamily: FONTS.TEXT,
-    fontSize: FONT_SIZE.TEXT_SM,
   },
   titleText: {
     color: COLORS.WHITE,
