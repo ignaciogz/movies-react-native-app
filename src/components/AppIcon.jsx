@@ -1,12 +1,12 @@
 import React from 'react';
-import Ionicons from '@expo/vector-icons/Ionicons';
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { MaterialCommunityIcons, MaterialIcons, Ionicons } from '@expo/vector-icons';
 
 import { COLORS, FONT_SIZE } from '../global/theme';
 
 const iconsAvailable = {
   ionicons: Ionicons,
   materialicons: MaterialIcons,
+  materialcommunityicons: MaterialCommunityIcons,
 }
 
 const AppIcon = ({

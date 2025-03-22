@@ -1,12 +1,12 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { MaterialCommunityIcons, MaterialIcons, Ionicons } from '@expo/vector-icons';
 
+import AppIcon from '../components/AppIcon';
 import HomeStackNavigator from './stacks/HomeStackNavigator';
+// import CinemaStackNavigator from './stacks/CinemaStackNavigator';
 // import ProfileStackNavigator from './stacks/ProfileStackNavigator';
 // import SearchStackNavigator from './stacks/SearchStackNavigator';
-// import TicketsStackNavigator from './stacks/TicketStackNavigator';
 
 import { COLORS, FONT_SIZE, SPACE } from '../global/theme';
 
@@ -30,10 +30,11 @@ const BottomTabNavigator = () => {
           tabBarIcon: ({ focused }) => {
             return (
               <View>
-                <MaterialIcons
-                  name="local-movies"
-                  size={FONT_SIZE.ICON_NAVIGATION}
-                  color={focused ? COLORS.WHITE : COLORS.VIOLET_LIGHT}
+                <AppIcon
+                  icon="local-movies"
+                  iconOrigin="MaterialIcons"
+                  iconSize={FONT_SIZE.ICON_NAVIGATION}
+                  iconColor={focused ? COLORS.WHITE : COLORS.VIOLET_LIGHT}
                 />
               </View>
             );
@@ -48,46 +49,49 @@ const BottomTabNavigator = () => {
           tabBarIcon: ({ focused }) => {
             return (
               <View>
-                <MaterialCommunityIcons
-                  name="movie-search"
-                  size={FONT_SIZE.ICON_NAVIGATION}
-                  color={focused ? COLORS.WHITE : COLORS.VIOLET_LIGHT}
+                <AppIcon
+                  icon="movie-search"
+                  iconOrigin="MaterialCommunityIcons"
+                  iconSize={FONT_SIZE.ICON_NAVIGATION}
+                  iconColor={focused ? COLORS.WHITE : COLORS.VIOLET_LIGHT}
                 />
               </View>
             );
           },
         }}
-      />
+      /> */}
 
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Tickets"
-        component={TicketsStackNavigator}
+        component={CinemaStackNavigator}
         options={{
           tabBarIcon: ({ focused }) => {
             return (
               <View>
-                <Ionicons
-                  name="ticket"
-                  size={FONT_SIZE.ICON_NAVIGATION}
-                  color={focused ? COLORS.WHITE : COLORS.VIOLET_LIGHT}
+                <AppIcon
+                  icon="ticket"
+                  iconOrigin="IonIcons"
+                  iconSize={FONT_SIZE.ICON_NAVIGATION}
+                  iconColor={focused ? COLORS.WHITE : COLORS.VIOLET_LIGHT}
                 />
               </View>
             );
           },
         }}
-      />
+      /> */}
 
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Profile"
         component={ProfileStackNavigator}
         options={{
           tabBarIcon: ({focused})=> {
             return (
               <View>
-                <Ionicons
-                  name="person"
-                  size={FONT_SIZE.ICON_NAVIGATION}
-                  color={focused ? COLORS.WHITE : COLORS.VIOLET_LIGHT}
+                <AppIcon
+                  icon="person"
+                  iconOrigin="IonIcons"
+                  iconSize={FONT_SIZE.ICON_NAVIGATION}
+                  iconColor={focused ? COLORS.WHITE : COLORS.VIOLET_LIGHT}
                 />
               </View>
             );

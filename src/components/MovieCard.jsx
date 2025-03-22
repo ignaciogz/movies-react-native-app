@@ -7,15 +7,16 @@ import { CONFIG } from '../global/config';
 import { BORDER_RADIUS, SPACE } from '../global/theme';
 
 const MovieCard = ({
-  cardFunction = () => {},
-  cardWidth = 70,
-  isFirst = false,
-  isLast = false,
-  movieData = {},
-  withMarginAround = false,
-  withMarginAtEnd = false,
-
+    cardFunction = () => {},
+    cardWidth = 70,
+    isFirst = false,
+    isLast = false,
+    movieData = {},
+    showDataOf = "Home",
+    withMarginAround = false,
+    withMarginAtEnd = false,
   }) => {
+
   return (
     <TouchableOpacity onPress={() => cardFunction()}>
       <View
@@ -37,7 +38,7 @@ const MovieCard = ({
           source={{uri: CONFIG.GET_IMAGE_PATH('w780', movieData.poster_path)}}
         />
 
-        <MovieFooterCard movieData={movieData} showDataOf="Home" />
+        <MovieFooterCard movieData={movieData} showDataOf={showDataOf} />
       </View>
     </TouchableOpacity>
   );

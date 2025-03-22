@@ -5,7 +5,6 @@ import { LinearGradient } from 'expo-linear-gradient';
 import MovieCard from '../components/MovieCard';
 import SearchBox from '../components/SearchBox';
 
-import { CONFIG } from '../global/config';
 import { COLORS, SPACE } from '../global/theme';
 
 import genresList from '../global/data/genres.json';
@@ -62,6 +61,7 @@ const HomeScreen = ({ navigation }) => {
                 isFirst={index == 0 ? true : false}
                 isLast={index == nowPlayingMoviesData?.length - 1 ? true : false}
                 movieData={movieData}
+                showDataOf={"Home"}
                 withMarginAtEnd={true}
               />
             );

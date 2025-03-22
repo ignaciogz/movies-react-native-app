@@ -57,11 +57,6 @@ const MovieDetailCard = ({ movieData, navigation }) => {
 export default MovieDetailCard;
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: COLORS.BLACK,
-    display: 'flex',
-    flex: 1,
-  },
   cardImage: {
     alignSelf: 'center',
     aspectRatio: 200 / 300,
