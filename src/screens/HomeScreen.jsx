@@ -14,10 +14,15 @@ import nowPlaying from '../global/data/nowplaying.json';
 const { width, height } = Dimensions.get('window');
 
 const HomeScreen = ({ navigation }) => {
-  const [nowPlayingMovies, setNowPlayingMovies] = useState(nowPlaying);
+  const [nowPlayingMoviesData, setNowPlayingMoviesData] = useState(nowPlaying);
+  const [genresData, setGenresData] = useState(genresList);
 
   const searchMoviesFunction = () => {
     navigation.navigate('Search');
+  };
+
+  const getMovieGenresSorted = (genres_ids) => {
+    return genres_ids.slice(0, 3).map((genre_id) => genresData[genre_id]).sort();
   };
 
   return (
@@ -29,12 +34,12 @@ const HomeScreen = ({ navigation }) => {
       <ScrollView style={styles.container} bounces={false}>
         <StatusBar hidden />
 
-        <View style={styles.searchBoxHeaderContainer}>
+        <View style={styles.searchBoxContainer}>
           <SearchBox searchFunction={searchMoviesFunction} />
         </View>
 
         <FlatList
-          data={nowPlayingMovies}
+          data={nowPlayingMoviesData}
           keyExtractor={(item) => item.id}
           bounces={false}
           snapToInterval={width * 0.7 + SPACE.LG * 3}
@@ -43,22 +48,20 @@ const HomeScreen = ({ navigation }) => {
           decelerationRate={0}
           contentContainerStyle={styles.nowPlayingContainer}
           renderItem={({item, index}) => {
+            let movieData = {
+              ...item,
+              genres: getMovieGenresSorted(item.genre_ids),
+            }
+
             return (
               <MovieCard
                 cardFunction={() => {
-                  navigation.navigate('MovieDetail', { data: {
-                    ...item,
-                    genres: item.genre_ids.slice(0, 3).map((genre_id) => genresList[genre_id]).sort()
-                  }});
+                  navigation.navigate('MovieDetail', { movieData });
                 }}
                 cardWidth={width * 0.7}
-                runtime={item.runtime}
-                genres={item.genre_ids.slice(0, 3).map((genre_id) => genresList[genre_id]).sort()}
-                imagePath={CONFIG.GET_IMAGE_PATH('w780', item.poster_path)}
                 isFirst={index == 0 ? true : false}
-                isLast={index == nowPlayingMovies?.length - 1 ? true : false}
-                releaseDate={item.release_date}
-                title={item.title}
+                isLast={index == nowPlayingMoviesData?.length - 1 ? true : false}
+                movieData={movieData}
                 withMarginAtEnd={true}
               />
             );
@@ -83,7 +86,7 @@ const styles = StyleSheet.create({
     gap: SPACE.LG * 3,
     marginTop: SPACE.LG * 5,
   },
-  searchBoxHeaderContainer: {
+  searchBoxContainer: {
     marginHorizontal: SPACE.LG * 3,
     marginTop: SPACE.LG * 5,
   }

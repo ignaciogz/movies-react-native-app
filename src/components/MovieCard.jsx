@@ -1,63 +1,43 @@
 import React from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 
-import AppLabel from '../components/AppLabel';
+import MovieFooterCard from './MovieFooterCard';
 
-import { BORDER_RADIUS, COLORS, FONTS, FONT_SIZE, SPACE } from '../global/theme';
-import { formatMovieReleaseDate, formatMovieRuntime  } from '../utils/formatter';
+import { CONFIG } from '../global/config';
+import { BORDER_RADIUS, SPACE } from '../global/theme';
 
-const MovieCard = (props) => {
+const MovieCard = ({
+  cardFunction = () => {},
+  cardWidth = 70,
+  isFirst = false,
+  isLast = false,
+  movieData = {},
+  withMarginAround = false,
+  withMarginAtEnd = false,
+
+  }) => {
   return (
-    <TouchableOpacity onPress={() => props.cardFunction()}>
+    <TouchableOpacity onPress={() => cardFunction()}>
       <View
         style={[
           styles.container,
-          props.withMarginAtEnd
-            ? props.isFirst
-              ? {marginLeft: SPACE.LG * 3}
-              : props.isLast
-              ? {marginRight: SPACE.LG * 3}
+          withMarginAtEnd
+            ? isFirst
+              ? { marginLeft: SPACE.LG * 3 }
+              : isLast
+              ? { marginRight: SPACE.LG * 3 }
               : {}
             : {},
-          props.withMarginAround ? {margin: SPACE.SM } : {},
-          {maxWidth: props.cardWidth},
+          withMarginAround ? { margin: SPACE.SM } : {},
+          { maxWidth: cardWidth },
         ]}>
 
         <Image
-          style={[styles.cardImage, {width: props.cardWidth}]}
-          source={{uri: props.imagePath}}
+          style={[styles.cardImage, {width: cardWidth}]}
+          source={{uri: CONFIG.GET_IMAGE_PATH('w780', movieData.poster_path)}}
         />
 
-        <View>
-          <View style={styles.runtimeContainer}>
-            <AppLabel
-              title={formatMovieRuntime(props.runtime)}
-              bgColor={"transparent"}
-              fontSize={FONT_SIZE.TEXT_LG}
-              icon="access-time"
-              iconOrigin="MaterialIcons"
-            />
-          </View>
-
-          <Text numberOfLines={1} style={styles.titleText}>
-            {props.title}
-          </Text>
-
-          <View style={styles.genreContainer}>
-            {props.genres.map((genre, index) => {
-              return (
-                <AppLabel key={index}
-                  title={genre}
-                  fontSize={FONT_SIZE.TEXT_SM}
-                />
-              );
-            })}
-          </View>
-
-          <Text style={styles.release}>
-            {formatMovieReleaseDate(props.releaseDate)}
-          </Text>
-        </View>
+        <MovieFooterCard movieData={movieData} showDataOf="Home" />
       </View>
     </TouchableOpacity>
   );
@@ -73,35 +53,5 @@ const styles = StyleSheet.create({
   cardImage: {
     aspectRatio: 2 / 3,
     borderRadius: BORDER_RADIUS.MD * 2,
-  },
-  runtimeContainer: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    gap: SPACE.MD,
-    justifyContent: 'center',
-    marginTop: SPACE.LG,
-  },
-  genreContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: SPACE.SM,
-    justifyContent: 'center',
-  },
-  release: {
-    color: COLORS.WHITE,
-    fontFamily: FONTS.TEXT,
-    fontSize: FONT_SIZE.TEXT_SM,
-    fontStyle: 'italic',
-    marginHorizontal: SPACE.LG * 3,
-    marginVertical: SPACE.LG * 1.2,
-    textAlign: 'center',
-  },
-  titleText: {
-    color: COLORS.WHITE,
-    fontFamily: FONTS.TEXT,
-    fontSize: FONT_SIZE.MOVIE_TITLE,
-    paddingVertical: SPACE.LG,
-    textAlign: 'center',
   },
 });

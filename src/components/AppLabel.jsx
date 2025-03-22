@@ -33,7 +33,6 @@ const styles = StyleSheet.create({
   labelBox: {
     alignItems: 'center',
     borderRadius: BORDER_RADIUS.MD * 2.5,
-    borderWidth: 1,
     display: 'flex',
     flexDirection: 'row',
     gap: SPACE.MD,
