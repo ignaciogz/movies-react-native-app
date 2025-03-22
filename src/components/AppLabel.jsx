@@ -1,14 +1,9 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import Ionicons from '@expo/vector-icons/Ionicons';
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+
+import AppIcon from './AppIcon';
 
 import { BORDER_RADIUS, COLORS, FONTS, FONT_SIZE, SPACE } from '../global/theme';
-
-const iconsAvailable = {
-  ionicons: Ionicons,
-  materialicons: MaterialIcons,
-}
 
 const AppLabel = ({
     title = "",
@@ -20,13 +15,11 @@ const AppLabel = ({
     iconColor = COLORS.WHITE
   }) => {
 
-  const IconComponent = iconsAvailable[iconOrigin.toLowerCase()];
-
   return (
     <View style={[styles.labelBox, {backgroundColor: bgColor}]}>
       {
         icon
-          ? <IconComponent name={icon} size={iconSize} color={iconColor} />
+          ? <AppIcon icon={icon} iconOrigin={iconOrigin} iconSize={iconSize} iconColor={iconColor} />
           : null
       }
       <Text style={[styles.labelText, {fontSize: fontSize}]}>{title}</Text>

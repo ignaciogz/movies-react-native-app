@@ -57,6 +57,7 @@ const HomeScreen = ({ navigation }) => {
                 imagePath={CONFIG.GET_IMAGE_PATH('w780', item.poster_path)}
                 isFirst={index == 0 ? true : false}
                 isLast={index == nowPlayingMovies?.length - 1 ? true : false}
+                releaseDate={item.release_date}
                 title={item.title}
                 withMarginAtEnd={true}
               />

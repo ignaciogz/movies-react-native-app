@@ -55,7 +55,7 @@ const MovieCard = (props) => {
           </View>
 
           <Text style={styles.release}>
-            {formatMovieReleaseDate(movieData.release_date)}
+            {formatMovieReleaseDate(props.releaseDate)}
           </Text>
         </View>
       </View>
@@ -87,6 +87,15 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     gap: SPACE.SM,
     justifyContent: 'center',
+  },
+  release: {
+    color: COLORS.WHITE,
+    fontFamily: FONTS.TEXT,
+    fontSize: FONT_SIZE.TEXT_SM,
+    fontStyle: 'italic',
+    marginHorizontal: SPACE.LG * 3,
+    marginVertical: SPACE.LG * 1.2,
+    textAlign: 'center',
   },
   titleText: {
     color: COLORS.WHITE,

@@ -3,8 +3,8 @@ import { Text, View, StyleSheet, ScrollView, StatusBar, ImageBackground, Image }
 import { LinearGradient } from 'expo-linear-gradient';
 
 import AppButton from '../components/AppButton';
+import AppCircleButton from '../components/AppCircleButton';
 import AppLabel from '../components/AppLabel';
-import CloseButton from '../components/CloseButton';
 
 import { CONFIG } from '../global/config';
 import { BORDER_RADIUS, COLORS, FONTS, FONT_SIZE, SPACE } from '../global/theme';
@@ -38,8 +38,10 @@ const MovieDetailScreen = ({ navigation, route }) => {
             style={styles.linearGradient}
           >
             <View style={styles.headerContainer}>
-              <CloseButton
+              <AppCircleButton
                 onPress={() => navigation.goBack()}
+                icon="close-circle-outline"
+                iconOrigin="IonIcons"
               />
 
               <AppLabel

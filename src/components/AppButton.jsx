@@ -15,10 +15,10 @@ const AppButton = ({
     <Pressable onPress={onPress}>
       <LinearGradient
         colors={[startColor, endColor]}
-        style={styles.appButton}
+        style={styles.buttonBox}
         start={{ x: 0.4, y: 0.2 }}
       >
-        <Text style={styles.appButtonText}>{title.toUpperCase()}</Text>
+        <Text style={styles.buttonText}>{title.toUpperCase()}</Text>
       </LinearGradient>
     </Pressable>
   );
@@ -27,14 +27,14 @@ const AppButton = ({
 export default AppButton;
 
 const styles = StyleSheet.create({
-  appButton: {
+  buttonBox: {
     alignItems: 'center',
     borderRadius: BORDER_RADIUS.MD * 5,
     paddingHorizontal: SPACE.LG * 3,
     paddingVertical: SPACE.MD * 2,
     marginVertical: SPACE.LG * 2,
   },
-  appButtonText: {
+  buttonText: {
     color: COLORS.WHITE,
     fontFamily: FONTS.TEXT,
     fontSize: FONT_SIZE.TEXT,
