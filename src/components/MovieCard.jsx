@@ -4,7 +4,7 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import AppLabel from '../components/AppLabel';
 
 import { BORDER_RADIUS, COLORS, FONTS, FONT_SIZE, SPACE } from '../global/theme';
-import { formatMovieRuntime } from '../utils/formatter';
+import { formatMovieReleaseDate, formatMovieRuntime  } from '../utils/formatter';
 
 const MovieCard = (props) => {
   return (
@@ -53,6 +53,10 @@ const MovieCard = (props) => {
               );
             })}
           </View>
+
+          <Text style={styles.release}>
+            {formatMovieReleaseDate(movieData.release_date)}
+          </Text>
         </View>
       </View>
     </TouchableOpacity>

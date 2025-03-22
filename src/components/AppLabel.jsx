@@ -15,7 +15,7 @@ const AppLabel = ({
     bgColor = COLORS.GREY,
     fontSize = FONT_SIZE.TEXT_SM,
     icon = "",
-    iconOrigin = "ionicons",
+    iconOrigin = "IonIcons",
     iconSize = FONT_SIZE.ICON,
     iconColor = COLORS.WHITE
   }) => {
@@ -39,7 +39,6 @@ export default AppLabel;
 const styles = StyleSheet.create({
   labelBox: {
     alignItems: 'center',
-    backgroundColor: COLORS.GREY,
     borderRadius: BORDER_RADIUS.MD * 2.5,
     borderWidth: 1,
     display: 'flex',
