@@ -133,21 +133,38 @@ const BookingScreen = ({ navigation, route }) => {
       <View style={styles.cinemaSeatsContainer}>
         {/* ----------- ASIENTOS ----------- */}
         <View style={styles.cinemaSeats}>
-          {cinemaSeatsArray?.map((item, index) => {
+          {cinemaSeatsArray?.map((item, rowIndex) => {
             return (
-              <View key={index} style={styles.cinemaSeat}>
-                {item?.map((subitem, subindex) => {
+              <View key={rowIndex} style={styles.cinemaSeatsRows}>
+                {item?.map((seatObject, columnIndex) => {
+                  let seatStyle = [styles.cinemaSeat];
+
+                  if (columnIndex === 0) {
+                    seatStyle.push(styles.cinemaSeatDecorationStart);
+                  } else if (columnIndex === (cinemaColumns >= 9 ? 2 : 1)) {
+                    seatStyle.push(styles.cinemaSeatDecorationEnd, { marginRight: SPACE.LG * 2 });
+                  } else if (columnIndex === (cinemaColumns >= 9 ? 3 : 2)) {
+                    seatStyle.push(styles.cinemaSeatDecorationStart);
+                  } else if (columnIndex === cinemaColumns - (cinemaColumns >= 9 ? 4 : 3)) {
+                    seatStyle.push(styles.cinemaSeatDecorationEnd);
+                  } else if (columnIndex === cinemaColumns - (cinemaColumns >= 9 ? 3 : 2)) {
+                    seatStyle.push(styles.cinemaSeatDecorationStart, { marginLeft: SPACE.LG * 2 });
+                  } else if (columnIndex === cinemaColumns - 1) {
+                    seatStyle.push(styles.cinemaSeatDecorationEnd);
+                  }
+
                   return (
                     <TouchableOpacity
-                      key={subitem.number}
+                      key={seatObject.number}
+                      style={seatStyle}
                       onPress={() => {
-                        selectSeat(index, subindex, subitem.number);
+                        selectSeat(rowIndex, columnIndex, seatObject.number);
                       }}>
                         <AppIcon
                           icon="event-seat"
                           iconColor={
-                            subitem.taken ? COLORS.GREY
-                            : subitem.selected ? COLORS.YELLOW : COLORS.WHITE}
+                            seatObject.taken ? COLORS.GREY
+                            : seatObject.selected ? COLORS.YELLOW : COLORS.WHITE}
                           iconOrigin="MaterialIcons"
                           iconSize={FONT_SIZE.ICON * 1.2}
                         />
@@ -358,15 +375,32 @@ const styles = StyleSheet.create({
     position: 'absolute',
   },
   cinemaSeat: {
-    flexDirection: 'row',
-    gap: SPACE.MD * 2,
-    justifyContent: 'center',
+    borderBottomColor: COLORS.GREY,
+    borderBottomWidth: 3,
+    paddingBottom: SPACE.SM,
+    paddingHorizontal: SPACE.SM,
+  },
+  cinemaSeatDecorationStart: {
+    borderBottomColor: COLORS.GREY,
+    borderBottomLeftRadius: '25%',
+    borderLeftColor: COLORS.GREY,
+    borderLeftWidth: 3,
+  },
+  cinemaSeatDecorationEnd: {
+    borderBottomColor: COLORS.GREY,
+    borderBottomRightRadius: '25%',
+    borderRightColor: COLORS.GREY,
+    borderRightWidth: 3,
   },
   cinemaSeats: {
     rowGap: SPACE.MD * 2,
   },
   cinemaSeatsContainer: {
     marginVertical: SPACE.LG * 2,
+  },
+  cinemaSeatsRows: {
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
   cinemaScreen: {
     aspectRatio: 3072 / 1727,

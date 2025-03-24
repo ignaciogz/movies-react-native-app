@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Dimensions, FlatList, View, ScrollView, StatusBar, StyleSheet } from 'react-native';
+import { Dimensions, FlatList, ScrollView, StatusBar, StyleSheet, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 import MovieCard from '../components/MovieCard';

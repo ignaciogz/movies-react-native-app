@@ -31,8 +31,7 @@ const MovieCard = ({
             : {},
           withMarginAround ? { margin: SPACE.SM } : {},
           { maxWidth: cardWidth },
-        ]}>
-
+      ]}>
         <Image
           style={[styles.cardImage, {width: cardWidth}]}
           source={{uri: CONFIG.GET_IMAGE_PATH('w780', movieData.poster_path)}}

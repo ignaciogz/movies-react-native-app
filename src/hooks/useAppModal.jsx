@@ -78,11 +78,11 @@ const styles = StyleSheet.create({
   errorModalView: {
     backgroundColor: "#F2D750",
     fontFamily: "LATO_BLACK",
-    fontSize: 18,
+    fontSize: 24,
   },
   modalText: {
     fontFamily: "LATO_BLACK",
-    fontSize: 18,
+    fontSize: 24,
     textAlign: 'center',
   },
 });
