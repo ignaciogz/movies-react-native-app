@@ -34,7 +34,7 @@ const MovieCard = ({
       ]}>
         <Image
           style={[styles.cardImage, {width: cardWidth}]}
-          source={{uri: CONFIG.GET_IMAGE_PATH('w780', movieData.poster_path)}}
+          source={{uri: CONFIG.GET_IMAGE_PATH(showDataOf === "Home" ? "w780" : "w342", movieData.poster_path)}}
         />
 
         <MovieFooterCard movieData={movieData} showDataOf={showDataOf} />

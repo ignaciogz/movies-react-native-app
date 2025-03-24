@@ -6,7 +6,7 @@ import AppIcon from '../components/AppIcon';
 import HomeStackNavigator from './stacks/HomeStackNavigator';
 import CinemaStackNavigator from './stacks/CinemaStackNavigator';
 // import ProfileStackNavigator from './stacks/ProfileStackNavigator';
-// import SearchStackNavigator from './stacks/SearchStackNavigator';
+import SearchStackNavigator from './stacks/SearchStackNavigator';
 
 import { COLORS, FONT_SIZE, SPACE } from '../global/theme';
 
@@ -34,7 +34,7 @@ const BottomTabNavigator = () => {
                   icon="local-movies"
                   iconOrigin="MaterialIcons"
                   iconSize={FONT_SIZE.ICON_NAVIGATION}
-                  iconColor={focused ? COLORS.WHITE : COLORS.VIOLET_LIGHT}
+                  iconColor={focused ? COLORS.VIOLET_LIGHT : COLORS.GREY}
                 />
               </View>
             );
@@ -42,8 +42,8 @@ const BottomTabNavigator = () => {
         }}
       />
 
-      {/* <Tab.Screen
-        name="Search"
+      <Tab.Screen
+        name="MovieSearch"
         component={SearchStackNavigator}
         options={{
           tabBarIcon: ({ focused }) => {
@@ -53,13 +53,13 @@ const BottomTabNavigator = () => {
                   icon="movie-search"
                   iconOrigin="MaterialCommunityIcons"
                   iconSize={FONT_SIZE.ICON_NAVIGATION}
-                  iconColor={focused ? COLORS.WHITE : COLORS.VIOLET_LIGHT}
+                  iconColor={focused ? COLORS.ROSE : COLORS.GREY}
                 />
               </View>
             );
           },
         }}
-      /> */}
+      />
 
       <Tab.Screen
         name="Cinema"
@@ -72,7 +72,7 @@ const BottomTabNavigator = () => {
                   icon="ticket"
                   iconOrigin="IonIcons"
                   iconSize={FONT_SIZE.ICON_NAVIGATION}
-                  iconColor={focused ? COLORS.WHITE : COLORS.VIOLET_LIGHT}
+                  iconColor={focused ? COLORS.YELLOW : COLORS.GREY}
                 />
               </View>
             );
@@ -81,7 +81,7 @@ const BottomTabNavigator = () => {
       />
 
       {/* <Tab.Screen
-        name="Profile"
+        name="UserProfile"
         component={ProfileStackNavigator}
         options={{
           tabBarIcon: ({focused})=> {
@@ -91,7 +91,7 @@ const BottomTabNavigator = () => {
                   icon="person"
                   iconOrigin="IonIcons"
                   iconSize={FONT_SIZE.ICON_NAVIGATION}
-                  iconColor={focused ? COLORS.WHITE : COLORS.VIOLET_LIGHT}
+                  iconColor={focused ? COLORS.WHITE : COLORS.GREY}
                 />
               </View>
             );

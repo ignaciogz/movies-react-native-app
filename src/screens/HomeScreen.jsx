@@ -16,12 +16,27 @@ const HomeScreen = ({ navigation }) => {
   const [nowPlayingMoviesData, setNowPlayingMoviesData] = useState(nowPlaying);
   const [genresData, setGenresData] = useState(genresList);
 
-  const searchMoviesFunction = () => {
-    navigation.navigate('Search');
+  const getMovieGenresSorted = (movie) => {
+    return movie.genre_ids.slice(0, 3)
+                            .map((genre_id) => genresData[genre_id])
+                            .sort();
   };
 
-  const getMovieGenresSorted = (genres_ids) => {
-    return genres_ids.slice(0, 3).map((genre_id) => genresData[genre_id]).sort();
+  const searchMoviesFunction = (searchText) => {
+    if (searchText.length) {
+      const results = nowPlayingMoviesData.filter((movieData) =>
+        movieData.title.toLowerCase().includes(searchText.toLowerCase())
+      );
+
+      navigation.navigate('MovieSearch', { screen: 'Search', params: {
+        initialSearchValue: searchText,
+        searchResults: results,
+      }});
+    } else {
+      navigation.navigate('MovieSearch', { screen: 'Search', params: {
+        searchResults: nowPlayingMoviesData,
+      }});
+    }
   };
 
   return (
@@ -49,7 +64,7 @@ const HomeScreen = ({ navigation }) => {
           renderItem={({item, index}) => {
             let movieData = {
               ...item,
-              genres: getMovieGenresSorted(item.genre_ids),
+              genres: getMovieGenresSorted(item),
             }
 
             return (
@@ -77,7 +92,7 @@ export default HomeScreen;
 const styles = StyleSheet.create({
   container: {
     display: 'flex',
-    paddingBottom: SPACE.LG *2,
+    flex: 1,
   },
   linearGradient: {
     height: '100%',
@@ -89,5 +104,5 @@ const styles = StyleSheet.create({
   searchBoxContainer: {
     marginHorizontal: SPACE.LG * 3,
     marginTop: SPACE.LG * 5,
-  }
+  },
 });

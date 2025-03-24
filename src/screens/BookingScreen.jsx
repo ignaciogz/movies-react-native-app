@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { FlatList, ImageBackground, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import AppButton from '../components/AppButton';
@@ -137,26 +137,27 @@ const BookingScreen = ({ navigation, route }) => {
             return (
               <View key={rowIndex} style={styles.cinemaSeatsRows}>
                 {item?.map((seatObject, columnIndex) => {
-                  let seatStyle = [styles.cinemaSeat];
+                  let seatStyles = [styles.cinemaSeat];
+                  let isBigCinema = cinemaColumns >= 9;
 
                   if (columnIndex === 0) {
-                    seatStyle.push(styles.cinemaSeatDecorationStart);
-                  } else if (columnIndex === (cinemaColumns >= 9 ? 2 : 1)) {
-                    seatStyle.push(styles.cinemaSeatDecorationEnd, { marginRight: SPACE.LG * 2 });
-                  } else if (columnIndex === (cinemaColumns >= 9 ? 3 : 2)) {
-                    seatStyle.push(styles.cinemaSeatDecorationStart);
-                  } else if (columnIndex === cinemaColumns - (cinemaColumns >= 9 ? 4 : 3)) {
-                    seatStyle.push(styles.cinemaSeatDecorationEnd);
-                  } else if (columnIndex === cinemaColumns - (cinemaColumns >= 9 ? 3 : 2)) {
-                    seatStyle.push(styles.cinemaSeatDecorationStart, { marginLeft: SPACE.LG * 2 });
+                    seatStyles.push(styles.cinemaSeatDecorationStart);
+                  } else if (columnIndex === (isBigCinema ? 2 : 1)) {
+                    seatStyles.push(styles.cinemaSeatDecorationEnd, { marginRight: SPACE.LG * 2 });
+                  } else if (columnIndex === (isBigCinema ? 3 : 2)) {
+                    seatStyles.push(styles.cinemaSeatDecorationStart);
+                  } else if (columnIndex === cinemaColumns - (isBigCinema ? 4 : 3)) {
+                    seatStyles.push(styles.cinemaSeatDecorationEnd);
+                  } else if (columnIndex === cinemaColumns - (isBigCinema ? 3 : 2)) {
+                    seatStyles.push(styles.cinemaSeatDecorationStart, { marginLeft: SPACE.LG * 2 });
                   } else if (columnIndex === cinemaColumns - 1) {
-                    seatStyle.push(styles.cinemaSeatDecorationEnd);
+                    seatStyles.push(styles.cinemaSeatDecorationEnd);
                   }
 
                   return (
                     <TouchableOpacity
                       key={seatObject.number}
-                      style={seatStyle}
+                      style={seatStyles}
                       onPress={() => {
                         selectSeat(rowIndex, columnIndex, seatObject.number);
                       }}>

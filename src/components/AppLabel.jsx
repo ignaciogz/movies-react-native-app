@@ -27,14 +27,14 @@ const AppLabel = ({
       }
       {
         title
-          ? <Text style={[
-                styles.labelText,
-                {
-                  color: fontColor,
-                  fontSize: fontSize,
-                  fontFamily: fontBold ? FONTS.TEXT_BOLD : FONTS.TEXT,
-                }
-            ]}>{title}</Text>
+          ? <Text
+              style={{
+                color: fontColor,
+                fontSize: fontSize,
+                fontFamily: fontBold ? FONTS.TEXT_BOLD : FONTS.TEXT,
+              }}>
+                {title}
+            </Text>
           : children
       }
     </View>
@@ -53,8 +53,5 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingVertical: SPACE.MD,
     paddingHorizontal: SPACE.LG * 1.5,
-  },
-  labelText: {
-    //letterSpacing: 0.5,
   },
 });

@@ -1,27 +1,27 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
-import Ionicons from '@expo/vector-icons/Ionicons';
+
+import AppIcon from './AppIcon';
 
 import { BORDER_RADIUS, COLORS, FONTS, FONT_SIZE, SPACE } from '../global/theme';
 
-const SearchBox = (props) => {
-  const [searchText, setSearchText] = useState('');
+const SearchBox = ({ initialSearchValue = "", searchFunction = () => {} }) => {
+  const [searchText, setSearchText] = useState(initialSearchValue);
 
   return (
     <View style={styles.inputBox}>
       <TextInput
-        style={styles.textInput}
-        onChangeText={textInput => setSearchText(textInput)}
-        value={searchText}
+        onChangeText={setSearchText}
         placeholder="Encuentra tu pelicula..."
         placeholderTextColor={COLORS.WHITE_RGBA32}
+        value={searchText}
+        style={styles.textInput}
       />
-      <TouchableOpacity
-        onPress={() => props.searchFunction(searchText)}>
-        <Ionicons
-          name="search"
-          size={FONT_SIZE.ICON_SEARCH}
-          color={COLORS.WHITE}
+      <TouchableOpacity onPress={() => searchFunction(searchText)}>
+        <AppIcon
+          icon={"search"}
+          iconOrigin={"IonIcons"}
+          iconSize={FONT_SIZE.ICON_SEARCH}
         />
       </TouchableOpacity>
     </View>
@@ -41,9 +41,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: SPACE.LG * 2,
   },
   textInput: {
-    color: COLORS.WHITE_RGBA15,
+    color: COLORS.WHITE,
     fontFamily: FONTS.TEXT,
     fontSize: FONT_SIZE.TEXT_SM,
+    letterSpacing: 0.5,
     width: '90%',
   }
 });

@@ -1,8 +1,7 @@
-import { SafeAreaView, StyleSheet, Platform, StatusBar } from 'react-native';
+import { Platform, SafeAreaView, StatusBar, StyleSheet } from 'react-native';
 import { useFonts } from 'expo-font';
 
 import Navigator from './src/navigation/Navigator';
-import { COLORS } from './src/global/theme';
 
 export default function App() {
   const [fontsLoaded, fontError] = useFonts({
