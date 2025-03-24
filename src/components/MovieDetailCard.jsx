@@ -2,13 +2,13 @@ import React from 'react';
 import { Image, ImageBackground, StyleSheet, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
-import AppCircleButton from './AppCircleButton';
 import AppLabel from './AppLabel';
 import MovieFooterCard from './MovieFooterCard';
 
 import { CONFIG } from '../global/config';
-import { COLORS, FONT_SIZE, SPACE } from '../global/theme';
+import { COLORS, FONT_SIZE } from '../global/theme';
 import { formatMovieRuntime } from '../utils/formatter';
+import AppHeaderTopBar from './AppHeaderTopBar';
 
 const MovieDetailCard = ({ movieData, navigation }) => {
   return (
@@ -24,20 +24,14 @@ const MovieDetailCard = ({ movieData, navigation }) => {
             colors={[COLORS.BLACK_RGB10, COLORS.BLACK]}
             style={styles.linearGradient}
           >
-            <View style={styles.cardTopBar}>
-              <AppCircleButton
-                onPress={() => navigation.goBack()}
-                icon="close-circle-outline"
-                iconOrigin="IonIcons"
-              />
-
+            <AppHeaderTopBar navigation={navigation}>
               <AppLabel
                 title={formatMovieRuntime(movieData.runtime)}
                 fontSize={FONT_SIZE.TEXT_LG}
                 icon="access-time"
                 iconOrigin="MaterialIcons"
               />
-            </View>
+            </AppHeaderTopBar>
           </LinearGradient>
         </ImageBackground>
 
@@ -67,14 +61,6 @@ const styles = StyleSheet.create({
   cardImageBackground: {
     aspectRatio: 3072 / 1727,
     width: '100%',
-  },
-  cardTopBar: {
-    display: 'flex',
-    flexDirection: 'row',
-    gap: SPACE.MD,
-    justifyContent: 'space-between',
-    marginHorizontal: SPACE.LG * 3,
-    marginTop: SPACE.LG * 3.5,
   },
   linearGradient: {
     height: '100%',

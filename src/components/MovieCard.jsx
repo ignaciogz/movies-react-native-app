@@ -26,8 +26,8 @@ const MovieCard = ({
             ? isFirst
               ? { marginLeft: SPACE.LG * 3 }
               : isLast
-              ? { marginRight: SPACE.LG * 3 }
-              : {}
+                ? { marginRight: SPACE.LG * 3 }
+                : {}
             : {},
           withMarginAround ? { margin: SPACE.SM } : {},
           { maxWidth: cardWidth },

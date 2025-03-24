@@ -41,7 +41,7 @@ const HomeScreen = ({ navigation }) => {
           data={nowPlayingMoviesData}
           keyExtractor={(item) => item.id}
           bounces={false}
-          snapToInterval={width * 0.7 + SPACE.LG * 3}
+          snapToInterval={width * 0.8 + SPACE.LG * 3}
           horizontal
           showsHorizontalScrollIndicator={false}
           decelerationRate={0}
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
   },
   nowPlayingContainer: {
     gap: SPACE.LG * 3,
-    marginTop: SPACE.LG * 5,
+    marginTop: SPACE.LG * 2.5,
   },
   searchBoxContainer: {
     marginHorizontal: SPACE.LG * 3,

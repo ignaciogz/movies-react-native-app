@@ -11,9 +11,9 @@ const iconsAvailable = {
 
 const AppIcon = ({
     icon="",
+    iconColor = COLORS.WHITE,
     iconOrigin = "IonIcons",
     iconSize = FONT_SIZE.ICON,
-    iconColor = COLORS.WHITE
   }) => {
 
   const IconComponent = iconsAvailable[iconOrigin.toLowerCase()];

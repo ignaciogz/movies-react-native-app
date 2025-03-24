@@ -13,7 +13,7 @@ const SearchStackNavigator = () => {
         headerShown: false,
       }}
     >
-      <Stack.Screen name="Search" component={SearchScreen} />
+      <Stack.Screen component={SearchScreen} name="Search" />
     </Stack.Navigator>
   );
 };

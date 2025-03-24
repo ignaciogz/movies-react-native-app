@@ -14,8 +14,8 @@ const ProfileStackNavigator = () => {
         headerShown: false,
       }}
     >
-      <Stack.Screen name="Profile" component={ProfileScreen} />
-      <Stack.Screen name="Image Selector" component={ImageSelectorScreen} />
+      <Stack.Screen component={ProfileScreen} name="Profile" />
+      <Stack.Screen component={ImageSelectorScreen} name="Image Selector"/>
     </Stack.Navigator>
   );
 }

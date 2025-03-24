@@ -11,15 +11,15 @@ const Stack = createNativeStackNavigator();
 const CinemaStackNavigator = () => {
   return (
     <Stack.Navigator
-      /* initialRouteName="Tickets" */
+      initialRouteName="Booking"
       screenOptions={{
         headerShown: false,
       }}
     >
-      <Stack.Screen name="Booking" component={BookingScreen} />
-      {/* <Stack.Screen name="CandyBar" component={CandyBarScreen} />
-      <Stack.Screen name="Cart" component={CartScreen} />
-      <Stack.Screen name="Tickets" component={TicketScreen} /> */}
+      <Stack.Screen component={BookingScreen} name="Booking" />
+      {/* <Stack.Screen component={CandyBarScreen} name="CandyBar" />
+      <Stack.Screen component={CartScreen} name="Cart" />
+      <Stack.Screen component={TicketScreen} name="Tickets" /> */}
     </Stack.Navigator>
   );
 };

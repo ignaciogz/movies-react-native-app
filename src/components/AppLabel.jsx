@@ -8,11 +8,14 @@ import { BORDER_RADIUS, COLORS, FONTS, FONT_SIZE, SPACE } from '../global/theme'
 const AppLabel = ({
     title = "",
     bgColor = COLORS.GREY,
+    children,
+    fontBold = false,
+    fontColor = COLORS.WHITE,
     fontSize = FONT_SIZE.TEXT_SM,
     icon = "",
+    iconColor = COLORS.WHITE,
     iconOrigin = "IonIcons",
     iconSize = FONT_SIZE.ICON,
-    iconColor = COLORS.WHITE
   }) => {
 
   return (
@@ -22,7 +25,18 @@ const AppLabel = ({
           ? <AppIcon icon={icon} iconOrigin={iconOrigin} iconSize={iconSize} iconColor={iconColor} />
           : null
       }
-      <Text style={[styles.labelText, {fontSize: fontSize}]}>{title}</Text>
+      {
+        title
+          ? <Text style={[
+                styles.labelText,
+                {
+                  color: fontColor,
+                  fontSize: fontSize,
+                  fontFamily: fontBold ? FONTS.TEXT_BOLD : FONTS.TEXT,
+                }
+            ]}>{title}</Text>
+          : children
+      }
     </View>
   );
 };
@@ -41,7 +55,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: SPACE.LG * 1.5,
   },
   labelText: {
-    color: COLORS.WHITE,
-    fontFamily: FONTS.TEXT
+    //letterSpacing: 0.5,
   },
 });

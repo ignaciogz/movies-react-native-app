@@ -67,18 +67,15 @@ const MovieFooterCard = ({
             showDataOfDetail
               ? <View style={styles.votesContainer}>
                   <AppLabel
-                    title={
-                      <>
-                        <Text style={styles.votesAverageText}>{votes_average}</Text>
-                        <Text>{votes_count}</Text>
-                      </>
-                    }
                     bgColor={"transparent"}
                     fontSize={FONT_SIZE.TEXT_LG}
                     icon="star"
                     iconOrigin="Ionicons"
                     iconColor={COLORS.YELLOW}
-                  />
+                  >
+                    <Text style={styles.votesAverageText}>{votes_average}</Text>
+                    <Text style={styles.votesCountText}>{votes_count}</Text>
+                  </AppLabel>
                 </View>
               : null
           }
@@ -105,6 +102,7 @@ const styles = StyleSheet.create({
     color: COLORS.WHITE,
     fontFamily: FONTS.TEXT,
     fontSize: FONT_SIZE.TEXT,
+    letterSpacing: 0.5,
     marginHorizontal: SPACE.LG * 3,
     marginTop: SPACE.LG * 1.2,
   },
@@ -118,9 +116,9 @@ const styles = StyleSheet.create({
   },
   releaseContainer: {
     color: COLORS.WHITE,
-    fontFamily: FONTS.TEXT,
+    fontFamily: FONTS.TEXT_ITALIC,
     fontSize: FONT_SIZE.TEXT_SM,
-    fontStyle: 'italic',
+    letterSpacing: 0.5,
     marginHorizontal: SPACE.LG * 3,
     textAlign: 'center',
   },
@@ -135,17 +133,21 @@ const styles = StyleSheet.create({
     color: COLORS.WHITE,
     fontFamily: FONTS.TEXT,
     fontSize: FONT_SIZE.MOVIE_TITLE,
+    letterSpacing: 0.5,
     textAlign: 'center',
   },
   votesAverageText: {
     color: COLORS.YELLOW,
-    fontWeight: 'bold',
-    marginRight: SPACE.MD,
+    fontFamily: FONTS.TEXT_BOLD,
   },
   votesContainer: {
     flexDirection: 'row',
     gap: SPACE.MD,
     justifyContent: 'center',
     marginTop: SPACE.MD,
+  },
+  votesCountText: {
+    color: COLORS.WHITE,
+    fontFamily: FONTS.TEXT,
   },
 });

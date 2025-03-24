@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import AppIcon from '../components/AppIcon';
 import HomeStackNavigator from './stacks/HomeStackNavigator';
-// import CinemaStackNavigator from './stacks/CinemaStackNavigator';
+import CinemaStackNavigator from './stacks/CinemaStackNavigator';
 // import ProfileStackNavigator from './stacks/ProfileStackNavigator';
 // import SearchStackNavigator from './stacks/SearchStackNavigator';
 
@@ -15,7 +15,7 @@ const Tab = createBottomTabNavigator();
 const BottomTabNavigator = () => {
   return (
     <Tab.Navigator
-      screenOptions={() => ({
+      screenOptions={({ route }) => ({
         headerShown: false,
         tabBarHideOnKeyboard: true,
         tabBarShowLabel: false,
@@ -61,8 +61,8 @@ const BottomTabNavigator = () => {
         }}
       /> */}
 
-      {/* <Tab.Screen
-        name="Tickets"
+      <Tab.Screen
+        name="Cinema"
         component={CinemaStackNavigator}
         options={{
           tabBarIcon: ({ focused }) => {
@@ -78,7 +78,7 @@ const BottomTabNavigator = () => {
             );
           },
         }}
-      /> */}
+      />
 
       {/* <Tab.Screen
         name="Profile"
@@ -106,10 +106,12 @@ export default BottomTabNavigator;
 
 const styles = StyleSheet.create({
   tabBar: {
+    alignItems: 'center',
     backgroundColor: COLORS.BLACK,
     borderColor: COLORS.GREY,
     borderTopWidth: 2,
+    display: 'flex',
+    flexDirection: 'row',
     height: SPACE.MD * 8,
-    paddingTop: SPACE.LG * 1.5
   },
 });

@@ -7,6 +7,9 @@ import { COLORS } from './src/global/theme';
 export default function App() {
   const [fontsLoaded, fontError] = useFonts({
     LATO: require("./src/assets/fonts/Lato-Regular.ttf"),
+    LATO_BLACK: require("./src/assets/fonts/Lato-Black.ttf"),
+    LATO_BOLD: require("./src/assets/fonts/Lato-Bold.ttf"),
+    LATO_ITALIC: require("./src/assets/fonts/Lato-Italic.ttf"),
   });
 
   if(!fontsLoaded || fontError) {
