@@ -2,13 +2,13 @@ import React from 'react';
 import { Image, ImageBackground, StyleSheet, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
+import AppHeaderTopBar from './AppHeaderTopBar';
 import AppLabel from './AppLabel';
 import MovieFooterCard from './MovieFooterCard';
 
 import { CONFIG } from '../global/config';
 import { COLORS, FONT_SIZE } from '../global/theme';
 import { formatMovieRuntime } from '../utils/formatter';
-import AppHeaderTopBar from './AppHeaderTopBar';
 
 const MovieDetailCard = ({ movieData, navigation }) => {
   return (

@@ -1,4 +1,4 @@
-export const generateCinemaRoomDates = () => {
+export const generateAvailableWeekdays = () => {
   const date = new Date();
   let availableWeekdays = [];
   let weekday = ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'];
@@ -15,26 +15,26 @@ export const generateCinemaRoomDates = () => {
   return availableWeekdays;
 };
 
-export const generateCinemaRoomSeats = (roomRows, roomColumns) => {
-  let cinemaRowArray = [];
+export const generateSeats = (row, columns) => {
+  let seatRowArray = [];
   let seatNumber = 1;
 
-  for (let i = 0; i < roomRows; i++) {
-    let cinemaColumnArray = [];
+  for (let i = 0; i < row; i++) {
+    let seatsColumnArray = [];
 
-    for (let j = 0; j < roomColumns; j++) {
+    for (let j = 0; j < columns; j++) {
       let seatObject = {
         number: seatNumber,
         taken: Boolean(Math.round(Math.random())),
         selected: false,
       };
 
-      cinemaColumnArray.push(seatObject);
+      seatsColumnArray.push(seatObject);
       seatNumber++;
     }
 
-    cinemaRowArray.push(cinemaColumnArray);
+    seatRowArray.push(seatsColumnArray);
   }
 
-  return cinemaRowArray;
+  return seatRowArray;
 };

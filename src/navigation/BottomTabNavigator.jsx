@@ -8,14 +8,14 @@ import CinemaStackNavigator from './stacks/CinemaStackNavigator';
 // import ProfileStackNavigator from './stacks/ProfileStackNavigator';
 import SearchStackNavigator from './stacks/SearchStackNavigator';
 
-import { COLORS, FONT_SIZE, SPACE } from '../global/theme';
+import { COLORS, FONT_SIZE } from '../global/theme';
 
 const Tab = createBottomTabNavigator();
 
 const BottomTabNavigator = () => {
   return (
     <Tab.Navigator
-      screenOptions={({ route }) => ({
+      screenOptions={() => ({
         headerShown: false,
         tabBarHideOnKeyboard: true,
         tabBarShowLabel: false,
@@ -53,7 +53,7 @@ const BottomTabNavigator = () => {
                   icon="movie-search"
                   iconOrigin="MaterialCommunityIcons"
                   iconSize={FONT_SIZE.ICON_NAVIGATION}
-                  iconColor={focused ? COLORS.ROSE : COLORS.GREY}
+                  iconColor={focused ? COLORS.ORANGE : COLORS.GREY}
                 />
               </View>
             );
@@ -112,6 +112,6 @@ const styles = StyleSheet.create({
     borderTopWidth: 2,
     display: 'flex',
     flexDirection: 'row',
-    height: SPACE.MD * 8,
+    height: 64,
   },
 });

@@ -41,7 +41,6 @@ export default MovieDetailScreen;
 const styles = StyleSheet.create({
   container: {
     backgroundColor: COLORS.BLACK,
-    display: 'flex',
     flex: 1,
   },
   buttonContainer: {

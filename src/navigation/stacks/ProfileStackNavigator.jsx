@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ImageSelectorScreen from '../../screens/ImageSelectorScreen';
 import ProfileScreen from '../../screens/ProfileScreen';
 
-const Stack = createNativeStackNavigator()
+const Stack = createNativeStackNavigator();
 
 const ProfileStackNavigator = () => {
   return (

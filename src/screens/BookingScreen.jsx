@@ -9,18 +9,18 @@ import useAppModal from '../hooks/useAppModal';
 
 import { CONFIG } from '../global/config';
 import { BORDER_RADIUS, COLORS, FONTS, FONT_SIZE, SPACE } from '../global/theme';
-import { generateCinemaRoomDates, generateCinemaRoomSeats }from '../utils/cinema-room';
+import { generateAvailableWeekdays, generateSeats } from '../utils/booking';
 
 const cinemaColumns = CONFIG.CINEMA_ROOM.COLUMNS;
 const cinemaRows = CONFIG.CINEMA_ROOM.ROWS;
 const cinemaShowTimesArray = CONFIG.CINEMA_ROOM.SHOWTIMES;
-const ticketsPrice = CONFIG.TICKETS.GENERAL_PRICE;
+const cinemaTicketPrice = CONFIG.CINEMA_ROOM.TICKETS.GENERAL_PRICE;
 
 const BookingScreen = ({ navigation, route }) => {
   const { AppModal, showAppModal } = useAppModal();
 
-  const [cinemaAvailableDatesArray, setCinemaAvailableDatesArray] = useState(generateCinemaRoomDates());
-  const [cinemaSeatsArray, setCinemaSeatsArray] = useState(generateCinemaRoomSeats(cinemaRows, cinemaColumns));
+  const [cinemaAvailableDatesArray, setCinemaAvailableDatesArray] = useState(generateAvailableWeekdays());
+  const [cinemaSeatsArray, setCinemaSeatsArray] = useState(generateSeats(cinemaRows, cinemaColumns));
 
   const [selectedDateIndex, setSelectedDateIndex] = useState(null);
   const [selectedSeatsArray, setSelectedSeatsArray] = useState([]);
@@ -28,13 +28,13 @@ const BookingScreen = ({ navigation, route }) => {
 
   const [totalPrice, setTotalPrice] = useState(0);
 
-  console.log("------------------")
+  /* console.log("------------------")
   console.log(":: Seats - Array: ", cinemaSeatsArray)
   console.log("Selected Seat - Array: ", selectedSeatsArray)
   console.log("Selected Date - Index: ", selectedDateIndex)
   console.log("Selected Time - Index: ", selectedTimeIndex)
   console.log(":: Total Price: ", totalPrice)
-  console.log("------------------")
+  console.log("------------------") */
 
   const selectSeat = (roomRow, roomColumn, seatNumberSelected) => {
     if (!cinemaSeatsArray[roomRow][roomColumn].taken) {
@@ -55,7 +55,7 @@ const BookingScreen = ({ navigation, route }) => {
         }
       }
 
-      setTotalPrice(selectedSeats.length * ticketsPrice);
+      setTotalPrice(selectedSeats.length * cinemaTicketPrice);
       setCinemaSeatsArray(cinemaRoomSeats);
     }
   };
@@ -77,8 +77,8 @@ const BookingScreen = ({ navigation, route }) => {
           date: cinemaAvailableDatesArray[selectedDateIndex],
           ticketImage: route.params.PosterImage,
         } */
-      } catch (error) {
-        showAppModal('error', `BookSeats function FAILED: ${error}`);
+      } catch (err) {
+        showAppModal('error', `BookSeats function FAILED: ${err}`);
       }
 
       navigation.navigate('Cinema', {screen: 'CandyBar'});
@@ -307,7 +307,6 @@ export default BookingScreen;
 const styles = StyleSheet.create({
   container: {
     backgroundColor: COLORS.BLACK,
-    display: 'flex',
     flex: 1,
   },
   bookingDateContainer: {

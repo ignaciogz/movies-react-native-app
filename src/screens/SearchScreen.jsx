@@ -39,7 +39,7 @@ const SearchScreen = ({ navigation, route }) => {
 
   return (
     <LinearGradient
-      colors={[COLORS.ROSE, COLORS.BLACK]}
+      colors={[COLORS.ORANGE, COLORS.BLACK]}
       locations={[0.3, 0.7]}
       style={styles.linearGradient}
     >
@@ -95,9 +95,7 @@ export default SearchScreen;
 
 const styles = StyleSheet.create({
   container: {
-    display: 'flex',
     flex: 1,
-    width,
   },
   linearGradient: {
     height: '100%',
