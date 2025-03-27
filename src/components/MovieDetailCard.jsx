@@ -7,7 +7,7 @@ import AppLabel from './AppLabel';
 import MovieFooterCard from './MovieFooterCard';
 
 import { CONFIG } from '../global/config';
-import { COLORS, FONT_SIZE } from '../global/theme';
+import { COLORS, FONT_SIZE, SPACE } from '../global/theme';
 import { formatMovieRuntime } from '../utils/formatter';
 
 const MovieDetailCard = ({ movieData, navigation }) => {
@@ -38,7 +38,9 @@ const MovieDetailCard = ({ movieData, navigation }) => {
         <View style={styles.cardImageBackground}></View>
 
         <Image
-          source={{uri: CONFIG.GET_IMAGE_PATH('w342', movieData.poster_path)}}
+          source={{
+            uri: CONFIG.GET_IMAGE_PATH('w342', movieData.poster_path)
+          }}
           style={styles.cardImage}
         />
       </View>
@@ -61,6 +63,7 @@ const styles = StyleSheet.create({
   cardImageBackground: {
     aspectRatio: 3072 / 1727,
     width: '100%',
+    marginBottom: SPACE.SM,
   },
   linearGradient: {
     height: '100%',

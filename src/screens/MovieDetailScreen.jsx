@@ -5,7 +5,7 @@ import AppButton from '../components/AppButton';
 import MovieDetailCard from '../components/MovieDetailCard';
 
 import { CONFIG } from '../global/config';
-import { COLORS } from '../global/theme';
+import { COLORS, SPACE } from '../global/theme';
 
 const MovieDetailScreen = ({ navigation, route }) => {
   const movieData = route.params.movieData;
@@ -46,5 +46,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     alignItems: 'center',
     display: 'flex',
+    marginBottom: SPACE.LG * 3,
+    marginTop: SPACE.LG * 2,
   },
 });

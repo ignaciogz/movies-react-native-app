@@ -3,13 +3,13 @@ import { StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
 
 import AppIcon from './AppIcon';
 
-import { BORDER_RADIUS, COLORS, FONTS, FONT_SIZE, SPACE } from '../global/theme';
+import { BORDER_RADIUS, COLORS, FONT_SIZE, FONTS, SPACE } from '../global/theme';
 
 const SearchBox = ({ initialSearchValue = "", searchFunction = () => {} }) => {
   const [searchText, setSearchText] = useState(initialSearchValue);
 
   return (
-    <View style={styles.inputBox}>
+    <View style={styles.searchBox}>
       <TextInput
         onChangeText={setSearchText}
         placeholder="Encuentra tu pelicula..."
@@ -31,12 +31,13 @@ const SearchBox = ({ initialSearchValue = "", searchFunction = () => {} }) => {
 export default SearchBox;
 
 const styles = StyleSheet.create({
-  inputBox: {
+  searchBox: {
     borderWidth: 2,
     borderColor: COLORS.WHITE,
     borderRadius: BORDER_RADIUS.MD * 2,
     display: 'flex',
     flexDirection: 'row',
+    marginHorizontal: SPACE.LG * 3,
     paddingVertical: SPACE.MD,
     paddingHorizontal: SPACE.LG * 2,
   },

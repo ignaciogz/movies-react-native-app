@@ -5,7 +5,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import MovieCard from '../components/MovieCard';
 import SearchBox from '../components/SearchBox';
 
-import { COLORS, FONTS, FONT_SIZE, SPACE } from '../global/theme';
+import { COLORS, FONT_SIZE, FONTS, SPACE } from '../global/theme';
 
 import genresList from '../global/data/genres.json';
 import nowPlaying from '../global/data/nowplaying.json';
@@ -102,7 +102,6 @@ const styles = StyleSheet.create({
   },
   searchBoxContainer: {
     marginBottom: SPACE.LG * 2.5,
-    marginHorizontal: SPACE.LG * 3,
     marginTop: SPACE.LG * 5,
   },
   searchResultsContainer: {

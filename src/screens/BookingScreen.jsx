@@ -8,7 +8,7 @@ import AppLabel from '../components/AppLabel';
 import useAppModal from '../hooks/useAppModal';
 
 import { CONFIG } from '../global/config';
-import { BORDER_RADIUS, COLORS, FONTS, FONT_SIZE, SPACE } from '../global/theme';
+import { BORDER_RADIUS, COLORS, FONT_SIZE, FONTS, SPACE } from '../global/theme';
 import { generateAvailableWeekdays, generateSeats } from '../utils/booking';
 
 const cinemaColumns = CONFIG.CINEMA_ROOM.COLUMNS;
@@ -296,7 +296,8 @@ const BookingScreen = ({ navigation, route }) => {
           onPress={() => {bookSeats()}}
           title={"Adquirir tickets"}
           startColor={COLORS.YELLOW}
-          endColor={COLORS.BLACK}        />
+          endColor={COLORS.BLACK}
+        />
       </View>
     </ScrollView>
   );
@@ -331,8 +332,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingHorizontal: SPACE.LG * 2,
-    paddingBottom: SPACE.LG * 2,
+    marginVertical: SPACE.LG * 3,
+    marginHorizontal: SPACE.LG * 2,
   },
   bookingSeatsAvailabilityContainer: {
     alignItems: 'center',
@@ -352,13 +353,12 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZE.TEXT_SM,
   },
   bookingShowTimesContainer: {
-    marginVertical: SPACE.LG * 2,
+    marginTop: SPACE.LG * 2,
   },
   bookingTotalPrice: {
     color: COLORS.YELLOW,
-    fontFamily: FONTS.TEXT,
+    fontFamily: FONTS.TEXT_BOLD,
     fontSize: FONT_SIZE.TEXT_LG * 1.5,
-    fontWeight: 'bold',
   },
   bookingTotalPriceText: {
     color: COLORS.WHITE,
@@ -370,7 +370,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     color: COLORS.WHITE,
     fontFamily: FONTS.TEXT,
-    fontSize: FONT_SIZE.MOVIE_TITLE,
+    fontSize: FONT_SIZE.TITLE,
     letterSpacing: 0.5,
     position: 'absolute',
   },

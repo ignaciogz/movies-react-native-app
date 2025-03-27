@@ -2,7 +2,7 @@ import React from 'react';
 import { Pressable, StyleSheet, Text } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
-import { BORDER_RADIUS, COLORS, FONTS, FONT_SIZE, SPACE } from '../global/theme';
+import { BORDER_RADIUS, COLORS, FONT_SIZE, FONTS, SPACE } from '../global/theme';
 
 const AppButton = ({
     title = "",
@@ -38,7 +38,6 @@ const styles = StyleSheet.create({
     borderRadius: BORDER_RADIUS.MD * 5,
     paddingHorizontal: SPACE.LG * 3,
     paddingVertical: SPACE.MD * 2,
-    marginVertical: SPACE.LG * 2,
   },
   buttonText: {
     color: COLORS.WHITE,

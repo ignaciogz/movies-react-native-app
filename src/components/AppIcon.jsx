@@ -1,9 +1,9 @@
 import React from 'react';
-import { MaterialCommunityIcons, MaterialIcons, Ionicons } from '@expo/vector-icons';
-
+import { FontAwesome, MaterialCommunityIcons, MaterialIcons, Ionicons } from '@expo/vector-icons';
 import { COLORS, FONT_SIZE } from '../global/theme';
 
 const iconsAvailable = {
+  fontawesome: FontAwesome,
   ionicons: Ionicons,
   materialicons: MaterialIcons,
   materialcommunityicons: MaterialCommunityIcons,

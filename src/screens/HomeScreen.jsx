@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Dimensions, FlatList, ScrollView, StatusBar, StyleSheet, View } from 'react-native';
+import { Dimensions, FlatList, StatusBar, StyleSheet, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 import MovieCard from '../components/MovieCard';
@@ -45,7 +45,7 @@ const HomeScreen = ({ navigation }) => {
       locations={[0.3, 0.7]}
       style={styles.linearGradient}
     >
-      <ScrollView style={styles.container} bounces={false}>
+      <View style={styles.container}>
         <StatusBar hidden />
 
         <View style={styles.searchBoxContainer}>
@@ -72,7 +72,7 @@ const HomeScreen = ({ navigation }) => {
                 cardFunction={() => {
                   navigation.navigate('MovieDetail', { movieData });
                 }}
-                cardWidth={width * 0.7}
+                cardWidth={width * 0.75}
                 isFirst={index == 0 ? true : false}
                 isLast={index == nowPlayingMoviesData?.length - 1 ? true : false}
                 movieData={movieData}
@@ -82,7 +82,7 @@ const HomeScreen = ({ navigation }) => {
             );
           }}
         />
-      </ScrollView>
+      </View>
     </LinearGradient>
   );
 };
@@ -102,7 +102,6 @@ const styles = StyleSheet.create({
     marginTop: SPACE.LG * 2.5,
   },
   searchBoxContainer: {
-    marginHorizontal: SPACE.LG * 3,
     marginTop: SPACE.LG * 5,
   },
 });

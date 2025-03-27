@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import AppLabel from '../components/AppLabel';
 
-import { COLORS, FONTS, FONT_SIZE, SPACE } from '../global/theme';
+import { COLORS, FONT_SIZE, FONTS, SPACE } from '../global/theme';
 import { formatMovieReleaseDate, formatMovieRuntime, formatMovieVotes } from '../utils/formatter';
 
 const MovieFooterCard = ({
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
   titleContainer: {
     color: COLORS.WHITE,
     fontFamily: FONTS.TEXT,
-    fontSize: FONT_SIZE.MOVIE_TITLE,
+    fontSize: FONT_SIZE.TITLE,
     letterSpacing: 0.5,
     textAlign: 'center',
   },
