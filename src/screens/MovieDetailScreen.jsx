@@ -46,7 +46,6 @@ const styles = StyleSheet.create({
   buttonContainer: {
     alignItems: 'center',
     display: 'flex',
-    marginBottom: SPACE.LG * 3,
-    marginTop: SPACE.LG * 2,
+    marginVertical: SPACE.LG * 2,
   },
 });

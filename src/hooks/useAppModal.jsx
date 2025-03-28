@@ -51,7 +51,10 @@ const useAppModal = (type = "normal", duration = 2000, visible = false) => {
     );
   };
 
-  return { AppModal, showAppModal };
+  return {
+    AppModal,
+    showAppModal
+  };
 };
 
 export default useAppModal;

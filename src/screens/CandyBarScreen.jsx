@@ -34,94 +34,67 @@ const CandyBarScreen = ({ navigation }) => {
       locations={[0.3, 0.7]}
       style={styles.linearGradient}
     >
-      <View style={styles.container}>
+      <ScrollView
+        bounces={false}
+        showsVerticalScrollIndicator={false}
+        style={styles.container}
+      >
         <StatusBar hidden />
 
         <View>
+          <AppHeaderTopBar buttonType="return" margin={0} navigation={navigation} />
+          <Text style={styles.screenTextContainer}>
+            Aprovecha la oferta exclusiva de nuestra app del {CONFIG.CANDYBAR.APP_EXCLUSIVE_DISCOUNT}% OFF !
+          </Text>
+        </View>
+
+        <View style={styles.productsContainer}>
+          <CartItem
+            title={"Gaseosa gigante"}
+            price={getCandyBarProduct("drink").price}
+            withCounter={true}
+            count={drink}
+            countFunction={setDrink}
+          />
+          <CartItem
+            title={"Combo de Snacks"}
+            price={getCandyBarProduct("snacks").price}
+            withCounter={true}
+            count={snacks}
+            countFunction={setSnacks}
+          />
+          <CartItem
+            title={"Balde de pochoclos"}
+            price={getCandyBarProduct("popcorn").price}
+            withCounter={true}
+            count={popcorn}
+            countFunction={setPopCorn}
+          />
+        </View>
+
+        <View style={styles.candyBarImageContainer}>
+          <Image
+            source={require("../assets/images/candyBar.png")}
+            style={styles.candyBarImage}
+            resizeMode="contain"
+          />
+        </View>
+        <View style={styles.candyBarFooterContainer}>
           <View>
-            <AppHeaderTopBar buttonType="return" margin={0} navigation={navigation} />
-
-            <Text style={styles.screenText}>
-              Aprovecha la oferta exclusiva de nuestra app del {CONFIG.CANDYBAR.APP_EXCLUSIVE_DISCOUNT}% OFF !
-            </Text>
+            <Text style={styles.candyBarTotalPriceText}>CANDYBAR</Text>
+            <Text style={styles.candyBarTotalPrice}>$ {getTotalPrice()}</Text>
           </View>
-
-          <ScrollView
-            bounces={false}
-            showsVerticalScrollIndicator={false}
-            style={styles.itemsContainer}
-          >
-            <CartItem
-              title={"Gaseosa gigante"}
-              price={getCandyBarProduct("drink").price}
-              withCounter={true}
-              count={drink}
-              countFunction={setDrink}
-            />
-            <CartItem
-              title={"Combo de Snacks"}
-              price={getCandyBarProduct("snacks").price}
-              withCounter={true}
-              count={snacks}
-              countFunction={setSnacks}
-            />
-            <CartItem
-              title={"Balde de pochoclos"}
-              price={getCandyBarProduct("popcorn").price}
-              withCounter={true}
-              count={popcorn}
-              countFunction={setPopCorn}
-            />
-            <CartItem
-              title={"Balde de pochoclos"}
-              price={getCandyBarProduct("popcorn").price}
-              withCounter={true}
-              count={popcorn}
-              countFunction={setPopCorn}
-            />
-            <CartItem
-              title={"Balde de pochoclos"}
-              price={getCandyBarProduct("popcorn").price}
-              withCounter={true}
-              count={popcorn}
-              countFunction={setPopCorn}
-            />
-            <CartItem
-              title={"Balde de pochoclos"}
-              price={getCandyBarProduct("popcorn").price}
-              withCounter={true}
-              count={popcorn}
-              countFunction={setPopCorn}
-            />
-          </ScrollView>
+          <AppButton
+            onPress={() => {
+              navigation.navigate('Cinema', { screen: 'Cart' });
+            }}
+            title={"Continuar"}
+            startColor={COLORS.ROSE}
+            endColor={COLORS.BLACK}
+          />
         </View>
 
-        <View>
-          <View style={styles.candyBarImageContainer}>
-            <Image
-              source={require("../assets/images/candyBar.png")}
-              style={styles.candyBarImage}
-              resizeMode="contain"
-            />
-          </View>
-
-          <View style={styles.candyBarFooterContainer}>
-            <View>
-              <Text style={styles.candyBarTotalPriceText}>CANDYBAR</Text>
-              <Text style={styles.candyBarTotalPrice}>$ {getTotalPrice()}</Text>
-            </View>
-            <AppButton
-              onPress={() => {
-                navigation.navigate('Cinema', { screen: 'Cart' });
-              }}
-              title={"Continuar"}
-              startColor={COLORS.ROSE}
-              endColor={COLORS.BLACK}
-            />
-          </View>
-        </View>
-
-      </View>
+      </ScrollView>
     </LinearGradient>
   );
 };
@@ -131,7 +104,6 @@ export default CandyBarScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'space-between',
     marginHorizontal: SPACE.LG * 2,
   },
   candyBarImage: {
@@ -158,17 +130,15 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.TEXT,
     fontSize: FONT_SIZE.TEXT_SM,
   },
-  itemsContainer: {
+  productsContainer: {
     gap: 10,
-    marginBottom: SPACE.LG,
+    marginBottom: SPACE.LG * 1.5,
     marginTop: SPACE.LG * 2,
-    maxHeight: height * 0.4,
-    paddingBottom: '30%',
   },
   linearGradient: {
     height: '100%',
   },
-  screenText: {
+  screenTextContainer: {
     color: COLORS.WHITE,
     fontFamily: FONTS.TEXT_BOLD,
     fontSize: FONT_SIZE.TITLE,

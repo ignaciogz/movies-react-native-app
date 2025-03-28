@@ -44,7 +44,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: SPACE.LG * 1.6,
     paddingVertical: SPACE.MD * 1.8,
-    marginTop: SPACE.MD,
   },
   itemDataContainer: {
     gap: SPACE.SM,

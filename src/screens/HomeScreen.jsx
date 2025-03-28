@@ -46,8 +46,9 @@ const HomeScreen = ({ navigation }) => {
       style={styles.linearGradient}
     >
       <ScrollView
-        style={styles.container}
         bounces={false}
+        showsVerticalScrollIndicator={false}
+        style={styles.container}
       >
         <StatusBar hidden />
 

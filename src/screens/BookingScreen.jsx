@@ -332,8 +332,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginVertical: SPACE.LG * 2,
-    marginHorizontal: SPACE.LG * 2,
+    margin: SPACE.LG * 2,
   },
   bookingSeatsAvailabilityContainer: {
     alignItems: 'center',
