@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Dimensions, FlatList, StatusBar, StyleSheet, View } from 'react-native';
+import { Dimensions, FlatList, ScrollView,StatusBar, StyleSheet, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 import MovieCard from '../components/MovieCard';
@@ -45,7 +45,10 @@ const HomeScreen = ({ navigation }) => {
       locations={[0.3, 0.7]}
       style={styles.linearGradient}
     >
-      <View style={styles.container}>
+      <ScrollView
+        style={styles.container}
+        bounces={false}
+      >
         <StatusBar hidden />
 
         <View style={styles.searchBoxContainer}>
@@ -82,7 +85,7 @@ const HomeScreen = ({ navigation }) => {
             );
           }}
         />
-      </View>
+      </ScrollView>
     </LinearGradient>
   );
 };

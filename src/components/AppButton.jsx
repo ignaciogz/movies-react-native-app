@@ -36,8 +36,8 @@ const styles = StyleSheet.create({
   buttonBox: {
     alignItems: 'center',
     borderRadius: BORDER_RADIUS.MD * 5,
-    paddingHorizontal: SPACE.LG * 3,
-    paddingVertical: SPACE.MD * 2,
+    paddingHorizontal: SPACE.LG * 2,
+    paddingVertical: SPACE.MD * 1.5,
   },
   buttonText: {
     color: COLORS.WHITE,

@@ -39,7 +39,7 @@ const CandyBarScreen = ({ navigation }) => {
 
         <View>
           <View>
-            <AppHeaderTopBar margin={0} navigation={navigation} />
+            <AppHeaderTopBar buttonType="return" margin={0} navigation={navigation} />
 
             <Text style={styles.screenText}>
               Aprovecha la oferta exclusiva de nuestra app del {CONFIG.CANDYBAR.APP_EXCLUSIVE_DISCOUNT}% OFF !
@@ -107,7 +107,7 @@ const CandyBarScreen = ({ navigation }) => {
 
           <View style={styles.candyBarFooterContainer}>
             <View>
-              <Text style={styles.candyBarTotalPriceText}>TOTAL</Text>
+              <Text style={styles.candyBarTotalPriceText}>CANDYBAR</Text>
               <Text style={styles.candyBarTotalPrice}>$ {getTotalPrice()}</Text>
             </View>
             <AppButton

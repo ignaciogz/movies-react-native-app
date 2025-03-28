@@ -105,7 +105,7 @@ const BookingScreen = ({ navigation, route }) => {
       <StatusBar hidden />
       <AppModal />
 
-      {/* ----------- PANTALLA ----------- */}
+      {/* ----------- SCREEN ----------- */}
       <View style={styles.cinemaScreenContainer}>
         <ImageBackground
           source={{uri: route.params?.BgImage}}
@@ -131,7 +131,7 @@ const BookingScreen = ({ navigation, route }) => {
       </View>
 
       <View style={styles.cinemaSeatsContainer}>
-        {/* ----------- ASIENTOS ----------- */}
+        {/* ----------- SEATS ----------- */}
         <View style={styles.cinemaSeats}>
           {cinemaSeatsArray?.map((item, rowIndex) => {
             return (
@@ -177,7 +177,7 @@ const BookingScreen = ({ navigation, route }) => {
           })}
         </View>
 
-        {/* ----------- LEYENDAS ----------- */}
+        {/* ----------- LEGEND ----------- */}
         <View style={styles.bookingSeatsAvailabilityContainer}>
           <View style={styles.bookingSeatsAvailabilityInfo}>
             <AppIcon
@@ -211,7 +211,7 @@ const BookingScreen = ({ navigation, route }) => {
         </View>
       </View>
 
-      {/* ----------- FECHAS ----------- */}
+      {/* ----------- DATES ----------- */}
       <View>
         <FlatList
           data={cinemaAvailableDatesArray}
@@ -250,7 +250,7 @@ const BookingScreen = ({ navigation, route }) => {
         />
       </View>
 
-      {/* ----------- HORARIOS ----------- */}
+      {/* ----------- SHOW TIMES ----------- */}
       <View style={styles.bookingShowTimesContainer}>
         <FlatList
           data={cinemaShowTimesArray}
@@ -285,7 +285,7 @@ const BookingScreen = ({ navigation, route }) => {
         />
       </View>
 
-      {/* ----------- PRECIOS y BOTON DE CONTINUAR ----------- */}
+      {/* ----------- FOOTER ----------- */}
       <View style={styles.bookingFooterContainer}>
         <View>
           <Text style={styles.bookingTotalPriceText}>TOTAL</Text>
@@ -314,8 +314,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'column',
     justifyContent: 'center',
-    paddingHorizontal: SPACE.MD,
-    paddingVertical: SPACE.MD * 2,
+    paddingHorizontal: SPACE.MD * 0.8,
+    paddingVertical: SPACE.MD * 1.8,
     rowGap: SPACE.MD,
   },
   bookingDateText: {
@@ -332,15 +332,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginVertical: SPACE.LG * 3,
+    marginVertical: SPACE.LG * 2,
     marginHorizontal: SPACE.LG * 2,
   },
   bookingSeatsAvailabilityContainer: {
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-evenly',
-    marginBottom: SPACE.MD * 1.2,
-    marginTop: SPACE.LG * 3,
+    marginBottom: SPACE.MD * 1,
+    marginTop: SPACE.LG * 2.8,
   },
   bookingSeatsAvailabilityInfo: {
     alignItems: 'center',
@@ -396,7 +396,7 @@ const styles = StyleSheet.create({
     rowGap: SPACE.MD * 2,
   },
   cinemaSeatsContainer: {
-    marginVertical: SPACE.LG * 2,
+    marginVertical: SPACE.LG * 1.5,
   },
   cinemaSeatsRows: {
     flexDirection: 'row',

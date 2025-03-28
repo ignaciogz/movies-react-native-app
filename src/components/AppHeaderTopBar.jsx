@@ -5,12 +5,12 @@ import AppCircleButton from './AppCircleButton';
 
 import { SPACE } from '../global/theme';
 
-const AppHeaderTopBar = ({ children, margin = SPACE.LG * 3, navigation }) => {
+const AppHeaderTopBar = ({ buttonType = 'close', children, margin = SPACE.LG * 3, navigation }) => {
   return (
     <View style={[styles.headerTopBar, { marginHorizontal: margin }]}>
       <AppCircleButton
         onPress={() => navigation.goBack()}
-        icon="close-circle-outline"
+        icon={buttonType === 'return' ? "arrow-back-circle-outline" : "close-circle-outline" }
         iconOrigin="IonIcons"
       />
 
