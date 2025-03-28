@@ -9,7 +9,7 @@ const AppButton = ({
     onPress = () => {},
     fontBold = true,
     startColor = COLORS.VIOLET_LIGHT,
-    endColor = COLORS.VIOLET_DARK,
+    endColor = COLORS.BLACK,
   }) => {
 
   return (

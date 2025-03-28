@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { FlatList, ImageBackground, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-import AppButton from '../components/AppButton';
 import AppHeaderTopBar from '../components/AppHeaderTopBar';
 import AppIcon from '../components/AppIcon';
 import AppLabel from '../components/AppLabel';
+import PurchaseFlowFooter from '../components/PurchaseFlowFooter';
 import useAppModal from '../hooks/useAppModal';
 
 import { CONFIG } from '../global/config';
@@ -287,16 +287,12 @@ const BookingScreen = ({ navigation, route }) => {
 
       {/* ----------- FOOTER ----------- */}
       <View style={styles.bookingFooterContainer}>
-        <View>
-          <Text style={styles.bookingTotalPriceText}>TOTAL</Text>
-          <Text style={styles.bookingTotalPrice}>$ {totalPrice}</Text>
-        </View>
-
-        <AppButton
-          onPress={() => {bookSeats()}}
-          title={"Adquirir tickets"}
-          startColor={COLORS.YELLOW}
-          endColor={COLORS.BLACK}
+        <PurchaseFlowFooter
+          buttonFunction={() => {
+            bookSeats();
+          }}
+          purchaseStage={"Booking"}
+          totalPrice={totalPrice}
         />
       </View>
     </ScrollView>
@@ -329,10 +325,7 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZE.TEXT_SM,
   },
   bookingFooterContainer: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    margin: SPACE.LG * 2,
+    marginHorizontal: SPACE.LG * 2,
   },
   bookingSeatsAvailabilityContainer: {
     alignItems: 'center',
@@ -353,16 +346,6 @@ const styles = StyleSheet.create({
   },
   bookingShowTimesContainer: {
     marginTop: SPACE.LG * 2,
-  },
-  bookingTotalPrice: {
-    color: COLORS.YELLOW,
-    fontFamily: FONTS.TEXT_BOLD,
-    fontSize: FONT_SIZE.TEXT_LG * 1.5,
-  },
-  bookingTotalPriceText: {
-    color: COLORS.WHITE,
-    fontFamily: FONTS.TEXT,
-    fontSize: FONT_SIZE.TEXT_SM,
   },
   cinemaMovieTitleContainer: {
     alignSelf: 'center',

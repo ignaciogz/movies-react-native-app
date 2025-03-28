@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Dimensions, Image, ScrollView, StatusBar, StyleSheet, Text, View } from 'react-native';
+import { Dimensions, ScrollView, StatusBar, StyleSheet, Text, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
-import AppButton from '../components/AppButton';
 import AppHeaderTopBar from '../components/AppHeaderTopBar';
 import CartItem from '../components/CartItem';
+import PurchaseFlowFooter from '../components/PurchaseFlowFooter';
 
 import { CONFIG } from '../global/config';
 import { COLORS, FONTS, FONT_SIZE, SPACE } from '../global/theme';
@@ -72,28 +72,14 @@ const CandyBarScreen = ({ navigation }) => {
           />
         </View>
 
-        <View style={styles.candyBarImageContainer}>
-          <Image
-            source={require("../assets/images/candyBar.png")}
-            style={styles.candyBarImage}
-            resizeMode="contain"
-          />
-        </View>
-        <View style={styles.candyBarFooterContainer}>
-          <View>
-            <Text style={styles.candyBarTotalPriceText}>CANDYBAR</Text>
-            <Text style={styles.candyBarTotalPrice}>$ {getTotalPrice()}</Text>
-          </View>
-          <AppButton
-            onPress={() => {
-              navigation.navigate('Cinema', { screen: 'Cart' });
-            }}
-            title={"Continuar"}
-            startColor={COLORS.ROSE}
-            endColor={COLORS.BLACK}
-          />
-        </View>
-
+        <PurchaseFlowFooter
+          buttonFunction={() => {
+            navigation.navigate('Cinema', { screen: 'Cart' });
+          }}
+          purchaseStage={"candyBar"}
+          totalPrice={getTotalPrice()}
+          withImage={true}
+        />
       </ScrollView>
     </LinearGradient>
   );
@@ -105,30 +91,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginHorizontal: SPACE.LG * 2,
-  },
-  candyBarImage: {
-    alignSelf: 'center',
-    height: 114,
-    width: 154,
-  },
-  candyBarImageContainer: {
-    width: '100%',
-  },
-  candyBarFooterContainer: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginVertical: SPACE.LG * 2,
-  },
-  candyBarTotalPrice: {
-    color: COLORS.ROSE,
-    fontFamily: FONTS.TEXT_BOLD,
-    fontSize: FONT_SIZE.TEXT_LG * 1.5,
-  },
-  candyBarTotalPriceText: {
-    color: COLORS.WHITE,
-    fontFamily: FONTS.TEXT,
-    fontSize: FONT_SIZE.TEXT_SM,
   },
   productsContainer: {
     gap: 10,

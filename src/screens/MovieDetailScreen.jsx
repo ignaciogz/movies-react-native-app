@@ -30,6 +30,7 @@ const MovieDetailScreen = ({ navigation, route }) => {
             }});
           }}
           title={"Seleccionar butacas"}
+          endColor={COLORS.VIOLET_DARK}
         />
       </View>
     </ScrollView>
