@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Dimensions, ScrollView, StatusBar, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StatusBar, StyleSheet, Text, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 import AppHeaderTopBar from '../components/AppHeaderTopBar';
@@ -9,8 +9,6 @@ import PurchaseFlowFooter from '../components/PurchaseFlowFooter';
 import { CONFIG } from '../global/config';
 import { COLORS, FONTS, FONT_SIZE, SPACE } from '../global/theme';
 
-const { width, height } = Dimensions.get('window');
-
 const CandyBarScreen = ({ navigation }) => {
   const [drink, setDrink] = useState(0);
   const [snacks, setSnacks] = useState(0);
@@ -19,7 +17,7 @@ const CandyBarScreen = ({ navigation }) => {
   console.log("Drink: ", drink, "Snacks: ", snacks, "Popcorn: ", popcorn);
 
   const getTotalPrice = () => {
-    return (drink * getCandyBarProduct("drink").price)
+    return (drink * `$${getCandyBarProduct("drink").price} c/u`)
             + (snacks * getCandyBarProduct("snacks").price)
             + (popcorn * getCandyBarProduct("popcorn").price)
   }
@@ -40,33 +38,31 @@ const CandyBarScreen = ({ navigation }) => {
         style={styles.container}
       >
         <StatusBar hidden />
+        <AppHeaderTopBar buttonType="return" navigation={navigation} />
 
-        <View>
-          <AppHeaderTopBar buttonType="return" navigation={navigation} />
-          <Text style={styles.screenTextContainer}>
-            Aprovecha la oferta exclusiva de nuestra app del {CONFIG.CANDYBAR.APP_EXCLUSIVE_DISCOUNT}% OFF !
-          </Text>
-        </View>
+        <Text style={styles.screenTextContainer}>
+          Aprovecha la oferta exclusiva de nuestra app del {CONFIG.CANDYBAR.APP_EXCLUSIVE_DISCOUNT}% OFF !
+        </Text>
 
-        <View style={styles.productsContainer}>
+        <View style={styles.itemsContainer}>
           <ListItem
+            showDataOf="CandyBar"
             title={"Gaseosa gigante"}
-            price={getCandyBarProduct("drink").price}
-            withCounter={true}
+            text={`$ ${getCandyBarProduct("drink").price} c/u`}
             count={drink}
             countFunction={setDrink}
           />
           <ListItem
+            showDataOf="CandyBar"
             title={"Combo de Snacks"}
-            price={getCandyBarProduct("snacks").price}
-            withCounter={true}
+            text={`$ ${getCandyBarProduct("snacks").price} c/u`}
             count={snacks}
             countFunction={setSnacks}
           />
           <ListItem
+            showDataOf="CandyBar"
             title={"Balde de pochoclos"}
-            price={getCandyBarProduct("popcorn").price}
-            withCounter={true}
+            text={`$ ${getCandyBarProduct("popcorn").price} c/u`}
             count={popcorn}
             countFunction={setPopCorn}
           />
@@ -92,7 +88,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginHorizontal: SPACE.LG * 2,
   },
-  productsContainer: {
+  itemsContainer: {
     gap: 10,
     marginBottom: SPACE.LG * 1.5,
     marginTop: SPACE.LG * 2,

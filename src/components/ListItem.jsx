@@ -1,31 +1,70 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-import AppCounter from '../components/AppCounter';
+import AppCircularButton from './AppCircularButton';
+import AppCounter from './AppCounter';
 
 import { BORDER_RADIUS, COLORS, FONTS, FONT_SIZE, SPACE } from '../global/theme';
 
+const listItemData = {
+  "CANDYBAR": {
+    screenColor: COLORS.ROSE,
+  },
+  "CART": {
+    screenColor: COLORS.VIOLET_LIGHT,
+  },
+  "TICKETS": {
+    screenColor: COLORS.YELLOW,
+  },
+}
+
 const ListItem = ({
+    showDataOf = "Tickets",
     title = "",
-    price = 0,
-    withCounter = false,
+    text = null,
     count = 0,
-    countFunction = () => {},
+    itemFunction = () => {},
   }) => {
+
+  const screenName = showDataOf.toUpperCase();
 
   return (
     <View style={styles.listItemBox}>
       <View style={styles.listItemDataContainer}>
-        <Text style={styles.itemName}>{title.toUpperCase()}</Text>
-        <Text style={styles.itemPrice}>$ {price} c/u !</Text>
+        <Text numberOfLines={1} style={styles.itemName}>{title.toUpperCase()}</Text>
+        <Text style={[styles.itemText, { color: listItemData[screenName].screenColor }]}>{text}</Text>
       </View>
 
       {
-        withCounter
+        screenName === "CANDYBAR"
         &&  <AppCounter
-              buttonsColor={COLORS.ROSE}
+              buttonsColor={listItemData[screenName].screenColor}
               count={count}
-              countFunction={countFunction}
+              countFunction={itemFunction}
+            />
+      }
+
+      {
+        screenName === "CART"
+        &&  <AppCircularButton
+              onPress={itemFunction}
+              bgColor="transparent"
+              icon="close"
+              iconOrigin="FontAwesome"
+              iconColor={listItemData[screenName].screenColor}
+              iconSize={FONT_SIZE.ICON_BIG}
+            />
+      }
+
+      {
+        screenName === "TICKETS"
+        &&  <AppCircularButton
+              onPress={itemFunction}
+              bgColor="transparent"
+              icon="search"
+              iconOrigin="IonIcons"
+              iconColor={listItemData[screenName].screenColor}
+              iconSize={FONT_SIZE.ICON_BIG}
             />
       }
     </View>
@@ -53,8 +92,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.TEXT_BOLD,
     fontSize: FONT_SIZE.TEXT,
   },
-  itemPrice: {
-    color: COLORS.ROSE,
+  itemText: {
     fontFamily: FONTS.TEXT_BOLD,
     fontSize: FONT_SIZE.TEXT,
   },

@@ -21,7 +21,7 @@ const SearchBox = ({ initialSearchValue = "", searchFunction = () => {} }) => {
         <AppIcon
           icon={"search"}
           iconOrigin={"IonIcons"}
-          iconSize={FONT_SIZE.ICON_SEARCH}
+          iconSize={FONT_SIZE.ICON_BIG}
         />
       </TouchableOpacity>
     </View>

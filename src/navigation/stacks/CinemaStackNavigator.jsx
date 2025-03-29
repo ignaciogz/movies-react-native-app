@@ -5,14 +5,14 @@ import BookingScreen from '../../screens/BookingScreen';
 import CandyBarScreen from '../../screens/CandyBarScreen';
 // import CartScreen from '../../screens/CartScreen';
 import TicketScreen from '../../screens/TicketScreen';
-// import TicketsListScreen from '../../screens/TicketsListScreen';
+import TicketsListScreen from '../../screens/TicketsListScreen';
 
 const Stack = createNativeStackNavigator();
 
 const CinemaStackNavigator = () => {
   return (
     <Stack.Navigator
-      initialRouteName="Ticket"
+      initialRouteName="Tickets"
       screenOptions={{
         headerShown: false,
       }}
@@ -21,7 +21,7 @@ const CinemaStackNavigator = () => {
       <Stack.Screen component={CandyBarScreen} name="CandyBar" />
       {/* <Stack.Screen component={CartScreen} name="Cart" /> */}
       <Stack.Screen component={TicketScreen} name="Ticket" />
-      {/* <Stack.Screen component={TicketsListScreen} name="Tickets" /> */}
+      <Stack.Screen component={TicketsListScreen} name="Tickets" />
     </Stack.Navigator>
   );
 };
