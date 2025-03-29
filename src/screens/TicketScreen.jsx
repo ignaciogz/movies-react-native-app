@@ -7,14 +7,19 @@ import AppLabel from '../components/AppLabel';
 import { BORDER_RADIUS, COLORS, FONT_SIZE, FONTS, SPACE } from '../global/theme';
 
 const ticketStaticData = {
-  seatsArray: [3,22, 23],
+  seatsArray: [
+    { number: 18, row: 2 },
+    { number: 28, row: 3 },
+    { number: 33, row: 4 },
+  ],
   time: '15:30',
-  date: {date: 29, day: 'Sab'},
+  date: { date: 29, day: 'Sab' },
   ticketImage: 'https://image.tmdb.org/t/p/original/8T6nkYb4W8BIeafmFffyfsRciTL.jpg',
 }
 
-const TicketScreen = ({ navigation }) => {
+const TicketScreen = ({ navigation, route }) => {
   const [ticketData, setTicketData] = useState(ticketStaticData);
+  /* const [ticketData, setTicketData] = useState(route.params); */
 
   return (
     <ScrollView
@@ -34,7 +39,7 @@ const TicketScreen = ({ navigation }) => {
           <View
             style={[
               styles.ticketBorderCircle,
-              { top: -50 }
+              { top: -24 }
             ]}>
           </View>
         </ImageBackground>
@@ -45,7 +50,7 @@ const TicketScreen = ({ navigation }) => {
           <View
             style={[
               styles.ticketBorderCircle,
-              { bottom: -50 }
+              { bottom: -24 }
             ]}>
           </View>
           <View style={styles.ticketScreeningData}>
@@ -74,23 +79,20 @@ const TicketScreen = ({ navigation }) => {
           />
           <View style={styles.ticketSeatsContainer}>
             <View style={styles.subTitleContainer}>
-              <Text style={styles.subHeading}>Tira</Text>
-              <Text style={styles.subTitle}>02</Text>
-            </View>
-            <View style={styles.subTitleContainer}>
               <Text style={styles.subHeading}>Fila</Text>
-              <Text style={styles.subTitle}>04</Text>
+              {
+                ticketData?.seatsArray.map((item) => {
+                  return <Text style={styles.seatData}>{item.row}</Text>
+                })
+              }
             </View>
             <View style={styles.subTitleContainer}>
-              <Text style={styles.subHeading}>Asientos</Text>
-              <Text style={styles.subTitle}>
-                {
-                  ticketData?.seatsArray
-                    .slice(0, 3)
-                    .map((item, index, array) => {
-                      return item + (index == array.length - 1 ? '' : ', ');
-                })}
-              </Text>
+              <Text style={styles.subHeading}>Asiento</Text>
+              {
+                ticketData?.seatsArray.map((item) => {
+                  return <Text style={styles.seatData}>{item.number}</Text>
+                })
+              }
             </View>
           </View>
         </View>
@@ -107,25 +109,29 @@ const styles = StyleSheet.create({
     display: 'flex',
     flex: 1,
   },
+  subTitleContainer: {
+    alignItems: 'center',
+  },
   qrCodeImage: {
     height: 80,
     marginBottom: SPACE.MD * 2,
     width: 80,
   },
-  subHeading: {
-    color: COLORS.WHITE,
-    fontFamily: FONTS.TEXT,
-    fontSize: FONT_SIZE.TEXT_LG,
-    marginBottom: SPACE.MD,
-  },
-  subTitleContainer: {
-    alignItems: 'center',
-  },
-  subTitle: {
+  seatData: {
     color: COLORS.WHITE,
     fontFamily: FONTS.TEXT,
     fontSize: FONT_SIZE.TEXT_SM,
     letterSpacing: 1,
+    marginTop: SPACE.SM,
+  },
+  subHeading: {
+    color: COLORS.WHITE,
+    fontFamily: FONTS.TEXT,
+    fontSize: FONT_SIZE.TEXT_LG,
+    marginBottom: SPACE.SM,
+  },
+  subTitleContainer: {
+    alignItems: 'center',
   },
   ticketBackgroundImage: {
     alignSelf: 'center',
@@ -139,19 +145,18 @@ const styles = StyleSheet.create({
   ticketBorderCircle: {
     backgroundColor: COLORS.BLACK,
     borderRadius: BORDER_RADIUS.ROUND,
-    height: 70,
+    height: 48,
     left: '50%',
     position: 'absolute',
     transform: [{
       translateX: '-50%',
     }],
-    width: 70,
+    width: 48,
   },
   ticketContainer: {
     flex: 1,
     justifyContent: 'center',
     marginTop: SPACE.LG,
-    marginBottom: SPACE.LG * 2,
   },
   ticketDashLine: {
     alignSelf: 'center',
@@ -167,8 +172,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.GREY,
     borderBottomLeftRadius: BORDER_RADIUS.MD * 2.5,
     borderBottomRightRadius: BORDER_RADIUS.MD * 2.5,
-    overflow: 'hidden',
-    paddingBottom: SPACE.LG * 3,
+    paddingBottom: SPACE.LG * 2,
     paddingTop: SPACE.LG,
     width: 300,
   },
@@ -183,6 +187,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: SPACE.LG * 3,
     justifyContent: 'center',
-    marginBottom: SPACE.MD * 1.2,
+    marginBottom: SPACE.MD,
   },
 });

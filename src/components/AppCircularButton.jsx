@@ -16,7 +16,10 @@ const AppCircularButton = ({
 
   return (
     <Pressable
-      style={{ ...styles.circularButtonBox, backgroundColor: bgColor }}
+      style={[
+        styles.circularButtonBox,
+        { backgroundColor: bgColor }
+      ]}
       onPress={onPress}
     >
       <AppIcon

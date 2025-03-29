@@ -43,11 +43,14 @@ const BookingScreen = ({ navigation, route }) => {
 
       cinemaRoomSeats[roomRow][roomColumn].selected = !cinemaRoomSeats[roomRow][roomColumn].selected;
 
-      if (!selectedSeats.includes(seatNumberSelected)) {
-        selectedSeats.push(seatNumberSelected);
+      if (!selectedSeats.some(seatObject => seatObject.number === seatNumberSelected)) {
+        selectedSeats.push({
+          number: seatNumberSelected,
+          row: roomRow,
+        });
         setSelectedSeatsArray(selectedSeats);
-      } else {
-        const seatIndex = selectedSeats.indexOf(seatNumberSelected);
+      }  else {
+        const seatIndex = selectedSeats.findIndex(seatObject => seatObject.number === seatNumberSelected);
 
         if (seatIndex > -1) {
           selectedSeats.splice(seatIndex, 1);
