@@ -81,16 +81,16 @@ const TicketScreen = ({ navigation, route }) => {
             <View style={styles.subTitleContainer}>
               <Text style={styles.subHeading}>Fila</Text>
               {
-                ticketData?.seatsArray.map((item) => {
-                  return <Text style={styles.seatData}>{item.row}</Text>
+                ticketData?.seatsArray.map((item, index) => {
+                  return <Text key={`seat-row-data-${index}`} style={styles.seatData}>{item.row}</Text>
                 })
               }
             </View>
             <View style={styles.subTitleContainer}>
               <Text style={styles.subHeading}>Asiento</Text>
               {
-                ticketData?.seatsArray.map((item) => {
-                  return <Text style={styles.seatData}>{item.number}</Text>
+                ticketData?.seatsArray.map((item, index) => {
+                  return <Text key={`seat-number-data-${index}`} style={styles.seatData}>{item.number}</Text>
                 })
               }
             </View>
