@@ -19,7 +19,7 @@ const AppLabel = ({
   }) => {
 
   return (
-    <View style={[styles.labelBox, {backgroundColor: bgColor}]}>
+    <View style={[styles.labelBox, { backgroundColor: bgColor }]}>
       {
         icon
           ? <AppIcon icon={icon} iconOrigin={iconOrigin} iconSize={iconSize} iconColor={iconColor} />

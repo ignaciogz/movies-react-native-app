@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 // import { useDispatch, useSelector } from 'react-redux';
 
-import AppCircleButton from './AppCircleButton';
+import AppCircularButton from './AppCircularButton';
 // import { decrement, increment, reset, incrementByAmount } from '../features/counter/CounterSlice';
 
 import { COLORS, FONTS, FONT_SIZE, SPACE } from '../global/theme';
@@ -14,7 +14,7 @@ const AppCounter = ({ buttonsColor, count, countFunction }) => {
 
   return (
     <View style={styles.counterBox}>
-      <AppCircleButton
+      <AppCircularButton
         onPress={() => {
           if (count !== 0) countFunction(count - 1);
         }}
@@ -27,7 +27,7 @@ const AppCounter = ({ buttonsColor, count, countFunction }) => {
 
       <Text style={styles.counterText}>{count}</Text>
 
-      <AppCircleButton
+      <AppCircularButton
         onPress={() => {
           countFunction(count + 1);
         }}

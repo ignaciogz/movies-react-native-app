@@ -5,7 +5,7 @@ import AppIcon from './AppIcon';
 
 import { BORDER_RADIUS, COLORS, FONT_SIZE, SPACE } from '../global/theme';
 
-const AppCircleButton = ({
+const AppCircularButton = ({
     onPress = () => {},
     bgColor = COLORS.GREY,
     icon = "",
@@ -16,7 +16,7 @@ const AppCircleButton = ({
 
   return (
     <Pressable
-      style={{ ...styles.circleButtonBox, backgroundColor: bgColor }}
+      style={{ ...styles.circularButtonBox, backgroundColor: bgColor }}
       onPress={onPress}
     >
       <AppIcon
@@ -29,12 +29,12 @@ const AppCircleButton = ({
   );
 };
 
-export default AppCircleButton;
+export default AppCircularButton;
 
 const styles = StyleSheet.create({
-  circleButtonBox: {
+  circularButtonBox: {
     alignItems: 'center',
-    borderRadius: BORDER_RADIUS.CIRCLE,
+    borderRadius: BORDER_RADIUS.ROUND,
     paddingHorizontal: SPACE.MD,
     paddingVertical: SPACE.MD,
   },

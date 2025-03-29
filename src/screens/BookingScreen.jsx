@@ -402,8 +402,8 @@ const styles = StyleSheet.create({
   cinemaScreenOverlay:{
     alignSelf: 'center',
     backgroundColor: COLORS.BLACK,
-    borderTopLeftRadius: BORDER_RADIUS.CIRCLE,
-    borderTopRightRadius: BORDER_RADIUS.CIRCLE,
+    borderTopLeftRadius: BORDER_RADIUS.ROUND,
+    borderTopRightRadius: BORDER_RADIUS.ROUND,
     bottom: 15,
     height: '20%',
     position: 'absolute',
