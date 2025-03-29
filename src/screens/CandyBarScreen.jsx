@@ -3,7 +3,7 @@ import { Dimensions, ScrollView, StatusBar, StyleSheet, Text, View } from 'react
 import { LinearGradient } from 'expo-linear-gradient';
 
 import AppHeaderTopBar from '../components/AppHeaderTopBar';
-import CartItem from '../components/CartItem';
+import ListItem from '../components/ListItem';
 import PurchaseFlowFooter from '../components/PurchaseFlowFooter';
 
 import { CONFIG } from '../global/config';
@@ -49,21 +49,21 @@ const CandyBarScreen = ({ navigation }) => {
         </View>
 
         <View style={styles.productsContainer}>
-          <CartItem
+          <ListItem
             title={"Gaseosa gigante"}
             price={getCandyBarProduct("drink").price}
             withCounter={true}
             count={drink}
             countFunction={setDrink}
           />
-          <CartItem
+          <ListItem
             title={"Combo de Snacks"}
             price={getCandyBarProduct("snacks").price}
             withCounter={true}
             count={snacks}
             countFunction={setSnacks}
           />
-          <CartItem
+          <ListItem
             title={"Balde de pochoclos"}
             price={getCandyBarProduct("popcorn").price}
             withCounter={true}

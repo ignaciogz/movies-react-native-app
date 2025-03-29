@@ -1,12 +1,11 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
 
 import AppCounter from '../components/AppCounter';
 
 import { BORDER_RADIUS, COLORS, FONTS, FONT_SIZE, SPACE } from '../global/theme';
 
-const CartItem = ({
+const ListItem = ({
     title = "",
     price = 0,
     withCounter = false,
@@ -15,8 +14,8 @@ const CartItem = ({
   }) => {
 
   return (
-    <View style={styles.cartItemContainer}>
-      <View style={styles.itemDataContainer}>
+    <View style={styles.listItemBox}>
+      <View style={styles.listItemDataContainer}>
         <Text style={styles.itemName}>{title.toUpperCase()}</Text>
         <Text style={styles.itemPrice}>$ {price} c/u !</Text>
       </View>
@@ -33,10 +32,10 @@ const CartItem = ({
   );
 };
 
-export default CartItem;
+export default ListItem;
 
 const styles = StyleSheet.create({
-  cartItemContainer: {
+  listItemBox: {
     alignItems: 'center',
     backgroundColor: COLORS.GREY,
     borderRadius: BORDER_RADIUS.LG,
@@ -45,7 +44,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: SPACE.LG * 1.6,
     paddingVertical: SPACE.MD * 1.8,
   },
-  itemDataContainer: {
+  listItemDataContainer: {
     gap: SPACE.SM,
     width: '70%',
   },
