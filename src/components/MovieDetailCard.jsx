@@ -24,7 +24,7 @@ const MovieDetailCard = ({ movieData, navigation }) => {
             colors={[COLORS.BLACK_RGB10, COLORS.BLACK]}
             style={styles.linearGradient}
           >
-            <AppHeaderTopBar navigation={navigation}>
+            <AppHeaderTopBar margin={SPACE.LG * 3} navigation={navigation}>
               <AppLabel
                 title={formatMovieRuntime(movieData.runtime)}
                 fontSize={FONT_SIZE.TEXT_LG}

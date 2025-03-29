@@ -5,7 +5,7 @@ import AppCircleButton from './AppCircleButton';
 
 import { SPACE } from '../global/theme';
 
-const AppHeaderTopBar = ({ buttonType = 'close', children, margin = SPACE.LG * 3, navigation }) => {
+const AppHeaderTopBar = ({ buttonType = 'close', children, margin = 0, navigation }) => {
   return (
     <View style={[styles.headerTopBar, { marginHorizontal: margin }]}>
       <AppCircleButton

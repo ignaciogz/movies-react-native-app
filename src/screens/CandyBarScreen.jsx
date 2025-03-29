@@ -42,7 +42,7 @@ const CandyBarScreen = ({ navigation }) => {
         <StatusBar hidden />
 
         <View>
-          <AppHeaderTopBar buttonType="return" margin={0} navigation={navigation} />
+          <AppHeaderTopBar buttonType="return" navigation={navigation} />
           <Text style={styles.screenTextContainer}>
             Aprovecha la oferta exclusiva de nuestra app del {CONFIG.CANDYBAR.APP_EXCLUSIVE_DISCOUNT}% OFF !
           </Text>

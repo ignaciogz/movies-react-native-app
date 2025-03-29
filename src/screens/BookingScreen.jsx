@@ -112,7 +112,7 @@ const BookingScreen = ({ navigation, route }) => {
           style={styles.cinemaScreen}
           imageStyle={styles.cinemaScreenImage}
         >
-          <AppHeaderTopBar margin={0} navigation={navigation}>
+          <AppHeaderTopBar navigation={navigation}>
             <AppLabel
               title={`${selectedSeatsArray.length}`}
               fontBold={true}

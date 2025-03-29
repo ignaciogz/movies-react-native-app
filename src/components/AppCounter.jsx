@@ -8,7 +8,7 @@ import AppCircleButton from './AppCircleButton';
 import { COLORS, FONTS, FONT_SIZE, SPACE } from '../global/theme';
 
 
-const AppCounter = ({ buttonsColor, count, countFunction, }) => {
+const AppCounter = ({ buttonsColor, count, countFunction }) => {
   // const count = useSelector(state => state.counter.value);
   // const dispatch = useDispatch();
 
