@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Modal, StyleSheet, TouchableOpacity, View, Text } from 'react-native';
 
+import { BORDER_RADIUS,COLORS, FONT_SIZE, FONTS, SPACE } from '../global/theme';
+
 const useAppModal = (type = "normal", duration = 2000, visible = false) => {
   const [modalVisible, setModalVisible] = useState(visible);
   const [modalMessage, setModalMessage] = useState("");
@@ -64,28 +66,27 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
     justifyContent: 'center',
-    marginTop: 22,
   },
   modalView: {
     alignItems: 'center',
-    backgroundColor: '#FFFFFF',
-    borderRadius: 20,
+    backgroundColor: COLORS.WHITE,
+    borderRadius: BORDER_RADIUS.MD * 2,
     elevation: 5,
-    margin: 20,
-    padding: 35,
-    boxShadowColor: '#000000',
-    boxShadowOffset: { width: 0, height: 2 },
+    marginHorizontal: SPACE.SM * 5,
+    padding: SPACE.LG * 3,
+    boxShadowColor: COLORS.BLACK,
+    boxShadowOffset: { height: 2, width: 0 },
     boxShadowOpacity: 0.25,
-    boxShadowRadius: 4,
+    boxShadowRadius: BORDER_RADIUS.XS,
   },
   errorModalView: {
-    backgroundColor: '#F2D750',
-    fontFamily: 'LATO_BLACK',
-    fontSize: 24,
+    backgroundColor: COLORS.YELLOW,
+    fontFamily: FONTS.TEXT_BLACK,
+    fontSize: FONT_SIZE.TITLE,
   },
   modalText: {
-    fontFamily: 'LATO_BLACK',
-    fontSize: 24,
+    fontFamily: FONTS.TEXT_BLACK,
+    fontSize: FONT_SIZE.TITLE,
     textAlign: 'center',
   },
 });

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { FlatList, ImageBackground, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import AppHeaderTopBar from '../components/AppHeaderTopBar';
@@ -6,67 +6,29 @@ import AppIcon from '../components/AppIcon';
 import AppLabel from '../components/AppLabel';
 import PurchaseFlowFooter from '../components/PurchaseFlowFooter';
 import useAppModal from '../hooks/useAppModal';
+import useBooking from '../hooks/useBooking';
 
-import { CONFIG } from '../global/config';
 import { BORDER_RADIUS, COLORS, FONT_SIZE, FONTS, SPACE } from '../global/theme';
-import { generateAvailableWeekdays, generateSeats } from '../utils/booking';
-
-const cinemaColumns = CONFIG.CINEMA_ROOM.COLUMNS;
-const cinemaRows = CONFIG.CINEMA_ROOM.ROWS;
-const cinemaShowTimesArray = CONFIG.CINEMA_ROOM.SHOWTIMES;
-const cinemaTicketPrice = CONFIG.CINEMA_ROOM.TICKETS.GENERAL_PRICE;
 
 const BookingScreen = ({ navigation, route }) => {
   const { AppModal, showAppModal } = useAppModal();
-
-  const [cinemaAvailableDatesArray, setCinemaAvailableDatesArray] = useState(generateAvailableWeekdays());
-  const [cinemaSeatsArray, setCinemaSeatsArray] = useState(generateSeats(cinemaRows, cinemaColumns));
-
-  const [selectedDateIndex, setSelectedDateIndex] = useState(null);
-  const [selectedSeatsArray, setSelectedSeatsArray] = useState([]);
-  const [selectedTimeIndex, setSelectedTimeIndex] = useState(null);
-
-  const [totalPrice, setTotalPrice] = useState(0);
-
-  /* console.log("------------------")
-  console.log(":: Seats - Array: ", cinemaSeatsArray)
-  console.log("Selected Seat - Array: ", selectedSeatsArray)
-  console.log("Selected Date - Index: ", selectedDateIndex)
-  console.log("Selected Time - Index: ", selectedTimeIndex)
-  console.log(":: Total Price: ", totalPrice)
-  console.log("------------------") */
-
-  const selectSeat = (roomRow, roomColumn, seatNumberSelected) => {
-    if (!cinemaSeatsArray[roomRow][roomColumn].taken) {
-      let selectedSeats = [...selectedSeatsArray];
-      let cinemaRoomSeats = [...cinemaSeatsArray];
-
-      cinemaRoomSeats[roomRow][roomColumn].selected = !cinemaRoomSeats[roomRow][roomColumn].selected;
-
-      if (!selectedSeats.some(seatObject => seatObject.number === seatNumberSelected)) {
-        selectedSeats.push({
-          number: seatNumberSelected,
-          row: roomRow,
-        });
-        setSelectedSeatsArray(selectedSeats);
-      }  else {
-        const seatIndex = selectedSeats.findIndex(seatObject => seatObject.number === seatNumberSelected);
-
-        if (seatIndex > -1) {
-          selectedSeats.splice(seatIndex, 1);
-          setSelectedSeatsArray(selectedSeats);
-        }
-      }
-
-      setTotalPrice(selectedSeats.length * cinemaTicketPrice);
-      setCinemaSeatsArray(cinemaRoomSeats);
-    }
-  };
+  const {
+    bookingAvailableDatesArray,
+    bookingSeatsArray,
+    bookingShowTimesArray,
+    bookingTotalPrice,
+    selectedDateIndex,
+    selectedSeatsArray,
+    selectedTimeIndex,
+    selectSeat,
+    setSelectedDateIndex,
+    setSelectedTimeIndex,
+  } = useBooking();
 
   const bookSeats = async () => {
     const areSeatsSelected = selectedSeatsArray.length !== 0;
-    const isDateSelected = cinemaAvailableDatesArray[selectedDateIndex] !== undefined;
-    const isTimeSelected = cinemaShowTimesArray[selectedTimeIndex] !== undefined;
+    const isDateSelected = bookingAvailableDatesArray[selectedDateIndex] !== undefined;
+    const isTimeSelected = bookingShowTimesArray[selectedTimeIndex] !== undefined;
 
     if (areSeatsSelected && isDateSelected && isTimeSelected) {
       try {
@@ -80,21 +42,20 @@ const BookingScreen = ({ navigation, route }) => {
           date: cinemaAvailableDatesArray[selectedDateIndex],
           ticketImage: route.params.PosterImage,
         } */
+
+        navigation.navigate('Cinema', { screen: 'CandyBar' });
       } catch (err) {
         showAppModal('error', `BookSeats function FAILED: ${err}`);
       }
-
-      navigation.navigate('Cinema', {screen: 'CandyBar'});
     } else {
       let message = "Por favor, seleccione: ";
-      const missingSelections = [];
 
-      if (!areSeatsSelected)  missingSelections.push("uno o más asientos");
-      if (!isDateSelected)    missingSelections.push("una fecha");
-      if (!isTimeSelected)    missingSelections.push("un horario");
+      const missingSelections = [];
+      if (!areSeatsSelected) missingSelections.push("uno o más asientos");
+      if (!isDateSelected) missingSelections.push("una fecha");
+      if (!isTimeSelected) missingSelections.push("un horario");
 
       message += missingSelections.join(", ");
-
       showAppModal('message', message);
     }
   };
@@ -136,45 +97,47 @@ const BookingScreen = ({ navigation, route }) => {
       <View style={styles.cinemaSeatsContainer}>
         {/* ----------- SEATS ----------- */}
         <View style={styles.cinemaSeats}>
-          {cinemaSeatsArray?.map((item, rowIndex) => {
+          {bookingSeatsArray?.map((item, rowIndex) => {
             return (
               <View key={rowIndex} style={styles.cinemaSeatsRows}>
-                {item?.map((seatObject, columnIndex) => {
-                  let seatStyles = [styles.cinemaSeat];
-                  let isBigCinema = cinemaColumns >= 9;
+                {
+                  item?.map((seatObject, columnIndex, rowArray) => {
+                    const columnsLength = rowArray.length;
+                    let seatStyles = [styles.cinemaSeat];
+                    let isBigCinema = columnsLength >= 9;
 
-                  if (columnIndex === 0) {
-                    seatStyles.push(styles.cinemaSeatDecorationStart);
-                  } else if (columnIndex === (isBigCinema ? 2 : 1)) {
-                    seatStyles.push(styles.cinemaSeatDecorationEnd, { marginRight: SPACE.LG * 2 });
-                  } else if (columnIndex === (isBigCinema ? 3 : 2)) {
-                    seatStyles.push(styles.cinemaSeatDecorationStart);
-                  } else if (columnIndex === cinemaColumns - (isBigCinema ? 4 : 3)) {
-                    seatStyles.push(styles.cinemaSeatDecorationEnd);
-                  } else if (columnIndex === cinemaColumns - (isBigCinema ? 3 : 2)) {
-                    seatStyles.push(styles.cinemaSeatDecorationStart, { marginLeft: SPACE.LG * 2 });
-                  } else if (columnIndex === cinemaColumns - 1) {
-                    seatStyles.push(styles.cinemaSeatDecorationEnd);
-                  }
+                    if (columnIndex === 0) {
+                      seatStyles.push(styles.cinemaSeatDecorationStart);
+                    } else if (columnIndex === (isBigCinema ? 2 : 1)) {
+                      seatStyles.push(styles.cinemaSeatDecorationEnd, { marginRight: SPACE.LG * 2 });
+                    } else if (columnIndex === (isBigCinema ? 3 : 2)) {
+                      seatStyles.push(styles.cinemaSeatDecorationStart);
+                    } else if (columnIndex === columnsLength - (isBigCinema ? 4 : 3)) {
+                      seatStyles.push(styles.cinemaSeatDecorationEnd);
+                    } else if (columnIndex === columnsLength - (isBigCinema ? 3 : 2)) {
+                      seatStyles.push(styles.cinemaSeatDecorationStart, { marginLeft: SPACE.LG * 2 });
+                    } else if (columnIndex === columnsLength - 1) {
+                      seatStyles.push(styles.cinemaSeatDecorationEnd);
+                    }
 
-                  return (
-                    <TouchableOpacity
-                      key={seatObject.number}
-                      style={seatStyles}
-                      onPress={() => {
-                        selectSeat(rowIndex, columnIndex, seatObject.number);
-                      }}>
-                        <AppIcon
-                          icon="event-seat"
-                          iconColor={
-                            seatObject.taken ? COLORS.GREY
-                            : seatObject.selected ? COLORS.YELLOW : COLORS.WHITE}
-                          iconOrigin="MaterialIcons"
-                          iconSize={FONT_SIZE.ICON * 1.2}
-                        />
-                    </TouchableOpacity>
-                  );
-                })}
+                    return (
+                      <TouchableOpacity
+                        key={seatObject.number}
+                        style={seatStyles}
+                        onPress={() => {
+                          selectSeat(rowIndex, columnIndex, seatObject.number);
+                        }}>
+                          <AppIcon
+                            icon="event-seat"
+                            iconColor={
+                              seatObject.taken ? COLORS.GREY
+                              : seatObject.selected ? COLORS.YELLOW : COLORS.WHITE}
+                            iconOrigin="MaterialIcons"
+                            iconSize={FONT_SIZE.ICON * 1.2}
+                          />
+                      </TouchableOpacity>
+                    );
+                  })}
               </View>
             );
           })}
@@ -217,7 +180,7 @@ const BookingScreen = ({ navigation, route }) => {
       {/* ----------- DATES ----------- */}
       <View>
         <FlatList
-          data={cinemaAvailableDatesArray}
+          data={bookingAvailableDatesArray}
           keyExtractor={item => item.date}
           horizontal
           showsHorizontalScrollIndicator={false}
@@ -230,7 +193,7 @@ const BookingScreen = ({ navigation, route }) => {
                   style={
                     index == 0
                       ? { marginLeft: SPACE.LG * 2 }
-                      : index == cinemaAvailableDatesArray.length - 1
+                      : index == bookingAvailableDatesArray.length - 1
                         ? { marginRight: SPACE.LG * 2 }
                         : {}
                   }>
@@ -256,7 +219,7 @@ const BookingScreen = ({ navigation, route }) => {
       {/* ----------- SHOW TIMES ----------- */}
       <View style={styles.bookingShowTimesContainer}>
         <FlatList
-          data={cinemaShowTimesArray}
+          data={bookingShowTimesArray}
           keyExtractor={item => item}
           horizontal
           showsHorizontalScrollIndicator={false}
@@ -269,7 +232,7 @@ const BookingScreen = ({ navigation, route }) => {
                   style={
                     index == 0
                       ? { marginLeft: SPACE.LG * 2 }
-                      : index == cinemaShowTimesArray.length - 1
+                      : index == bookingShowTimesArray.length - 1
                         ? { marginRight: SPACE.LG * 2 }
                         : {}
                 }>
@@ -295,7 +258,7 @@ const BookingScreen = ({ navigation, route }) => {
             bookSeats();
           }}
           purchaseStage={"Booking"}
-          totalPrice={totalPrice}
+          totalPrice={bookingTotalPrice}
         />
       </View>
     </ScrollView>
