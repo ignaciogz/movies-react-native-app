@@ -24,6 +24,16 @@ const SearchBox = ({ initialSearchValue = "", searchFunction = () => {} }) => {
           iconSize={FONT_SIZE.ICON_BIG}
         />
       </TouchableOpacity>
+      {
+        searchText &&
+          <TouchableOpacity onPress={() => setSearchText("")}>
+            <AppIcon
+              icon={"close-sharp"}
+              iconOrigin={"IonIcons"}
+              iconSize={FONT_SIZE.ICON_BIG}
+            />
+          </TouchableOpacity>
+      }
     </View>
   );
 };
@@ -37,6 +47,7 @@ const styles = StyleSheet.create({
     borderRadius: BORDER_RADIUS.MD * 2,
     display: 'flex',
     flexDirection: 'row',
+    gap: SPACE.MD,
     marginHorizontal: SPACE.LG * 3,
     paddingVertical: SPACE.MD,
     paddingHorizontal: SPACE.LG * 2,
@@ -44,7 +55,7 @@ const styles = StyleSheet.create({
   textInput: {
     color: COLORS.WHITE,
     fontFamily: FONTS.TEXT,
-    fontSize: FONT_SIZE.TEXT_SM,
+    fontSize: FONT_SIZE.TEXT,
     letterSpacing: 0.5,
     width: '90%',
   }
