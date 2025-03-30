@@ -61,207 +61,209 @@ const BookingScreen = ({ navigation, route }) => {
   };
 
   return (
-    <ScrollView
-      style={styles.container}
-      bounces={false}
-      showsVerticalScrollIndicator={false}
-    >
-      <StatusBar hidden />
-      <AppModal />
+    <>
+      <ScrollView
+        bounces={false}
+        showsVerticalScrollIndicator={false}
+        style={styles.container}
+      >
+        <StatusBar hidden />
+        <AppModal />
 
-      {/* ----------- SCREEN ----------- */}
-      <View style={styles.cinemaScreenContainer}>
-        <ImageBackground
-          source={{uri: route.params?.BgImage}}
-          style={styles.cinemaScreen}
-          imageStyle={styles.cinemaScreenImage}
-        >
-          <AppHeaderTopBar navigation={navigation}>
-            <AppLabel
-              title={`${selectedSeatsArray.length}`}
-              fontBold={true}
-              fontColor={COLORS.YELLOW}
-              fontSize={FONT_SIZE.TEXT_LG}
-              icon="ticket"
-              iconColor={COLORS.YELLOW}
-              iconOrigin="IonIcons"
-            />
-          </AppHeaderTopBar>
-          <View style={styles.cinemaScreenOverlay} />
-          <Text numberOfLines={1} style={styles.cinemaMovieTitleContainer}>
-            {route.params?.Title}
-          </Text>
-        </ImageBackground>
-      </View>
-
-      <View style={styles.cinemaSeatsContainer}>
-        {/* ----------- SEATS ----------- */}
-        <View style={styles.cinemaSeats}>
-          {bookingSeatsArray?.map((item, rowIndex) => {
-            return (
-              <View key={rowIndex} style={styles.cinemaSeatsRows}>
-                {
-                  item?.map((seatObject, columnIndex, rowArray) => {
-                    const columnsLength = rowArray.length;
-                    let seatStyles = [styles.cinemaSeat];
-                    let isBigCinema = columnsLength >= 9;
-
-                    if (columnIndex === 0) {
-                      seatStyles.push(styles.cinemaSeatDecorationStart);
-                    } else if (columnIndex === (isBigCinema ? 2 : 1)) {
-                      seatStyles.push(styles.cinemaSeatDecorationEnd, { marginRight: SPACE.LG * 2 });
-                    } else if (columnIndex === (isBigCinema ? 3 : 2)) {
-                      seatStyles.push(styles.cinemaSeatDecorationStart);
-                    } else if (columnIndex === columnsLength - (isBigCinema ? 4 : 3)) {
-                      seatStyles.push(styles.cinemaSeatDecorationEnd);
-                    } else if (columnIndex === columnsLength - (isBigCinema ? 3 : 2)) {
-                      seatStyles.push(styles.cinemaSeatDecorationStart, { marginLeft: SPACE.LG * 2 });
-                    } else if (columnIndex === columnsLength - 1) {
-                      seatStyles.push(styles.cinemaSeatDecorationEnd);
-                    }
-
-                    return (
-                      <TouchableOpacity
-                        key={seatObject.number}
-                        style={seatStyles}
-                        onPress={() => {
-                          selectSeat(rowIndex, columnIndex, seatObject.number);
-                        }}>
-                          <AppIcon
-                            icon="event-seat"
-                            iconColor={
-                              seatObject.taken ? COLORS.GREY
-                              : seatObject.selected ? COLORS.YELLOW : COLORS.WHITE}
-                            iconOrigin="MaterialIcons"
-                            iconSize={FONT_SIZE.ICON * 1.2}
-                          />
-                      </TouchableOpacity>
-                    );
-                  })}
-              </View>
-            );
-          })}
+        {/* ----------- SCREEN ----------- */}
+        <View style={styles.cinemaScreenContainer}>
+          <ImageBackground
+            source={{uri: route.params?.BgImage}}
+            style={styles.cinemaScreen}
+            imageStyle={styles.cinemaScreenImage}
+          >
+            <AppHeaderTopBar
+              marginTop={SPACE.LG * 2}
+              navigation={navigation}
+            >
+              <AppLabel
+                title={`${selectedSeatsArray.length}`}
+                fontBold={true}
+                fontColor={COLORS.YELLOW}
+                fontSize={FONT_SIZE.TEXT_LG}
+                icon="ticket"
+                iconColor={COLORS.YELLOW}
+                iconOrigin="IonIcons"
+              />
+            </AppHeaderTopBar>
+            <View style={styles.cinemaScreenOverlay} />
+            <Text numberOfLines={1} style={styles.cinemaMovieTitleContainer}>
+              {route.params?.Title}
+            </Text>
+          </ImageBackground>
         </View>
 
-        {/* ----------- LEGEND ----------- */}
-        <View style={styles.bookingSeatsAvailabilityContainer}>
-          <View style={styles.bookingSeatsAvailabilityInfo}>
-            <AppIcon
-              icon="circle"
-              iconColor={COLORS.WHITE}
-              iconOrigin="MaterialIcons"
-              iconSize={FONT_SIZE.ICON}
-            />
-            <Text style={styles.bookingSeatsAvailabilityText}>Disponibles</Text>
+        <View style={styles.cinemaSeatsContainer}>
+          {/* ----------- SEATS ----------- */}
+          <View style={styles.cinemaSeats}>
+            {bookingSeatsArray?.map((item, rowIndex) => {
+              return (
+                <View key={rowIndex} style={styles.cinemaSeatsRows}>
+                  {
+                    item?.map((seatObject, columnIndex, rowArray) => {
+                      const columnsLength = rowArray.length;
+                      let seatStyles = [styles.cinemaSeat];
+                      let isBigCinema = columnsLength >= 9;
+
+                      if (columnIndex === 0) {
+                        seatStyles.push(styles.cinemaSeatDecorationStart);
+                      } else if (columnIndex === (isBigCinema ? 2 : 1)) {
+                        seatStyles.push(styles.cinemaSeatDecorationEnd, { marginRight: SPACE.LG * 2 });
+                      } else if (columnIndex === (isBigCinema ? 3 : 2)) {
+                        seatStyles.push(styles.cinemaSeatDecorationStart);
+                      } else if (columnIndex === columnsLength - (isBigCinema ? 4 : 3)) {
+                        seatStyles.push(styles.cinemaSeatDecorationEnd);
+                      } else if (columnIndex === columnsLength - (isBigCinema ? 3 : 2)) {
+                        seatStyles.push(styles.cinemaSeatDecorationStart, { marginLeft: SPACE.LG * 2 });
+                      } else if (columnIndex === columnsLength - 1) {
+                        seatStyles.push(styles.cinemaSeatDecorationEnd);
+                      }
+
+                      return (
+                        <TouchableOpacity
+                          key={seatObject.number}
+                          style={seatStyles}
+                          onPress={() => {
+                            selectSeat(rowIndex, columnIndex, seatObject.number);
+                          }}>
+                            <AppIcon
+                              icon="event-seat"
+                              iconColor={
+                                seatObject.taken ? COLORS.GREY
+                                : seatObject.selected ? COLORS.YELLOW : COLORS.WHITE}
+                              iconOrigin="MaterialIcons"
+                              iconSize={FONT_SIZE.ICON * 1.2}
+                            />
+                        </TouchableOpacity>
+                      );
+                    })}
+                </View>
+              );
+            })}
           </View>
 
-          <View style={styles.bookingSeatsAvailabilityInfo}>
-            <AppIcon
-              icon="circle"
-              iconColor={COLORS.GREY}
-              iconOrigin="MaterialIcons"
-              iconSize={FONT_SIZE.ICON}
-            />
-            <Text style={styles.bookingSeatsAvailabilityText}>Ocupados</Text>
-          </View>
+          {/* ----------- LEGEND ----------- */}
+          <View style={styles.bookingSeatsAvailabilityContainer}>
+            <View style={styles.bookingSeatsAvailabilityInfo}>
+              <AppIcon
+                icon="circle"
+                iconColor={COLORS.WHITE}
+                iconOrigin="MaterialIcons"
+                iconSize={FONT_SIZE.ICON}
+              />
+              <Text style={styles.bookingSeatsAvailabilityText}>Disponibles</Text>
+            </View>
 
-          <View style={styles.bookingSeatsAvailabilityInfo}>
-            <AppIcon
-              icon="circle"
-              iconColor={COLORS.YELLOW}
-              iconOrigin="MaterialIcons"
-              iconSize={FONT_SIZE.ICON}
-            />
-            <Text style={styles.bookingSeatsAvailabilityText}>Seleccionados</Text>
+            <View style={styles.bookingSeatsAvailabilityInfo}>
+              <AppIcon
+                icon="circle"
+                iconColor={COLORS.GREY}
+                iconOrigin="MaterialIcons"
+                iconSize={FONT_SIZE.ICON}
+              />
+              <Text style={styles.bookingSeatsAvailabilityText}>Ocupados</Text>
+            </View>
+
+            <View style={styles.bookingSeatsAvailabilityInfo}>
+              <AppIcon
+                icon="circle"
+                iconColor={COLORS.YELLOW}
+                iconOrigin="MaterialIcons"
+                iconSize={FONT_SIZE.ICON}
+              />
+              <Text style={styles.bookingSeatsAvailabilityText}>Seleccionados</Text>
+            </View>
           </View>
         </View>
-      </View>
 
-      {/* ----------- DATES ----------- */}
-      <View>
-        <FlatList
-          data={bookingAvailableDatesArray}
-          keyExtractor={item => item.date}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          bounces={false}
-          contentContainerStyle={styles.flatListItemsGap}
-          renderItem={({item, index}) => {
-            return (
-              <TouchableOpacity onPress={() => setSelectedDateIndex(index)}>
-                <View
-                  style={
-                    index == 0
-                      ? { marginLeft: SPACE.LG * 2 }
-                      : index == bookingAvailableDatesArray.length - 1
-                        ? { marginRight: SPACE.LG * 2 }
-                        : {}
+        {/* ----------- DATES ----------- */}
+        <View>
+          <FlatList
+            data={bookingAvailableDatesArray}
+            keyExtractor={item => item.date}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            bounces={false}
+            contentContainerStyle={styles.flatListItemsGap}
+            renderItem={({item, index}) => {
+              return (
+                <TouchableOpacity onPress={() => setSelectedDateIndex(index)}>
+                  <View
+                    style={
+                      index == 0
+                        ? { marginLeft: SPACE.LG * 2 }
+                        : index == bookingAvailableDatesArray.length - 1
+                          ? { marginRight: SPACE.LG * 2 }
+                          : {}
+                    }>
+                    <AppLabel
+                      bgColor={index == selectedDateIndex
+                        ? COLORS.YELLOW
+                        : COLORS.GREY
+                      }
+                    >
+                      <View style={styles.bookingDateContainer}>
+                        <Text style={styles.bookingDayText}>{item.day.toUpperCase()}</Text>
+                        <Text style={styles.bookingDateText}>{item.date}</Text>
+                      </View>
+                    </AppLabel>
+
+                  </View>
+                </TouchableOpacity>
+              );
+            }}
+          />
+        </View>
+
+        {/* ----------- SHOW TIMES ----------- */}
+        <View style={styles.bookingShowTimesContainer}>
+          <FlatList
+            data={bookingShowTimesArray}
+            keyExtractor={item => item}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            bounces={false}
+            contentContainerStyle={styles.flatListItemsGap}
+            renderItem={({item, index}) => {
+              return (
+                <TouchableOpacity onPress={() => setSelectedTimeIndex(index)}>
+                  <View
+                    style={
+                      index == 0
+                        ? { marginLeft: SPACE.LG * 2 }
+                        : index == bookingShowTimesArray.length - 1
+                          ? { marginRight: SPACE.LG * 2 }
+                          : {}
                   }>
-                  <AppLabel
-                    bgColor={index == selectedDateIndex
-                      ? COLORS.YELLOW
-                      : COLORS.GREY
-                    }
-                  >
-                    <View style={styles.bookingDateContainer}>
-                      <Text style={styles.bookingDayText}>{item.day.toUpperCase()}</Text>
-                      <Text style={styles.bookingDateText}>{item.date}</Text>
-                    </View>
-                  </AppLabel>
+                    <AppLabel
+                      title={item}
+                      bgColor={index == selectedTimeIndex
+                        ? COLORS.YELLOW
+                        : COLORS.GREY
+                      }
+                      fontSize={FONT_SIZE.TEXT_LG * 1.2}
+                    />
+                  </View>
+                </TouchableOpacity>
+              );
+            }}
+          />
+        </View>
+      </ScrollView>
 
-                </View>
-              </TouchableOpacity>
-            );
-          }}
-        />
-      </View>
-
-      {/* ----------- SHOW TIMES ----------- */}
-      <View style={styles.bookingShowTimesContainer}>
-        <FlatList
-          data={bookingShowTimesArray}
-          keyExtractor={item => item}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          bounces={false}
-          contentContainerStyle={styles.flatListItemsGap}
-          renderItem={({item, index}) => {
-            return (
-              <TouchableOpacity onPress={() => setSelectedTimeIndex(index)}>
-                <View
-                  style={
-                    index == 0
-                      ? { marginLeft: SPACE.LG * 2 }
-                      : index == bookingShowTimesArray.length - 1
-                        ? { marginRight: SPACE.LG * 2 }
-                        : {}
-                }>
-                  <AppLabel
-                    title={item}
-                    bgColor={index == selectedTimeIndex
-                      ? COLORS.YELLOW
-                      : COLORS.GREY
-                    }
-                    fontSize={FONT_SIZE.TEXT_LG * 1.2}
-                  />
-                </View>
-              </TouchableOpacity>
-            );
-          }}
-        />
-      </View>
-
-      {/* ----------- FOOTER ----------- */}
-      <View style={styles.bookingFooterContainer}>
-        <PurchaseFlowFooter
-          buttonFunction={() => {
-            bookSeats();
-          }}
-          purchaseStage={"Booking"}
-          totalPrice={bookingTotalPrice}
-        />
-      </View>
-    </ScrollView>
+      <PurchaseFlowFooter
+        buttonFunction={() => {
+          bookSeats();
+        }}
+        purchaseStage={"Booking"}
+        totalPrice={bookingTotalPrice}
+      />
+    </>
   );
 };
 
@@ -271,6 +273,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: COLORS.BLACK,
     flex: 1,
+    paddingBottom: 86,
   },
   bookingDateContainer: {
     alignItems: 'center',
@@ -290,9 +293,6 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.TEXT,
     fontSize: FONT_SIZE.TEXT_SM,
   },
-  bookingFooterContainer: {
-    marginHorizontal: SPACE.LG * 2,
-  },
   bookingSeatsAvailabilityContainer: {
     alignItems: 'center',
     flexDirection: 'row',
@@ -311,7 +311,7 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZE.TEXT_SM,
   },
   bookingShowTimesContainer: {
-    marginTop: SPACE.LG * 2,
+    marginTop: SPACE.LG * 1.5,
   },
   cinemaMovieTitleContainer: {
     alignSelf: 'center',
@@ -356,6 +356,7 @@ const styles = StyleSheet.create({
   },
   cinemaScreenContainer: {
     alignSelf: 'center',
+    marginTop: SPACE.LG * 1.5,
     width: '85%',
   },
   cinemaScreenImage: {

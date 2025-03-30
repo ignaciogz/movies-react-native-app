@@ -66,15 +66,15 @@ const CheckOutScreen = ({ navigation }) => {
             text={`Cantidad: 2 | $16000`}
           />
         </View>
-
-        <PurchaseFlowFooter
-          buttonFunction={() => {
-            navigation.navigate('Movies');
-          }}
-          purchaseStage={"checkOut"}
-          totalPrice={32512}
-        />
       </ScrollView>
+
+      <PurchaseFlowFooter
+        buttonFunction={() => {
+          navigation.navigate('Movies');
+        }}
+        purchaseStage={"checkOut"}
+        totalPrice={32512}
+      />
     </LinearGradient>
   );
 };
@@ -85,6 +85,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginHorizontal: SPACE.LG * 2,
+    paddingBottom: 86,
   },
   itemsContainer: {
     gap: 10,
@@ -92,7 +93,7 @@ const styles = StyleSheet.create({
     marginTop: SPACE.LG * 2,
   },
   linearGradient: {
-    height: '100%',
+    flex: 1,
   },
   screeningData: {
     alignItems: 'center',

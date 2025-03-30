@@ -67,16 +67,16 @@ const CandyBarScreen = ({ navigation }) => {
             itemFunction={setPopCorn}
           />
         </View>
-
-        <PurchaseFlowFooter
-          buttonFunction={() => {
-            navigation.navigate('Cinema', { screen: 'CheckOut' });
-          }}
-          purchaseStage={"candyBar"}
-          totalPrice={getTotalPrice()}
-          withImage={true}
-        />
       </ScrollView>
+
+      <PurchaseFlowFooter
+        buttonFunction={() => {
+          navigation.navigate('Cinema', { screen: 'CheckOut' });
+        }}
+        purchaseStage={"candyBar"}
+        totalPrice={getTotalPrice()}
+        withImage={true}
+      />
     </LinearGradient>
   );
 };
@@ -87,6 +87,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginHorizontal: SPACE.LG * 2,
+    paddingBottom: 198,
   },
   itemsContainer: {
     gap: 10,
@@ -94,7 +95,7 @@ const styles = StyleSheet.create({
     marginTop: SPACE.LG * 2,
   },
   linearGradient: {
-    height: '100%',
+    flex: 1,
   },
   screenTextContainer: {
     color: COLORS.WHITE,

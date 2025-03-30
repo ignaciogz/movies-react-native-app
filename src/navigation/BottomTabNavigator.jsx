@@ -14,11 +14,11 @@ import { COLORS, FONT_SIZE } from '../global/theme';
 
 const Tab = createBottomTabNavigator();
 
-const routeMatch = (stateData,stackName, routeName) => {
+const getCurrentStackScreen = (stateData, stackName) => {
   const currentRoute = stateData.routes[stateData.index];
 
   return currentRoute.name === stackName
-          && currentRoute.state?.routes.find((r) => r.name === routeName);
+          && currentRoute.state?.routes.slice(-1)[0].name;
 }
 
 const BottomTabNavigator = () => {
@@ -28,10 +28,14 @@ const BottomTabNavigator = () => {
 
   useEffect(() => {
     if (state) {
-      if (routeMatch(state, 'Cinema', 'CheckOut')) {
-        setCinemaIconColor(COLORS.BLUE_LIGHT);
-      } else if (routeMatch(state, 'Cinema', 'CandyBar')) {
-        setCinemaIconColor(COLORS.ROSE);
+      const currentCinemaStackScreen = getCurrentStackScreen(state, 'Cinema');
+
+      if (currentCinemaStackScreen) {
+        if (currentCinemaStackScreen === "CandyBar") {
+          setCinemaIconColor(COLORS.ROSE);
+        } else if (currentCinemaStackScreen === "CheckOut") {
+          setCinemaIconColor(COLORS.BLUE_LIGHT);
+        }
       } else {
         setCinemaIconColor(COLORS.YELLOW);
       }

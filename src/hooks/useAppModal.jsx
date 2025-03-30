@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Modal, StyleSheet, TouchableOpacity, View, Text } from 'react-native';
 
 import { BORDER_RADIUS,COLORS, FONT_SIZE, FONTS, SPACE } from '../global/theme';
@@ -7,18 +7,6 @@ const useAppModal = (type = "normal", duration = 2000, visible = false) => {
   const [modalVisible, setModalVisible] = useState(visible);
   const [modalMessage, setModalMessage] = useState("");
   const [modalType, setModalType] = useState(type);
-
-  useEffect(() => {
-    if (visible) {
-      setModalVisible(true);
-
-      const timer = setTimeout(() => {
-        setModalVisible(false);
-      }, duration);
-
-      return () => clearTimeout(timer);
-    }
-  }, [visible, duration]);
 
   const closeModal = () => {
     setModalVisible(false);
@@ -73,7 +61,8 @@ const styles = StyleSheet.create({
     borderRadius: BORDER_RADIUS.MD * 2,
     elevation: 5,
     marginHorizontal: SPACE.SM * 5,
-    padding: SPACE.LG * 3,
+    paddingHorizontal: SPACE.LG * 1.5,
+    paddingVertical: SPACE.LG * 3,
     boxShadowColor: COLORS.BLACK,
     boxShadowOffset: { height: 2, width: 0 },
     boxShadowOpacity: 0.25,
@@ -82,11 +71,13 @@ const styles = StyleSheet.create({
   errorModalView: {
     backgroundColor: COLORS.YELLOW,
     fontFamily: FONTS.TEXT_BLACK,
-    fontSize: FONT_SIZE.TITLE,
+    fontSize: FONT_SIZE.TEXT_LG,
+    letterSpacing: 0.5,
   },
   modalText: {
     fontFamily: FONTS.TEXT_BLACK,
-    fontSize: FONT_SIZE.TITLE,
+    fontSize: FONT_SIZE.TEXT_LG,
+    letterSpacing: 0.5,
     textAlign: 'center',
   },
 });
