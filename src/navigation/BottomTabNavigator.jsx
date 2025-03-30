@@ -28,10 +28,10 @@ const BottomTabNavigator = () => {
 
   useEffect(() => {
     if (state) {
-      if (routeMatch(state, 'Cinema', 'CandyBar')) {
+      if (routeMatch(state, 'Cinema', 'CheckOut')) {
+        setCinemaIconColor(COLORS.BLUE_LIGHT);
+      } else if (routeMatch(state, 'Cinema', 'CandyBar')) {
         setCinemaIconColor(COLORS.ROSE);
-      } else if (routeMatch(state, 'Cinema', 'Cart')) {
-        setCinemaIconColor(COLORS.WHITE);
       } else {
         setCinemaIconColor(COLORS.YELLOW);
       }
@@ -65,7 +65,7 @@ const BottomTabNavigator = () => {
           } else if (route.name === 'UserProfile') {
             iconName = 'person';
             iconOrigin = 'IonIcons';
-            iconColor = focused ? COLORS.WHITE : COLORS.GREY;
+            iconColor = focused ? COLORS.RED : COLORS.GREY;
           }
 
           return (

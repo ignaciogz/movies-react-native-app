@@ -54,24 +54,24 @@ const TicketScreen = ({ navigation, route }) => {
             ]}>
           </View>
           <View style={styles.ticketScreeningData}>
-            <View style={styles.subTitleContainer}>
-              <AppLabel
-                title={`${ticketData?.date.day} ${ticketData?.date.date}`}
-                bgColor={"transparent"}
-                fontSize={FONT_SIZE.TEXT_LG}
-                icon="calendar-outline"
-                iconOrigin="IonIcons"
-              />
-            </View>
-            <View style={styles.subTitleContainer}>
-              <AppLabel
-                title={ticketData?.time}
-                bgColor={"transparent"}
-                fontSize={FONT_SIZE.TEXT_LG}
-                icon="access-time"
-                iconOrigin="MaterialIcons"
-              />
-            </View>
+            {/* <View style={styles.subTitleContainer}> */}
+            <AppLabel
+              title={`${ticketData?.date.day} ${ticketData?.date.date}`}
+              bgColor={"transparent"}
+              fontSize={FONT_SIZE.TEXT_LG}
+              icon="calendar-outline"
+              iconOrigin="IonIcons"
+            />
+            {/* </View> */}
+            {/* <View style={styles.subTitleContainer}> */}
+            <AppLabel
+              title={ticketData?.time}
+              bgColor={"transparent"}
+              fontSize={FONT_SIZE.TEXT_LG}
+              icon="access-time"
+              iconOrigin="MaterialIcons"
+            />
+            {/* </View> */}
           </View>
           <Image
             source={require('../assets/images/qrCode.png')}

@@ -17,7 +17,7 @@ const CandyBarScreen = ({ navigation }) => {
   console.log("Drink: ", drink, "Snacks: ", snacks, "Popcorn: ", popcorn);
 
   const getTotalPrice = () => {
-    return (drink * `$${getCandyBarProduct("drink").price} c/u`)
+    return (drink * getCandyBarProduct("drink").price)
             + (snacks * getCandyBarProduct("snacks").price)
             + (popcorn * getCandyBarProduct("popcorn").price)
   }
@@ -49,28 +49,28 @@ const CandyBarScreen = ({ navigation }) => {
             showDataOf="CandyBar"
             title={"Gaseosa gigante"}
             text={`$ ${getCandyBarProduct("drink").price} c/u`}
-            count={drink}
-            countFunction={setDrink}
+            itemCount={drink}
+            itemFunction={setDrink}
           />
           <ListItem
             showDataOf="CandyBar"
             title={"Combo de Snacks"}
             text={`$ ${getCandyBarProduct("snacks").price} c/u`}
-            count={snacks}
-            countFunction={setSnacks}
+            itemCount={snacks}
+            itemFunction={setSnacks}
           />
           <ListItem
             showDataOf="CandyBar"
             title={"Balde de pochoclos"}
             text={`$ ${getCandyBarProduct("popcorn").price} c/u`}
-            count={popcorn}
-            countFunction={setPopCorn}
+            itemCount={popcorn}
+            itemFunction={setPopCorn}
           />
         </View>
 
         <PurchaseFlowFooter
           buttonFunction={() => {
-            navigation.navigate('Cinema', { screen: 'Cart' });
+            navigation.navigate('Cinema', { screen: 'CheckOut' });
           }}
           purchaseStage={"candyBar"}
           totalPrice={getTotalPrice()}

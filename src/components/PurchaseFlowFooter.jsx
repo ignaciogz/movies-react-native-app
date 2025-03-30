@@ -17,10 +17,10 @@ const purchaseFlowData = {
     stageColor: COLORS.ROSE,
     imageSource: require("../assets/images/candyBar.png"),
   },
-  "CART": {
+  "CHECKOUT": {
     totalPriceTitle: "TOTAL",
     buttonTitle: "Comprar",
-    stageColor: COLORS.GREY,
+    stageColor: COLORS.BLUE_LIGHT,
   },
 }
 

@@ -10,8 +10,8 @@ const listItemData = {
   "CANDYBAR": {
     screenColor: COLORS.ROSE,
   },
-  "CART": {
-    screenColor: COLORS.VIOLET_LIGHT,
+  "CHECKOUT": {
+    screenColor: COLORS.BLUE_LIGHT,
   },
   "TICKETS": {
     screenColor: COLORS.YELLOW,
@@ -22,7 +22,7 @@ const ListItem = ({
     showDataOf = "Tickets",
     title = "",
     text = null,
-    count = 0,
+    itemCount = 0,
     itemFunction = () => {},
   }) => {
 
@@ -39,13 +39,13 @@ const ListItem = ({
         screenName === "CANDYBAR"
         &&  <AppCounter
               buttonsColor={listItemData[screenName].screenColor}
-              count={count}
+              count={itemCount}
               countFunction={itemFunction}
             />
       }
 
       {
-        screenName === "CART"
+        screenName === "CHECKOUT"
         &&  <AppCircularButton
               onPress={itemFunction}
               bgColor="transparent"
