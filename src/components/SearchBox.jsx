@@ -1,17 +1,20 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 
 import AppIcon from './AppIcon';
+import { clearSearchText, setSearchText } from '../features/search/searchSlice';
 
 import { BORDER_RADIUS, COLORS, FONT_SIZE, FONTS, SPACE } from '../global/theme';
 
-const SearchBox = ({ initialSearchValue = "", searchFunction = () => {} }) => {
-  const [searchText, setSearchText] = useState(initialSearchValue);
+const SearchBox = ({ searchFunction = () => {} }) => {
+  const dispatch = useDispatch();
+  const searchText = useSelector((state) => state.search.searchText);
 
   return (
     <View style={styles.searchBox}>
       <TextInput
-        onChangeText={setSearchText}
+        onChangeText={(text) => dispatch(setSearchText(text))}
         placeholder="Encuentra tu pelicula..."
         placeholderTextColor={COLORS.WHITE_RGBA32}
         value={searchText}
@@ -26,7 +29,7 @@ const SearchBox = ({ initialSearchValue = "", searchFunction = () => {} }) => {
       </TouchableOpacity>
       {
         searchText
-          ? <TouchableOpacity onPress={() => setSearchText("")}>
+          ? <TouchableOpacity onPress={() => dispatch(clearSearchText())}>
               <AppIcon
                 icon={"close-sharp"}
                 iconOrigin={"IonIcons"}

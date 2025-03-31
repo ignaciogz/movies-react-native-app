@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Dimensions, FlatList, ScrollView,StatusBar, StyleSheet, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useDispatch } from 'react-redux';
 
 import MovieCard from '../components/MovieCard';
 import SearchBox from '../components/SearchBox';
+import { clearSearchText } from '../features/search/searchSlice';
 
 import { COLORS, SPACE } from '../global/theme';
 
@@ -13,8 +15,13 @@ import nowPlaying from '../global/data/nowplaying.json';
 const { width, height } = Dimensions.get('window');
 
 const HomeScreen = ({ navigation }) => {
+  const dispatch = useDispatch();
   const [nowPlayingMoviesData, setNowPlayingMoviesData] = useState(nowPlaying);
   const [genresData, setGenresData] = useState(genresList);
+
+  useEffect(() => {
+    dispatch(clearSearchText());
+  }, []);
 
   const getMovieGenresSorted = (movie) => {
     return movie.genre_ids.slice(0, 3)
@@ -23,19 +30,8 @@ const HomeScreen = ({ navigation }) => {
   };
 
   const searchMoviesFunction = (searchText) => {
-    if (searchText.length) {
-      const results = nowPlayingMoviesData.filter((movieData) =>
-        movieData.title.toLowerCase().includes(searchText.toLowerCase())
-      );
-
-      navigation.navigate('MovieSearch', { screen: 'Search', params: {
-        initialSearchValue: searchText,
-        searchResults: results,
-      }});
-    } else {
-      navigation.navigate('MovieSearch', { screen: 'Search', params: {
-        searchResults: nowPlayingMoviesData,
-      }});
+    if (searchText.length > 0) {
+      navigation.navigate('MovieSearch', { screen: 'Search'});
     }
   };
 

@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Dimensions, FlatList, StatusBar, StyleSheet, Text, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useSelector } from 'react-redux';
 
 import MovieCard from '../components/MovieCard';
 import SearchBox from '../components/SearchBox';
@@ -10,14 +11,22 @@ import { COLORS, FONT_SIZE, FONTS, SPACE } from '../global/theme';
 import genresList from '../global/data/genres.json';
 import nowPlaying from '../global/data/nowplaying.json';
 
-const {width, height} = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
 const SearchScreen = ({ navigation, route }) => {
   const [nowPlayingMoviesData, setNowPlayingMoviesData] = useState(nowPlaying);
   const [genresData, setGenresData] = useState(genresList);
-  const initialSearchValue = route.params?.initialSearchValue || '';
-  const initialSearchResults = route.params?.searchResults || nowPlayingMoviesData;
-  const [searchResults, setSearchResults] = useState(initialSearchResults);
+
+  const searchText = useSelector((state) => state.search.searchText);
+  const [searchResults, setSearchResults] = useState(nowPlayingMoviesData);
+
+  useEffect(() => {
+    searchText && searchMoviesFunction(searchText);
+  }, []);
+
+  useEffect(() => {
+    searchText.length == 0 && setSearchResults(nowPlayingMoviesData);
+  }, [searchText]);
 
   const getMovieGenresSorted = (movie) => {
     return movie.genre_ids.slice(0, 3)
@@ -27,13 +36,12 @@ const SearchScreen = ({ navigation, route }) => {
 
   const searchMoviesFunction = (searchText) => {
     if (searchText.length) {
+      console.log("Hola desde la funcion")
       const results = nowPlayingMoviesData.filter((movieData) =>
         movieData.title.toLowerCase().includes(searchText.toLowerCase())
       );
 
       setSearchResults(results);
-    } else {
-      setSearchResults(nowPlayingMoviesData);
     }
   };
 
@@ -48,7 +56,6 @@ const SearchScreen = ({ navigation, route }) => {
 
         <View style={styles.searchBoxContainer}>
           <SearchBox
-            initialSearchValue={initialSearchValue}
             searchFunction={searchMoviesFunction}
           />
         </View>
