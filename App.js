@@ -1,7 +1,9 @@
 import { Platform, SafeAreaView, StatusBar, StyleSheet } from 'react-native';
 import { useFonts } from 'expo-font';
+import { Provider } from 'react-redux';
 
 import Navigator from './src/navigation/Navigator';
+import store from './src/store';
 
 export default function App() {
   const [fontsLoaded, fontError] = useFonts({
@@ -18,7 +20,9 @@ export default function App() {
   if(fontsLoaded && !fontError) {
     return (
       <SafeAreaView style={styles.container}>
-        <Navigator />
+        <Provider store={store}>
+          <Navigator />
+        </Provider>
       </SafeAreaView>
     );
   }
