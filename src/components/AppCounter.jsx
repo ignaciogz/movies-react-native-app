@@ -1,22 +1,23 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-// import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import AppCircularButton from './AppCircularButton';
-// import { decrement, increment, reset, incrementByAmount } from '../features/counter/CounterSlice';
+import { increment, decrement } from '../features/counter/counterSlice';
 
 import { COLORS, FONTS, FONT_SIZE, SPACE } from '../global/theme';
 
-
-const AppCounter = ({ buttonsColor, count, countFunction }) => {
-  // const count = useSelector(state => state.counter.value);
-  // const dispatch = useDispatch();
+const AppCounter = ({ buttonsColor, counterName }) => {
+  const dispatch = useDispatch();
+  const counterValue = useSelector((state) => state.counter[counterName]);
+  console.log("counterName: ", counterName);
+  console.log("counterValue: ", counterValue);
 
   return (
     <View style={styles.counterBox}>
       <AppCircularButton
         onPress={() => {
-          if (count !== 0) countFunction(count - 1);
+          dispatch(decrement(counterName));
         }}
         bgColor="transparent"
         icon="minus"
@@ -25,11 +26,11 @@ const AppCounter = ({ buttonsColor, count, countFunction }) => {
         iconSize={FONT_SIZE.TEXT}
       />
 
-      <Text style={styles.counterText}>{count}</Text>
+      <Text style={styles.counterText}>{counterValue}</Text>
 
       <AppCircularButton
         onPress={() => {
-          countFunction(count + 1);
+          dispatch(increment(counterName));
         }}
         bgColor="transparent"
         icon="plus"

@@ -22,7 +22,7 @@ const ListItem = ({
     showDataOf = "Tickets",
     title = "",
     text = null,
-    itemCount = 0,
+    counterName = "",
     itemFunction = () => {},
   }) => {
 
@@ -39,8 +39,7 @@ const ListItem = ({
         screenName === "CANDYBAR"
         &&  <AppCounter
               buttonsColor={listItemData[screenName].screenColor}
-              count={itemCount}
-              countFunction={itemFunction}
+              counterName={counterName}
             />
       }
 

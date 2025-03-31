@@ -25,7 +25,7 @@ const SearchScreen = ({ navigation, route }) => {
   }, []);
 
   useEffect(() => {
-    searchText.length == 0 && setSearchResults(nowPlayingMoviesData);
+    searchText.length === 0 && setSearchResults(nowPlayingMoviesData);
   }, [searchText]);
 
   const getMovieGenresSorted = (movie) => {
@@ -35,12 +35,10 @@ const SearchScreen = ({ navigation, route }) => {
   };
 
   const searchMoviesFunction = (searchText) => {
-    if (searchText.length) {
-      console.log("Hola desde la funcion")
+    if (searchText.length > 0) {
       const results = nowPlayingMoviesData.filter((movieData) =>
         movieData.title.toLowerCase().includes(searchText.toLowerCase())
       );
-
       setSearchResults(results);
     }
   };

@@ -49,22 +49,19 @@ const CandyBarScreen = ({ navigation }) => {
             showDataOf="CandyBar"
             title={"Gaseosa gigante"}
             text={`$ ${getCandyBarProduct("drink").price} c/u`}
-            itemCount={drink}
-            itemFunction={setDrink}
+            counterName={"drink"}
           />
           <ListItem
             showDataOf="CandyBar"
             title={"Combo de Snacks"}
             text={`$ ${getCandyBarProduct("snacks").price} c/u`}
-            itemCount={snacks}
-            itemFunction={setSnacks}
+            counterName={"snacks"}
           />
           <ListItem
             showDataOf="CandyBar"
             title={"Balde de pochoclos"}
             text={`$ ${getCandyBarProduct("popcorn").price} c/u`}
-            itemCount={popcorn}
-            itemFunction={setPopCorn}
+            counterName={"popcorn"}
           />
         </View>
       </ScrollView>
