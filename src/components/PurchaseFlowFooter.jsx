@@ -24,20 +24,21 @@ const purchaseFlowData = {
   },
 }
 
-const PurchaseFlowFooter = ({ buttonFunction, purchaseStage, totalPrice, withImage = false }) => {
+const PurchaseFlowFooter = ({ buttonFunction, purchaseStage, totalPrice }) => {
   const data = purchaseFlowData[purchaseStage.toUpperCase()];
 
   return (
     <View style={styles.footerContainer}>
       {
-        withImage &&
-          <View style={styles.imageContainer}>
-            <Image
-              source={data.imageSource}
-              style={styles.image}
-              resizeMode="contain"
-            />
-          </View>
+        data.imageSource
+          ? <View style={styles.imageContainer}>
+              <Image
+                source={data.imageSource}
+                style={styles.image}
+                resizeMode="contain"
+              />
+            </View>
+          : null
       }
       <View style={styles.footer}>
         <View>

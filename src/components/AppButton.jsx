@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: BORDER_RADIUS.MD * 5,
     paddingHorizontal: SPACE.LG * 2,
-    paddingVertical: SPACE.MD * 1.5,
+    paddingVertical: SPACE.MD * 2,
   },
   buttonText: {
     color: COLORS.WHITE,

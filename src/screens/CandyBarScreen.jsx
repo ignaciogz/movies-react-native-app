@@ -75,7 +75,6 @@ const CandyBarScreen = ({ navigation }) => {
         }}
         purchaseStage={"candyBar"}
         totalPrice={getTotalPrice()}
-        withImage={true}
       />
     </LinearGradient>
   );

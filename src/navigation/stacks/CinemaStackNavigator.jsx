@@ -12,7 +12,7 @@ const Stack = createNativeStackNavigator();
 const CinemaStackNavigator = () => {
   return (
     <Stack.Navigator
-      initialRouteName="CandyBar"
+      initialRouteName="Tickets"
       screenOptions={{
         headerShown: false,
       }}

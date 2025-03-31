@@ -70,7 +70,7 @@ const CheckOutScreen = ({ navigation }) => {
 
       <PurchaseFlowFooter
         buttonFunction={() => {
-          navigation.navigate('Movies');
+          navigation.navigate('Movies', { screen: 'Home' });
         }}
         purchaseStage={"checkOut"}
         totalPrice={32512}

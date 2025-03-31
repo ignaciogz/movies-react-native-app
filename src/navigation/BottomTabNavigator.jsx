@@ -31,7 +31,9 @@ const BottomTabNavigator = () => {
       const currentCinemaStackScreen = getCurrentStackScreen(state, 'Cinema');
 
       if (currentCinemaStackScreen) {
-        if (currentCinemaStackScreen === "CandyBar") {
+        if (currentCinemaStackScreen === "Booking") {
+          setCinemaIconColor(COLORS.YELLOW);
+        } else if (currentCinemaStackScreen === "CandyBar") {
           setCinemaIconColor(COLORS.ROSE);
         } else if (currentCinemaStackScreen === "CheckOut") {
           setCinemaIconColor(COLORS.BLUE_LIGHT);

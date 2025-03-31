@@ -25,14 +25,15 @@ const SearchBox = ({ initialSearchValue = "", searchFunction = () => {} }) => {
         />
       </TouchableOpacity>
       {
-        searchText &&
-          <TouchableOpacity onPress={() => setSearchText("")}>
-            <AppIcon
-              icon={"close-sharp"}
-              iconOrigin={"IonIcons"}
-              iconSize={FONT_SIZE.ICON_BIG}
-            />
-          </TouchableOpacity>
+        searchText
+          ? <TouchableOpacity onPress={() => setSearchText("")}>
+              <AppIcon
+                icon={"close-sharp"}
+                iconOrigin={"IonIcons"}
+                iconSize={FONT_SIZE.ICON_BIG}
+              />
+            </TouchableOpacity>
+          : null
       }
     </View>
   );
