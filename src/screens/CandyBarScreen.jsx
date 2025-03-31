@@ -1,29 +1,40 @@
-import React, { useState } from 'react';
-import { ScrollView, StatusBar, StyleSheet, Text, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { FlatList, ScrollView, StatusBar, StyleSheet, Text } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useSelector } from 'react-redux';
 
 import AppHeaderTopBar from '../components/AppHeaderTopBar';
 import ListItem from '../components/ListItem';
 import PurchaseFlowFooter from '../components/PurchaseFlowFooter';
+import { useGetCandyBarProductsQuery } from '../services/cinemaService';
 
 import { CONFIG } from '../global/config';
 import { COLORS, FONTS, FONT_SIZE, SPACE } from '../global/theme';
 
 const CandyBarScreen = ({ navigation }) => {
-  const [drink, setDrink] = useState(0);
-  const [snacks, setSnacks] = useState(0);
-  const [popcorn, setPopCorn] = useState(0);
+  const [candyBarProducts, setCandyBarProducts] = useState([]);
+  const [candyBarTotal, setCandyBarTotal] = useState(0);
+  const {data: candyBarData, error, isLoading} = useGetCandyBarProductsQuery();
+  const counters = useSelector((state) => state.counter);
 
-  console.log("Drink: ", drink, "Snacks: ", snacks, "Popcorn: ", popcorn);
+  useEffect(() => {
+    if(!isLoading){
+      setCandyBarProducts(candyBarData);
+    }
+  }, [candyBarData, isLoading]);
+
+  useEffect(() => {
+    if(candyBarProducts.length > 0) {
+      setCandyBarTotal(getTotalPrice());
+    }
+  }, [counters]);
 
   const getTotalPrice = () => {
-    return (drink * getCandyBarProduct("drink").price)
-            + (snacks * getCandyBarProduct("snacks").price)
-            + (popcorn * getCandyBarProduct("popcorn").price)
-  }
+    const totalPrice = candyBarProducts.reduce((total, product) => {
+      return total + product.price * counters[product.name];
+    }, 0);
 
-  const getCandyBarProduct = (productName) => {
-    return CONFIG.CANDYBAR.PRODUCTS.find((product) => product.name === productName.toLowerCase());
+    return totalPrice;
   }
 
   return (
@@ -44,26 +55,20 @@ const CandyBarScreen = ({ navigation }) => {
           Aprovecha la oferta exclusiva de nuestra app del {CONFIG.CANDYBAR.APP_EXCLUSIVE_DISCOUNT}% OFF !
         </Text>
 
-        <View style={styles.itemsContainer}>
-          <ListItem
-            showDataOf="CandyBar"
-            title={"Gaseosa gigante"}
-            text={`$ ${getCandyBarProduct("drink").price} c/u`}
-            counterName={"drink"}
-          />
-          <ListItem
-            showDataOf="CandyBar"
-            title={"Combo de Snacks"}
-            text={`$ ${getCandyBarProduct("snacks").price} c/u`}
-            counterName={"snacks"}
-          />
-          <ListItem
-            showDataOf="CandyBar"
-            title={"Balde de pochoclos"}
-            text={`$ ${getCandyBarProduct("popcorn").price} c/u`}
-            counterName={"popcorn"}
-          />
-        </View>
+        <FlatList
+          data={candyBarProducts}
+          keyExtractor={(item) => item.name}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={styles.itemsContainer}
+          renderItem={({ item }) => (
+            <ListItem
+              showDataOf="CandyBar"
+              title={item.text}
+              text={`$ ${item.price} c/u`}
+              counterName={item.name}
+            />
+          )}
+        />
       </ScrollView>
 
       <PurchaseFlowFooter
@@ -71,7 +76,7 @@ const CandyBarScreen = ({ navigation }) => {
           navigation.navigate('Cinema', { screen: 'CheckOut' });
         }}
         purchaseStage={"candyBar"}
-        totalPrice={getTotalPrice()}
+        totalPrice={candyBarTotal}
       />
     </LinearGradient>
   );

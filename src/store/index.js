@@ -3,27 +3,27 @@ import { setupListeners } from '@reduxjs/toolkit/query';
 
 import cartReducer from '../features/cart/cartSlice';
 import cinemaReducer from '../features/cinema/cinemaSlice';
-import counterReducer from '../features/counter/counterSlice';
+import countersReducer from '../features/counters/countersSlice';
 import searchReducer from '../features/search/searchSlice';
 import userReducer from '../features/user/userSlice';
 
-/* import { authApi } from '../services/authService';
-import { cinemaApi } from '../services/cinemaService'; */
+/* import { authApi } from '../services/authService'; */
+import { cinemaApi } from '../services/cinemaService';
 
 const store = configureStore({
   reducer: {
     cart: cartReducer,
     cinema: cinemaReducer,
-    counter: counterReducer,
+    counters: countersReducer,
     search: searchReducer,
     user: userReducer,
-    /* [authApi.reducerPath]: authApi.reducer,
-    [cinemaApi.reducerPath]: cinemaApi.reducer, */
+    /* [authApi.reducerPath]: authApi.reducer, */
+    [cinemaApi.reducerPath]: cinemaApi.reducer,
   },
-  /* middleware: (getDefaultMiddleware) =>
+  middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
-      .concat(authApi.middleware)
-      .concat(cinemaApi.middleware) */
+      /* .concat(authApi.middleware) */
+      .concat(cinemaApi.middleware)
 });
 
 setupListeners(store.dispatch);

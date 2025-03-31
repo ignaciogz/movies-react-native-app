@@ -10,8 +10,6 @@ import { COLORS, FONTS, FONT_SIZE, SPACE } from '../global/theme';
 const AppCounter = ({ buttonsColor, counterName }) => {
   const dispatch = useDispatch();
   const counterValue = useSelector((state) => state.counter[counterName]);
-  console.log("counterName: ", counterName);
-  console.log("counterValue: ", counterValue);
 
   return (
     <View style={styles.counterBox}>

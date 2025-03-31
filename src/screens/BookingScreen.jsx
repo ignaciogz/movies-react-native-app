@@ -15,7 +15,7 @@ const BookingScreen = ({ navigation, route }) => {
   const {
     bookingAvailableDatesArray,
     bookingSeatsArray,
-    bookingShowTimesArray,
+    bookingTimesArray,
     bookingTotalPrice,
     selectedDateIndex,
     selectedSeatsArray,
@@ -28,7 +28,7 @@ const BookingScreen = ({ navigation, route }) => {
   const bookSeats = async () => {
     const areSeatsSelected = selectedSeatsArray.length !== 0;
     const isDateSelected = bookingAvailableDatesArray[selectedDateIndex] !== undefined;
-    const isTimeSelected = bookingShowTimesArray[selectedTimeIndex] !== undefined;
+    const isTimeSelected = bookingTimesArray[selectedTimeIndex] !== undefined;
 
     if (areSeatsSelected && isDateSelected && isTimeSelected) {
       try {
@@ -38,8 +38,8 @@ const BookingScreen = ({ navigation, route }) => {
         /* {
           movieTitle: route.params.Title,
           seatsArray: selectedSeatsArray,
-          time: cinemaShowTimesArray[selectedTimeIndex],
-          date: cinemaAvailableDatesArray[selectedDateIndex],
+          time: bookingTimesArray[selectedTimeIndex],
+          date: bookingAvailableDatesArray[selectedDateIndex],
           ticketImage: route.params.PosterImage,
         } */
 
@@ -220,10 +220,10 @@ const BookingScreen = ({ navigation, route }) => {
           />
         </View>
 
-        {/* ----------- SHOW TIMES ----------- */}
-        <View style={styles.bookingShowTimesContainer}>
+        {/* ----------- TIMES ----------- */}
+        <View style={styles.bookingTimesContainer}>
           <FlatList
-            data={bookingShowTimesArray}
+            data={bookingTimesArray}
             keyExtractor={item => item}
             horizontal
             showsHorizontalScrollIndicator={false}
@@ -236,7 +236,7 @@ const BookingScreen = ({ navigation, route }) => {
                     style={
                       index == 0
                         ? { marginLeft: SPACE.LG * 2 }
-                        : index == bookingShowTimesArray.length - 1
+                        : index == bookingTimesArray.length - 1
                           ? { marginRight: SPACE.LG * 2 }
                           : {}
                   }>
@@ -310,7 +310,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.TEXT,
     fontSize: FONT_SIZE.TEXT_SM,
   },
-  bookingShowTimesContainer: {
+  bookingTimesContainer: {
     marginTop: SPACE.LG * 1.5,
   },
   cinemaMovieTitleContainer: {

@@ -5,7 +5,7 @@ import { generateAvailableWeekdays, generateSeats } from '../utils/booking';
 
 const columns = CONFIG.CINEMA_ROOM.COLUMNS;
 const rows = CONFIG.CINEMA_ROOM.ROWS;
-const bookingShowTimesArray = CONFIG.CINEMA_ROOM.SHOWTIMES;
+const bookingTimesArray = CONFIG.CINEMA_ROOM.TIMES;
 const bookingTicketPrice = CONFIG.CINEMA_ROOM.TICKETS.GENERAL_PRICE;
 
 const useBooking = () => {
@@ -13,9 +13,9 @@ const useBooking = () => {
   const [bookingSeatsArray, setBookingSeatsArray] = useState(generateSeats(rows, columns));
   const [bookingTotalPrice, setBookingTotalPrice] = useState(0);
 
-  const [selectedDateIndex, setSelectedDateIndex] = useState(null);
+  const [selectedDateIndex, setSelectedDateIndex] = useState(0);
   const [selectedSeatsArray, setSelectedSeatsArray] = useState([]);
-  const [selectedTimeIndex, setSelectedTimeIndex] = useState(null);
+  const [selectedTimeIndex, setSelectedTimeIndex] = useState(0);
 
   /* console.log("------------------")
   console.log(":: Seats - Array: ", bookingSeatsArray)
@@ -52,7 +52,7 @@ const useBooking = () => {
   return {
     bookingAvailableDatesArray,
     bookingSeatsArray,
-    bookingShowTimesArray,
+    bookingTimesArray,
     bookingTotalPrice,
     selectedDateIndex,
     selectedSeatsArray,
