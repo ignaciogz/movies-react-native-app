@@ -16,7 +16,7 @@ const MovieDetailCard = ({ movieData, navigation }) => {
       <View>
         <ImageBackground
           source={{
-            uri: CONFIG.GET_IMAGE_PATH('w780', movieData.backdrop_path),
+            uri: CONFIG.GET_IMAGE_PATH('w780', movieData?.backdrop_path),
           }}
           style={styles.cardImageBackground}
         >
@@ -26,7 +26,7 @@ const MovieDetailCard = ({ movieData, navigation }) => {
           >
             <AppHeaderTopBar marginHorizontal={SPACE.LG * 3} navigation={navigation}>
               <AppLabel
-                title={formatMovieRuntime(movieData.runtime)}
+                title={formatMovieRuntime(movieData?.runtime)}
                 fontSize={FONT_SIZE.TEXT_LG}
                 icon="access-time"
                 iconOrigin="MaterialIcons"
@@ -39,7 +39,7 @@ const MovieDetailCard = ({ movieData, navigation }) => {
 
         <Image
           source={{
-            uri: CONFIG.GET_IMAGE_PATH('w342', movieData.poster_path)
+            uri: CONFIG.GET_IMAGE_PATH('w342', movieData?.poster_path)
           }}
           style={styles.cardImage}
         />

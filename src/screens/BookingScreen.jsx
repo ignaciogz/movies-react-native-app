@@ -36,11 +36,11 @@ const BookingScreen = ({ navigation, route }) => {
         // ---- SAVE TICKETS INTO REDUX CART STATE ----
 
         /* {
-          movieTitle: route.params.Title,
+          movieTitle: route.params.title,
           seatsArray: selectedSeatsArray,
           time: bookingTimesArray[selectedTimeIndex],
           date: bookingAvailableDatesArray[selectedDateIndex],
-          ticketImage: route.params.PosterImage,
+          ticketImage: route.params.posterImage,
         } */
 
         navigation.navigate('Cinema', { screen: 'CandyBar' });
@@ -73,7 +73,7 @@ const BookingScreen = ({ navigation, route }) => {
         {/* ----------- SCREEN ----------- */}
         <View style={styles.cinemaScreenContainer}>
           <ImageBackground
-            source={{uri: route.params?.BgImage}}
+            source={{uri: route.params?.bgImage}}
             style={styles.cinemaScreen}
             imageStyle={styles.cinemaScreenImage}
           >
@@ -93,7 +93,7 @@ const BookingScreen = ({ navigation, route }) => {
             </AppHeaderTopBar>
             <View style={styles.cinemaScreenOverlay} />
             <Text numberOfLines={1} style={styles.cinemaMovieTitleContainer}>
-              {route.params?.Title}
+              {route.params?.title}
             </Text>
           </ImageBackground>
         </View>

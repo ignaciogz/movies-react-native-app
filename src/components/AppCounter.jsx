@@ -3,13 +3,13 @@ import { StyleSheet, Text, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 import AppCircularButton from './AppCircularButton';
-import { increment, decrement } from '../features/counter/counterSlice';
+import { increment, decrement } from '../features/counters/countersSlice';
 
 import { COLORS, FONTS, FONT_SIZE, SPACE } from '../global/theme';
 
 const AppCounter = ({ buttonsColor, counterName }) => {
   const dispatch = useDispatch();
-  const counterValue = useSelector((state) => state.counter[counterName]);
+  const counterValue = useSelector((state) => state.counters[counterName]);
 
   return (
     <View style={styles.counterBox}>
