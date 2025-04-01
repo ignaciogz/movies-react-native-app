@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { FlatList, ImageBackground, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import AppHeaderTopBar from '../components/AppHeaderTopBar';
 import AppIcon from '../components/AppIcon';
@@ -34,6 +34,12 @@ const BookingScreen = ({ navigation, route }) => {
   } = useBooking();
   const dispatch = useDispatch();
   const {data: timesData, error: errorTimes, isLoading: isTimesLoading} = useGetScreeningTimesQuery();
+  const {movieSelected} = useSelector((state)=> state.cinema.value);
+  const userLogged = useSelector( state => state.user.value);
+
+  useEffect(() => {
+    clearBooking();
+  }, [movieSelected]);
 
   useEffect(() => {
     if(!isTimesLoading){
@@ -48,7 +54,7 @@ const BookingScreen = ({ navigation, route }) => {
 
     if (areSeatsSelected && isDateSelected && isTimeSelected) {
       dispatch(addCartItems({
-        user: "userIdLogged",
+        user: userLogged.localId,
         type: "Pelicula",
         seats: selectedSeatsArray,
         movieID: route.params.movieID,

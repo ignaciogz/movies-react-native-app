@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 
 import MovieCard from '../components/MovieCard';
 import SearchBox from '../components/SearchBox';
+import { setMovieSelected } from '../features/cinema/cinemaSlice';
 import { clearSearchText } from '../features/search/searchSlice';
 
 import { COLORS, SPACE } from '../global/theme';
@@ -70,6 +71,7 @@ const HomeScreen = ({ navigation }) => {
             return (
               <MovieCard
                 cardFunction={() => {
+                  dispatch(setMovieSelected(movieData));
                   navigation.navigate('MovieDetail', { movieData });
                 }}
                 cardWidth={width * 0.75}

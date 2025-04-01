@@ -1,6 +1,7 @@
 import React from 'react';
-import { ScrollView, StatusBar, StyleSheet, Text, View } from 'react-native';
+import { FlatList,ScrollView, StatusBar, StyleSheet, Text, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useSelector } from 'react-redux';
 
 import AppHeaderTopBar from '../components/AppHeaderTopBar';
 import AppLabel from '../components/AppLabel';
@@ -8,8 +9,12 @@ import ListItem from '../components/ListItem';
 import PurchaseFlowFooter from '../components/PurchaseFlowFooter';
 
 import { COLORS, FONTS, FONT_SIZE, SPACE } from '../global/theme';
+import { formatPrice } from '../utils/formatter';
 
 const CheckOutScreen = ({ navigation }) => {
+  const {movieSelected} = useSelector((state)=> state.cinema.value);
+  const cart = useSelector((state)=> state.cart.value);
+
   return (
     <LinearGradient
       colors={[COLORS.BLUE_LIGHT, COLORS.BLACK]}
@@ -29,14 +34,14 @@ const CheckOutScreen = ({ navigation }) => {
         </Text>
         <View style={styles.screeningData}>
           <AppLabel
-            title={`Sab 29`}
+            title={`${cart.screeningDate.day} ${cart.screeningDate.date}`}
             bgColor={"transparent"}
             fontSize={FONT_SIZE.TEXT_LG}
             icon="calendar-outline"
             iconOrigin="IonIcons"
           />
           <AppLabel
-            title={`15:30`}
+            title={cart.screeningTime}
             bgColor={"transparent"}
             fontSize={FONT_SIZE.TEXT_LG}
             icon="access-time"
@@ -44,28 +49,36 @@ const CheckOutScreen = ({ navigation }) => {
           />
         </View>
 
-        <View style={styles.itemsContainer}>
-          <ListItem
-            showDataOf="CheckOut"
-            title={"Amenaza en el aire"}
-            text={`Fila: 6 | Asiento: 18 | $8000` }
-          />
-          <ListItem
-            showDataOf="CheckOut"
-            title={"Amenaza en el aire"}
-            text={`Fila: 6 | Asiento: 19 | $8000` }
-          />
-          <ListItem
-            showDataOf="CheckOut"
-            title={"Gaseosa gigante"}
-            text={`Cantidad: 2 | $9000`}
-          />
-          <ListItem
-            showDataOf="CheckOut"
-            title={"Balde de pochoclos"}
-            text={`Cantidad: 2 | $16000`}
-          />
-        </View>
+        
+        <FlatList
+          data={cart.items}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={styles.itemsContainer}
+          renderItem={({ item, index }) => {
+              if(item.type === "Pelicula") {
+                return (
+                  <ListItem
+                    key={index}
+                    showDataOf="CheckOut"
+                    title={movieSelected.title}
+                    text={`Fila: ${item.seat.row} | Asiento: ${item.seat.number} | ${formatPrice(item.price)}`}
+                  />
+                );
+              } else if (item.type === "CandyBar") {
+                return (
+                  <ListItem
+                    key={index}
+                    showDataOf="CheckOut"
+                    title={item.name}
+                    text={`Cantidad: ${item.quantity} | ${formatPrice(item.quantity*item.price)}`}
+                  />
+                );
+              } else {
+                return null;
+              }
+            }
+          }
+        />
       </ScrollView>
 
       <PurchaseFlowFooter
@@ -73,7 +86,7 @@ const CheckOutScreen = ({ navigation }) => {
           navigation.navigate('Movies', { screen: 'Home' });
         }}
         purchaseStage={"checkOut"}
-        totalPrice={32512}
+        totalPrice={cart.totalCandyBar + cart.totalTickets}
       />
     </LinearGradient>
   );

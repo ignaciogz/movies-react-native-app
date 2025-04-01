@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Dimensions, FlatList, StatusBar, StyleSheet, Text, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import MovieCard from '../components/MovieCard';
 import SearchBox from '../components/SearchBox';
+import { setMovieSelected } from '../features/cinema/cinemaSlice';
 
 import { COLORS, FONT_SIZE, FONTS, SPACE } from '../global/theme';
 
@@ -14,6 +15,7 @@ import nowPlaying from '../global/data/nowplaying.json';
 const { width, height } = Dimensions.get('window');
 
 const SearchScreen = ({ navigation, route }) => {
+  const dispatch = useDispatch();
   const [nowPlayingMoviesData, setNowPlayingMoviesData] = useState(nowPlaying);
   const [genresData, setGenresData] = useState(genresList);
 
@@ -75,6 +77,7 @@ const SearchScreen = ({ navigation, route }) => {
               return (
                 <MovieCard
                   cardFunction={() => {
+                    dispatch(setMovieSelected(movieData));
                     navigation.navigate('Movies', { screen: 'MovieDetail', params: {
                       movieData
                     }});

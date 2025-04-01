@@ -19,6 +19,7 @@ const CandyBarScreen = ({ navigation }) => {
   const dispatch = useDispatch();
   const {data: candyBarData, error, isLoading} = useGetCandyBarProductsQuery();
   const counters = useSelector((state) => state.counters);
+  const userLogged = useSelector( state => state.user.value);
 
   useEffect(() => {
     if(!isLoading){
@@ -30,15 +31,13 @@ const CandyBarScreen = ({ navigation }) => {
     if(candyBarProducts.length > 0) {
       setCandyBarTotal(getTotalPrice());
     }
-
-    //console.log("COUNTERS: ", counters);
-  }, [counters]);
+  }, [candyBarProducts, counters]);
 
   const addProductsToCart = () => {
     const selectedProductsArray = getSelectedProductsArray();
 
     dispatch(addCartItems({
-      user: "userIdLogged",
+      user: userLogged.localId,
       type: "CandyBar",
       products: selectedProductsArray,
     }));
