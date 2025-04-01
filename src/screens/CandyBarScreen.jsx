@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { FlatList, ScrollView, StatusBar, StyleSheet, Text } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import AppHeaderTopBar from '../components/AppHeaderTopBar';
 import ListItem from '../components/ListItem';
 import PurchaseFlowFooter from '../components/PurchaseFlowFooter';
+import { addCartItems } from "../features/cart/cartSlice";
 import { useGetCandyBarProductsQuery } from '../services/cinemaService';
 
 import { CONFIG } from '../global/config';
@@ -15,8 +16,9 @@ import { formatPrice } from '../utils/formatter';
 const CandyBarScreen = ({ navigation }) => {
   const [candyBarProducts, setCandyBarProducts] = useState([]);
   const [candyBarTotal, setCandyBarTotal] = useState(0);
+  const dispatch = useDispatch();
   const {data: candyBarData, error, isLoading} = useGetCandyBarProductsQuery();
-  const counters = useSelector((state) => state.counter);
+  const counters = useSelector((state) => state.counters);
 
   useEffect(() => {
     if(!isLoading){
@@ -28,7 +30,34 @@ const CandyBarScreen = ({ navigation }) => {
     if(candyBarProducts.length > 0) {
       setCandyBarTotal(getTotalPrice());
     }
+
+    //console.log("COUNTERS: ", counters);
   }, [counters]);
+
+  const addProductsToCart = () => {
+    const selectedProductsArray = getSelectedProductsArray();
+
+    dispatch(addCartItems({
+      user: "userIdLogged",
+      type: "CandyBar",
+      products: selectedProductsArray,
+    }));
+
+    navigation.navigate('Cinema', { screen: 'CheckOut' });
+  }
+
+  const getSelectedProductsArray = () => {
+    return Object.entries(counters)
+                .filter(([key, value]) => value > 0)
+                .map(([key, value]) => {
+                  const product = candyBarProducts.find((product) => product.name === key);
+                  return {
+                    name: product.text,
+                    quantity: value,
+                    price: product.price
+                  }
+                });
+  }
 
   const getTotalPrice = () => {
     const totalPrice = candyBarProducts.reduce((total, product) => {
@@ -74,7 +103,7 @@ const CandyBarScreen = ({ navigation }) => {
 
       <PurchaseFlowFooter
         buttonFunction={() => {
-          navigation.navigate('Cinema', { screen: 'CheckOut' });
+          addProductsToCart();
         }}
         purchaseStage={"candyBar"}
         totalPrice={candyBarTotal}

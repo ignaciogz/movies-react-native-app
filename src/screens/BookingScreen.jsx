@@ -47,15 +47,13 @@ const BookingScreen = ({ navigation, route }) => {
     const isTimeSelected = bookingTimesArray[selectedTimeIndex] !== undefined;
 
     if (areSeatsSelected && isDateSelected && isTimeSelected) {
-      console.log("REDUX !");
-
-      // ---- SAVE TICKETS INTO REDUX CART STATE ----
       dispatch(addCartItems({
+        user: "userIdLogged",
         type: "Pelicula",
         seats: selectedSeatsArray,
         movieID: route.params.movieID,
-        date: bookingAvailableDatesArray[selectedDateIndex],
-        time: bookingTimesArray[selectedTimeIndex],
+        screeningDate: bookingAvailableDatesArray[selectedDateIndex],
+        screeningTime: bookingTimesArray[selectedTimeIndex],
         price: bookingTicketPrice
       }));
 
