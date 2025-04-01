@@ -1,14 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FlatList, ImageBackground, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { useDispatch } from 'react-redux';
 
 import AppHeaderTopBar from '../components/AppHeaderTopBar';
 import AppIcon from '../components/AppIcon';
 import AppLabel from '../components/AppLabel';
 import PurchaseFlowFooter from '../components/PurchaseFlowFooter';
+import { addCartItems } from "../features/cart/cartSlice";
 import useAppModal from '../hooks/useAppModal';
 import useBooking from '../hooks/useBooking';
+import { useGetScreeningTimesQuery } from '../services/cinemaService';
 
+import { CONFIG } from '../global/config';
 import { BORDER_RADIUS, COLORS, FONT_SIZE, FONTS, SPACE } from '../global/theme';
+
+const bookingTicketPrice = CONFIG.CINEMA_ROOM.TICKETS.GENERAL_PRICE;
 
 const BookingScreen = ({ navigation, route }) => {
   const { AppModal, showAppModal } = useAppModal();
@@ -20,33 +26,41 @@ const BookingScreen = ({ navigation, route }) => {
     selectedDateIndex,
     selectedSeatsArray,
     selectedTimeIndex,
+    clearBooking,
     selectSeat,
+    setBookingTimesArray,
     setSelectedDateIndex,
     setSelectedTimeIndex,
   } = useBooking();
+  const dispatch = useDispatch();
+  const {data: timesData, error: errorTimes, isLoading: isTimesLoading} = useGetScreeningTimesQuery();
 
-  const bookSeats = async () => {
+  useEffect(() => {
+    if(!isTimesLoading){
+      setBookingTimesArray(timesData);
+    }
+  }, [timesData, isTimesLoading]);
+
+  const bookSeats = () => {
     const areSeatsSelected = selectedSeatsArray.length !== 0;
     const isDateSelected = bookingAvailableDatesArray[selectedDateIndex] !== undefined;
     const isTimeSelected = bookingTimesArray[selectedTimeIndex] !== undefined;
 
     if (areSeatsSelected && isDateSelected && isTimeSelected) {
-      try {
-        console.log("REDUX !");
-        // ---- SAVE TICKETS INTO REDUX CART STATE ----
+      console.log("REDUX !");
 
-        /* {
-          movieTitle: route.params.title,
-          seatsArray: selectedSeatsArray,
-          time: bookingTimesArray[selectedTimeIndex],
-          date: bookingAvailableDatesArray[selectedDateIndex],
-          ticketImage: route.params.posterImage,
-        } */
+      // ---- SAVE TICKETS INTO REDUX CART STATE ----
+      dispatch(addCartItems({
+        type: "Pelicula",
+        seats: selectedSeatsArray,
+        movieID: route.params.movieID,
+        date: bookingAvailableDatesArray[selectedDateIndex],
+        time: bookingTimesArray[selectedTimeIndex],
+        price: bookingTicketPrice
+      }));
 
-        navigation.navigate('Cinema', { screen: 'CandyBar' });
-      } catch (err) {
-        showAppModal('error', `BookSeats function FAILED: ${err}`);
-      }
+      /* clearBooking(); */
+      navigation.navigate('Cinema', { screen: 'CandyBar' });
     } else {
       let message = "Por favor, seleccione: ";
 

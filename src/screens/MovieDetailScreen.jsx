@@ -24,8 +24,10 @@ const MovieDetailScreen = ({ navigation, route }) => {
         <AppButton
           onPress={() => {
             navigation.navigate('Cinema', { screen: 'Booking', params: {
+              movieID: movieData.id,
               title: movieData.title,
               bgImage: CONFIG.GET_IMAGE_PATH('w780', movieData.backdrop_path),
+              posterImage: CONFIG.GET_IMAGE_PATH('original', movieData.poster_path),
             }});
           }}
           title={"Seleccionar butacas"}

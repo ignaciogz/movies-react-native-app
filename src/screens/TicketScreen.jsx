@@ -29,7 +29,7 @@ const TicketScreen = ({ navigation, route }) => {
     >
       <StatusBar hidden />
 
-      <AppHeaderTopBar margin={SPACE.LG * 3} navigation={navigation} />
+      <AppHeaderTopBar marginHorizontal={SPACE.LG * 3} navigation={navigation} />
 
       <View style={styles.ticketContainer}>
         <ImageBackground

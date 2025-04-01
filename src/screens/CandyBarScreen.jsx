@@ -10,6 +10,7 @@ import { useGetCandyBarProductsQuery } from '../services/cinemaService';
 
 import { CONFIG } from '../global/config';
 import { COLORS, FONTS, FONT_SIZE, SPACE } from '../global/theme';
+import { formatPrice } from '../utils/formatter';
 
 const CandyBarScreen = ({ navigation }) => {
   const [candyBarProducts, setCandyBarProducts] = useState([]);
@@ -64,7 +65,7 @@ const CandyBarScreen = ({ navigation }) => {
             <ListItem
               showDataOf="CandyBar"
               title={item.text}
-              text={`$ ${item.price} c/u`}
+              text={`${formatPrice(item.price)} c/u`}
               counterName={item.name}
             />
           )}

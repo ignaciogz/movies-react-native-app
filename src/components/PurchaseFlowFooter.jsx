@@ -4,6 +4,7 @@ import { Image, StyleSheet, Text, View } from 'react-native';
 import AppButton from '../components/AppButton';
 
 import { COLORS, FONTS, FONT_SIZE, SPACE } from '../global/theme';
+import { formatPrice } from '../utils/formatter';
 
 const purchaseFlowData = {
   "BOOKING": {
@@ -45,7 +46,7 @@ const PurchaseFlowFooter = ({ buttonFunction, purchaseStage, totalPrice }) => {
           <Text style={styles.totalPriceTitle}>
             {data.totalPriceTitle}
           </Text>
-          <Text style={[styles.totalPriceText, {color: data.stageColor}]}>$ {totalPrice}</Text>
+          <Text style={[styles.totalPriceText, {color: data.stageColor}]}>{formatPrice(totalPrice)}</Text>
         </View>
         <AppButton
           onPress={buttonFunction}

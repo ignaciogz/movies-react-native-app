@@ -5,25 +5,33 @@ import { generateAvailableWeekdays, generateSeats } from '../utils/booking';
 
 const columns = CONFIG.CINEMA_ROOM.COLUMNS;
 const rows = CONFIG.CINEMA_ROOM.ROWS;
-const bookingTimesArray = CONFIG.CINEMA_ROOM.TIMES;
 const bookingTicketPrice = CONFIG.CINEMA_ROOM.TICKETS.GENERAL_PRICE;
 
 const useBooking = () => {
   const [bookingAvailableDatesArray, setBookingAvailableDatesArray] = useState(generateAvailableWeekdays());
   const [bookingSeatsArray, setBookingSeatsArray] = useState(generateSeats(rows, columns));
+  const [bookingTimesArray, setBookingTimesArray] = useState([]);
   const [bookingTotalPrice, setBookingTotalPrice] = useState(0);
 
-  const [selectedDateIndex, setSelectedDateIndex] = useState(0);
+  const [selectedDateIndex, setSelectedDateIndex] = useState(null);
   const [selectedSeatsArray, setSelectedSeatsArray] = useState([]);
-  const [selectedTimeIndex, setSelectedTimeIndex] = useState(0);
+  const [selectedTimeIndex, setSelectedTimeIndex] = useState(null);
 
   /* console.log("------------------")
   console.log(":: Seats - Array: ", bookingSeatsArray)
   console.log("Selected Seat - Array: ", selectedSeatsArray)
-  console.log("Selected Date - Index: ", selectedDateIndex)
-  console.log("Selected Time - Index: ", selectedTimeIndex)
+  console.log("Selected Date - Index: ", bookingAvailableDatesArray[selectedDateIndex])
+  console.log("Selected Time - Index: ", bookingTimesArray[selectedTimeIndex])
   console.log(":: Total Price: ", bookingTotalPrice)
   console.log("------------------") */
+
+  const clearBooking = () => {
+    setBookingSeatsArray(generateSeats(rows, columns));
+    setBookingTotalPrice(0);
+    setSelectedDateIndex(null);
+    setSelectedSeatsArray([]);
+    setSelectedTimeIndex(null);
+  };
 
   const selectSeat = (rowNumber, columnNumber, seatNumberSelected) => {
     if (!bookingSeatsArray[rowNumber][columnNumber].taken) {
@@ -57,7 +65,9 @@ const useBooking = () => {
     selectedDateIndex,
     selectedSeatsArray,
     selectedTimeIndex,
+    clearBooking,
     selectSeat,
+    setBookingTimesArray,
     setSelectedDateIndex,
     setSelectedTimeIndex,
   };
