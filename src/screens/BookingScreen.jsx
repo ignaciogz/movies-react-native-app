@@ -7,12 +7,14 @@ import AppIcon from '../components/AppIcon';
 import AppLabel from '../components/AppLabel';
 import PurchaseFlowFooter from '../components/PurchaseFlowFooter';
 import { addCartItems } from "../features/cart/cartSlice";
+import { setAppSelectedSeats } from '../features/cinema/cinemaSlice';
 import useAppModal from '../hooks/useAppModal';
 import useBooking from '../hooks/useBooking';
 import { useGetScreeningTimesQuery } from '../services/cinemaService';
 
 import { CONFIG } from '../global/config';
 import { BORDER_RADIUS, COLORS, FONT_SIZE, FONTS, SPACE } from '../global/theme';
+import { getExclusiveElements } from '../utils/helpers';
 
 const bookingTicketPrice = CONFIG.CINEMA_ROOM.TICKETS.GENERAL_PRICE;
 
@@ -34,18 +36,33 @@ const BookingScreen = ({ navigation, route }) => {
   } = useBooking();
   const dispatch = useDispatch();
   const {data: timesData, error: errorTimes, isLoading: isTimesLoading} = useGetScreeningTimesQuery();
-  const {movieSelected} = useSelector((state)=> state.cinema.value);
+  const cart = useSelector( state => state.cart.value);
+  const {selectedMovie, appSelectedSeats} = useSelector((state)=> state.cinema.value);
   const userLogged = useSelector( state => state.user.value);
 
   useEffect(() => {
     clearBooking();
-  }, [movieSelected]);
+  }, [selectedMovie]);
 
   useEffect(() => {
     if(!isTimesLoading){
       setBookingTimesArray(timesData);
     }
   }, [timesData, isTimesLoading]);
+
+  useEffect(() => {
+    if(appSelectedSeats.length > 0) {
+      const cartTickets = cart.items.filter((item) => item.type === "Pelicula");
+      const cartSeats = cartTickets.map((item) => item.seat);
+
+      if(cartSeats.length !== appSelectedSeats.length) {
+        const deletedSeats = getExclusiveElements(appSelectedSeats, cartSeats);
+        deletedSeats.forEach(seat => {
+          selectSeat(seat.row, seat.column, seat.number);
+        });
+      }
+    }
+  }, [cart]);
 
   const bookSeats = () => {
     const areSeatsSelected = selectedSeatsArray.length !== 0;
@@ -54,7 +71,7 @@ const BookingScreen = ({ navigation, route }) => {
 
     if (areSeatsSelected && isDateSelected && isTimeSelected) {
       dispatch(addCartItems({
-        user: userLogged.localId,
+        user: userLogged.localId || "Ignacio ID",
         type: "Pelicula",
         seats: selectedSeatsArray,
         movieID: route.params.movieID,
@@ -63,7 +80,8 @@ const BookingScreen = ({ navigation, route }) => {
         price: bookingTicketPrice
       }));
 
-      /* clearBooking(); */
+      dispatch(setAppSelectedSeats(selectedSeatsArray));
+
       navigation.navigate('Cinema', { screen: 'CandyBar' });
     } else {
       let message = "Por favor, seleccione: ";
@@ -74,7 +92,7 @@ const BookingScreen = ({ navigation, route }) => {
       if (!isTimeSelected) missingSelections.push("un horario");
 
       message += missingSelections.join(", ");
-      showAppModal('message', message);
+      showAppModal("message", message);
     }
   };
 

@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import MovieCard from '../components/MovieCard';
 import SearchBox from '../components/SearchBox';
-import { setMovieSelected } from '../features/cinema/cinemaSlice';
+import { setSelectedMovie } from '../features/cinema/cinemaSlice';
 
 import { COLORS, FONT_SIZE, FONTS, SPACE } from '../global/theme';
 
@@ -77,7 +77,7 @@ const SearchScreen = ({ navigation, route }) => {
               return (
                 <MovieCard
                   cardFunction={() => {
-                    dispatch(setMovieSelected(movieData));
+                    dispatch(setSelectedMovie(movieData));
                     navigation.navigate('Movies', { screen: 'MovieDetail', params: {
                       movieData
                     }});

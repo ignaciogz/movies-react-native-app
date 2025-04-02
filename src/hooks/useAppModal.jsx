@@ -3,7 +3,7 @@ import { Modal, StyleSheet, TouchableOpacity, View, Text } from 'react-native';
 
 import { BORDER_RADIUS,COLORS, FONT_SIZE, FONTS, SPACE } from '../global/theme';
 
-const useAppModal = (type = "normal", duration = 2000, visible = false) => {
+const useAppModal = (type = "normal", visible = false) => {
   const [modalVisible, setModalVisible] = useState(visible);
   const [modalMessage, setModalMessage] = useState("");
   const [modalType, setModalType] = useState(type);
@@ -33,7 +33,7 @@ const useAppModal = (type = "normal", duration = 2000, visible = false) => {
           activeOpacity={1}
           onPress={closeModal}
         >
-          <View style={[styles.modalView, modalType === 'error' && styles.errorModalView]}>
+          <View style={[styles.modalView, modalType === "error" && styles.errorModalView]}>
             <Text style={styles.modalText}>{modalMessage}</Text>
           </View>
         </TouchableOpacity>

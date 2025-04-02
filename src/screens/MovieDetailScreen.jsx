@@ -1,14 +1,19 @@
 import React from 'react';
 import { ScrollView, StatusBar, StyleSheet, View } from 'react-native';
+import { useDispatch } from 'react-redux';
 
 import AppButton from '../components/AppButton';
 import MovieDetailCard from '../components/MovieDetailCard';
+import { resetCart } from "../features/cart/cartSlice";
+import { resetAppSelectedSeats } from '../features/cinema/cinemaSlice';
+import { resetAllCounters } from "../features/counters/countersSlice";
 
 import { CONFIG } from '../global/config';
 import { COLORS, SPACE } from '../global/theme';
 
 const MovieDetailScreen = ({ navigation, route }) => {
   const movieData = route.params.movieData;
+  const dispatch = useDispatch();
 
   return (
     <ScrollView
@@ -23,6 +28,9 @@ const MovieDetailScreen = ({ navigation, route }) => {
       <View style={styles.buttonContainer}>
         <AppButton
           onPress={() => {
+            dispatch(resetAppSelectedSeats());
+            dispatch(resetCart());
+            dispatch(resetAllCounters());
             navigation.navigate('Cinema', { screen: 'Booking', params: {
               movieID: movieData.id,
               title: movieData.title,

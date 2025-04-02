@@ -51,7 +51,8 @@ const CandyBarScreen = ({ navigation }) => {
                 .map(([key, value]) => {
                   const product = candyBarProducts.find((product) => product.name === key);
                   return {
-                    name: product.text,
+                    name: product.name,
+                    text: product.text,
                     quantity: value,
                     price: product.price
                   }

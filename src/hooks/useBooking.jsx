@@ -43,6 +43,7 @@ const useBooking = () => {
       const isSeatSelected = selectedSeats.some(seat => seat.number === seatNumberSelected);
       if (!isSeatSelected) {
         selectedSeats.push({
+          column: columnNumber,
           number: seatNumberSelected,
           row: rowNumber,
         });
@@ -67,6 +68,7 @@ const useBooking = () => {
     selectedTimeIndex,
     clearBooking,
     selectSeat,
+    setBookingSeatsArray,
     setBookingTimesArray,
     setSelectedDateIndex,
     setSelectedTimeIndex,
