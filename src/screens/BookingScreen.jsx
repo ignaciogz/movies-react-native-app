@@ -45,7 +45,7 @@ const BookingScreen = ({ navigation, route }) => {
   }, [selectedMovie]);
 
   useEffect(() => {
-    if(!isTimesLoading){
+    if(!isTimesLoading) {
       setBookingTimesArray(timesData);
     }
   }, [timesData, isTimesLoading]);

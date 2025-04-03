@@ -21,8 +21,10 @@ const CandyBarScreen = ({ navigation }) => {
   const counters = useSelector((state) => state.counters);
 
   useEffect(() => {
-    if(!isLoading){
-      setCandyBarProducts(candyBarData);
+    if(!isLoading) {
+      const products = [...candyBarData];
+      const productsSorted = products.sort((a, b) => a.text.localeCompare(b.text));
+      setCandyBarProducts(productsSorted);
     }
   }, [candyBarData, isLoading]);
 

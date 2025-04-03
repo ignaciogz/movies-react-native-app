@@ -18,8 +18,7 @@ const TicketsListScreen = ({ navigation }) => {
   const {data: ticketsData, error, isLoading} = useGetTicketsQuery();
 
   useEffect(() => {
-    if(!isLoading && ticketsData){
-      console.log("Tickets: ", ticketsData);
+    if(!isLoading) {
       const ticketsFiltered = ticketsData.filter((ticket) => ticket.user === userID);
       const ticketsSorted = ticketsFiltered.sort((a, b) => new Date(a.screeningDate.date) - new Date(b.screeningDate.date));
       setUserTickets(ticketsSorted);
@@ -54,20 +53,20 @@ const TicketsListScreen = ({ navigation }) => {
                 let movieTickets = item.items.filter((item) => item.type === "Movie");
                 let candyBarTickets = item.items.filter((item) => item.type === "CandyBar");
                 const ticketData = {
-                  screeningMovieID: item.screeningMovieID,
-                  screeningDate: item.screeningDate,
-                  screeningTime: item.screeningTime,
+                  movieID: item.screeningMovieID,
+                  date: item.screeningDate,
+                  time: item.screeningTime,
                 }
                 return (
                   <>
                     <ListItem
                       showDataOf="Tickets"
                       title={item.screeningTitle}
-                      text={`Pelicula | ${item.screeningDate.day} ${item.screeningDate.date} de ${item.screeningDate.fullMonth}`}
+                      text={`Pelicula :: ${item.screeningDate.day} ${item.screeningDate.date} de ${item.screeningDate.fullMonth}`}
                       itemFunction={() => {
                         dispatch(setSelectedTicket({
                           type: "Movie",
-                          tickets: movieTickets,
+                          items: movieTickets,
                           ...ticketData,
                         }));
                         navigation.navigate('Cinema', { screen: 'Ticket' });
@@ -80,11 +79,11 @@ const TicketsListScreen = ({ navigation }) => {
                           <ListItem
                             showDataOf="Tickets"
                             title={item.screeningTitle}
-                            text={`Candybar | ${item.screeningDate.day} ${item.screeningDate.date} de ${item.screeningDate.fullMonth}`}
+                            text={`Candybar :: ${item.screeningDate.day} ${item.screeningDate.date} de ${item.screeningDate.fullMonth}`}
                             itemFunction={() => {
                               dispatch(setSelectedTicket({
                                 type: "CandyBar",
-                                tickets: candyBarTickets,
+                                items: candyBarTickets,
                                 ...ticketData,
                               }));
                               navigation.navigate('Cinema', { screen: 'Ticket' });
