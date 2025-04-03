@@ -91,8 +91,8 @@ const styles = StyleSheet.create({
   profileImage: {
     alignSelf: 'center',
     borderRadius: BORDER_RADIUS.ROUND,
-    height: 100,
-    width: 100,
+    height: 140,
+    width: 140,
   },
   profileOptions: {
     flex: 1,
