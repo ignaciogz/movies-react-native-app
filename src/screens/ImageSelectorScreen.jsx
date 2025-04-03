@@ -110,7 +110,7 @@ const ImageSelectorScreen = ({ navigation }) => {
         {image || imageFromFirebase ? (
           <>
             <View style={styles.selectorHeader}>
-              <Image source={{ uri: image || imageFromFirebase }} style={styles.selectorImage} />
+              <Image source={{ uri: image || imageFromFirebase.image }} style={styles.selectorImage} />
               <View style={styles.selectorOptions}>
                 <AppButton
                   title="Tomar otra foto"
