@@ -1,13 +1,31 @@
-import React from 'react';
-import { ScrollView, StatusBar, StyleSheet, Text, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { FlatList, ScrollView, StatusBar, StyleSheet, Text, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useDispatch } from 'react-redux';
 
 import AppHeaderTopBar from '../components/AppHeaderTopBar';
 import ListItem from '../components/ListItem';
+import { setSelectedTicket } from '../features/cinema/cinemaSlice';
+import { useGetTicketsQuery } from '../services/cinemaService';
 
 import { COLORS, FONTS, FONT_SIZE, SPACE } from '../global/theme';
 
+const userID = "Ignacio ID";
+
 const TicketsListScreen = ({ navigation }) => {
+  const dispatch = useDispatch();
+  const [userTickets, setUserTickets] = useState([]);
+  const {data: ticketsData, error, isLoading} = useGetTicketsQuery();
+
+  useEffect(() => {
+    if(!isLoading && ticketsData){
+      console.log("Tickets: ", ticketsData);
+      const ticketsFiltered = ticketsData.filter((ticket) => ticket.user === userID);
+      const ticketsSorted = ticketsFiltered.sort((a, b) => new Date(a.screeningDate.date) - new Date(b.screeningDate.date));
+      setUserTickets(ticketsSorted);
+    }
+  }, [ticketsData, isLoading]);
+
   return (
     <LinearGradient
       colors={[COLORS.YELLOW, COLORS.BLACK]}
@@ -26,32 +44,63 @@ const TicketsListScreen = ({ navigation }) => {
           TICKETS DISPONIBLES
         </Text>
 
-        <View style={styles.itemsContainer}>
-          <ListItem
-            showDataOf="Tickets"
-            title={"Amenaza en el aire"}
-            text={`Ticket: 236 | Pelicula`}
-            itemFunction={() => {
-              navigation.navigate('Cinema', {screen: 'Ticket'});
-            }}
+        {!isLoading && userTickets.length ? (
+          <FlatList
+            data={userTickets}
+            keyExtractor={(item) => item.id}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={styles.itemsContainer}
+            renderItem={({ item }) => {
+                let movieTickets = item.items.filter((item) => item.type === "Movie");
+                let candyBarTickets = item.items.filter((item) => item.type === "CandyBar");
+                const ticketData = {
+                  screeningMovieID: item.screeningMovieID,
+                  screeningDate: item.screeningDate,
+                  screeningTime: item.screeningTime,
+                }
+                return (
+                  <>
+                    <ListItem
+                      showDataOf="Tickets"
+                      title={item.screeningTitle}
+                      text={`Pelicula | ${item.screeningDate.day} ${item.screeningDate.date} de ${item.screeningDate.fullMonth}`}
+                      itemFunction={() => {
+                        dispatch(setSelectedTicket({
+                          type: "Movie",
+                          tickets: movieTickets,
+                          ...ticketData,
+                        }));
+                        navigation.navigate('Cinema', { screen: 'Ticket' });
+                      }}
+                    />
+                    {
+                      item.totalCandyBar > 0 &&
+                      (
+                        <View style={{ marginTop: SPACE.XS * 5 }}>
+                          <ListItem
+                            showDataOf="Tickets"
+                            title={item.screeningTitle}
+                            text={`Candybar | ${item.screeningDate.day} ${item.screeningDate.date} de ${item.screeningDate.fullMonth}`}
+                            itemFunction={() => {
+                              dispatch(setSelectedTicket({
+                                type: "CandyBar",
+                                tickets: candyBarTickets,
+                                ...ticketData,
+                              }));
+                              navigation.navigate('Cinema', { screen: 'Ticket' });
+                            }}
+                          />
+                        </View>
+                      )
+                    }
+                  </>
+                );
+              }
+            }
           />
-          <ListItem
-            showDataOf="Tickets"
-            title={"Amenaza en el aire"}
-            text={`Ticket: 236 | Candybar`}
-            itemFunction={() => {
-              navigation.navigate('Cinema', {screen: 'Ticket'});
-            }}
-          />
-          <ListItem
-            showDataOf="Tickets"
-            title={"Capitán América: Brave New World"}
-            text={`Ticket: 307 | Pelicula`}
-            itemFunction={() => {
-              navigation.navigate('Cinema', {screen: 'Ticket'});
-            }}
-          />
-        </View>
+        ) : (
+          <Text style={styles.resultsEmpty}>No hay tickets en su cuenta</Text>
+        )}
       </ScrollView>
     </LinearGradient>
   );
@@ -71,6 +120,14 @@ const styles = StyleSheet.create({
   },
   linearGradient: {
     height: '100%',
+  },
+  resultsEmpty: {
+    color: COLORS.WHITE,
+    fontFamily: FONTS.TEXT_BLACK,
+    fontSize: FONT_SIZE.TEXT_LG,
+    letterSpacing: 0.5,
+    marginTop: SPACE.LG * 2.5,
+    textAlign: 'center',
   },
   screenTextContainer: {
     color: COLORS.WHITE,

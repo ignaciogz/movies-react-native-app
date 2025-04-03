@@ -10,7 +10,7 @@ import PurchaseFlowFooter from '../components/PurchaseFlowFooter';
 import { removeCartItem, resetCart } from "../features/cart/cartSlice";
 import { resetCinema } from '../features/cinema/cinemaSlice';
 import { resetCounter, resetAllCounters } from "../features/counters/countersSlice";
-import { usePostTicketMutation } from '../services/cinemaService';
+import { usePostTicketsMutation } from '../services/cinemaService';
 import useAppModal from '../hooks/useAppModal';
 
 import { COLORS, FONTS, FONT_SIZE, SPACE } from '../global/theme';
@@ -19,7 +19,7 @@ import { formatPrice } from '../utils/formatter';
 const CheckOutScreen = ({ navigation }) => {
   const { AppModal, showAppModal } = useAppModal();
   const dispatch = useDispatch();
-  const [triggerPostTicket, result] = usePostTicketMutation();
+  const [triggerPostTickets, result] = usePostTicketsMutation();
   const {selectedMovie} = useSelector((state)=> state.cinema.value);
   const cart = useSelector((state)=> state.cart.value);
 
@@ -77,8 +77,8 @@ const CheckOutScreen = ({ navigation }) => {
           keyExtractor={(item) => item.id}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={styles.itemsContainer}
-          renderItem={({ item, index }) => {
-              if(item.type === "Pelicula") {
+          renderItem={({ item }) => {
+              if(item.type === "Movie") {
                 return (
                   <ListItem
                     showDataOf="CheckOut"
@@ -112,7 +112,7 @@ const CheckOutScreen = ({ navigation }) => {
       <PurchaseFlowFooter
         buttonFunction={async () => {
             try {
-              await triggerPostTicket({ ...cart });
+              await triggerPostTickets({ ...cart });
               finishCheckout();
             } catch (err) {
               showAppModal("error", `Error al enviar los tickets y/o productos: ${err}`);

@@ -92,7 +92,7 @@ const SearchScreen = ({ navigation, route }) => {
             }}
           />
         ) : (
-          <Text style={styles.searchResultsEmpty}>No se encontraron coincidencias</Text>
+          <Text style={styles.resultsEmpty}>No se encontraron coincidencias</Text>
         )}
       </View>
     </LinearGradient>
@@ -108,6 +108,13 @@ const styles = StyleSheet.create({
   linearGradient: {
     height: '100%',
   },
+  resultsEmpty: {
+    color: COLORS.WHITE,
+    fontFamily: FONTS.TEXT_BLACK,
+    fontSize: FONT_SIZE.TEXT_LG,
+    letterSpacing: 0.5,
+    textAlign: 'center',
+  },
   searchBoxContainer: {
     marginBottom: SPACE.LG * 2.5,
     marginTop: SPACE.LG * 5,
@@ -115,12 +122,5 @@ const styles = StyleSheet.create({
   searchResultsContainer: {
     alignItems: 'center',
     gap: SPACE.LG * 3,
-  },
-  searchResultsEmpty: {
-    color: COLORS.WHITE,
-    fontFamily: FONTS.TEXT_BLACK,
-    fontSize: FONT_SIZE.TEXT_LG,
-    letterSpacing: 0.5,
-    textAlign: 'center',
   },
 });

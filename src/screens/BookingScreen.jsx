@@ -72,9 +72,10 @@ const BookingScreen = ({ navigation, route }) => {
     if (areSeatsSelected && isDateSelected && isTimeSelected) {
       dispatch(addCartItems({
         user: userLogged.localId || "Ignacio ID",
-        type: "Pelicula",
+        type: "Movie",
         seats: selectedSeatsArray,
         movieID: route.params.movieID,
+        movieTitle: selectedMovie.title,
         screeningDate: bookingAvailableDatesArray[selectedDateIndex],
         screeningTime: bookingTimesArray[selectedTimeIndex],
         price: bookingTicketPrice

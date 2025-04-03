@@ -19,7 +19,6 @@ const CandyBarScreen = ({ navigation }) => {
   const dispatch = useDispatch();
   const {data: candyBarData, error, isLoading} = useGetCandyBarProductsQuery();
   const counters = useSelector((state) => state.counters);
-  const userLogged = useSelector( state => state.user.value);
 
   useEffect(() => {
     if(!isLoading){
@@ -37,7 +36,6 @@ const CandyBarScreen = ({ navigation }) => {
     const selectedProductsArray = getSelectedProductsArray();
 
     dispatch(addCartItems({
-      user: userLogged.localId,
       type: "CandyBar",
       products: selectedProductsArray,
     }));
