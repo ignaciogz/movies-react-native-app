@@ -106,7 +106,6 @@ const Signup = ({ navigation }) => {
                 console.log("login SUCCESS: ", email, password);
               }}
               title={"Registrarme"}
-              fontBold = {true}
             />
 
             <AppButton

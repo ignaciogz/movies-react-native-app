@@ -76,14 +76,12 @@ const Login = ({ navigation }) => {
                 console.log("login SUCCESS: ", email, password);
               }}
               title={"Ingresar"}
-              fontBold = {true}
             />
 
             <AppButton
               onPress={() => { navigation.navigate('Signup') }}
               title={"Registrarse"}
               startColor={COLORS.GREY}
-              endColor={COLORS.BLACK}
             />
           </View>
         </View>

@@ -7,7 +7,7 @@ import { BORDER_RADIUS, COLORS, FONT_SIZE, FONTS, SPACE } from '../global/theme'
 const AppButton = ({
     title = "",
     onPress = () => {},
-    fontBold = true,
+    fontBold = false,
     startColor = COLORS.VIOLET_LIGHT,
     endColor = COLORS.BLACK,
   }) => {
@@ -19,10 +19,7 @@ const AppButton = ({
         style={styles.buttonBox}
         start={{ x: 0.2, y: 0.2 }}
       >
-        <Text style={[
-          styles.buttonText,
-          { fontFamily: fontBold ? FONTS.TEXT_BOLD : FONTS.TEXT }
-        ]}>
+        <Text style={styles.buttonText}>
           {title.toUpperCase()}
         </Text>
       </LinearGradient>
@@ -41,6 +38,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: COLORS.WHITE,
+    fontFamily: FONTS.TEXT_BOLD,
     fontSize: FONT_SIZE.TEXT_LG,
     letterSpacing: 1,
     wordSpacing: 2,

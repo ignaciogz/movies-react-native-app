@@ -7,7 +7,7 @@ import { useNavigation, useNavigationState } from '@react-navigation/native';
 import AppIcon from '../components/AppIcon';
 import HomeStackNavigator from './stacks/HomeStackNavigator';
 import CinemaStackNavigator from './stacks/CinemaStackNavigator';
-//import ProfileStackNavigator from './stacks/ProfileStackNavigator';
+import ProfileStackNavigator from './stacks/ProfileStackNavigator';
 import SearchStackNavigator from './stacks/SearchStackNavigator';
 
 import { COLORS, FONT_SIZE } from '../global/theme';
@@ -99,7 +99,7 @@ const BottomTabNavigator = () => {
       <Tab.Screen name="Movies" component={HomeStackNavigator} />
       <Tab.Screen name="MovieSearch" component={SearchStackNavigator} />
       <Tab.Screen name="Cinema" component={CinemaStackNavigator} />
-      {/* <Tab.Screen name="UserProfile" component={ProfileStackNavigator} /> */}
+      <Tab.Screen name="UserProfile" component={ProfileStackNavigator} />
     </Tab.Navigator>
   );
 };

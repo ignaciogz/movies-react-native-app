@@ -83,7 +83,7 @@ const TicketScreen = ({ navigation }) => {
                       <Text style={styles.subHeading}>Fila</Text>
                       {
                         selectedTicket.items.map((item, index) => {
-                          return <Text key={`seat-row-data-${index}`} style={styles.seatData}>{item.seat.row + 1}</Text>
+                          return <Text key={`seat-row-data-${index}`} style={styles.ticketInfo}>{item.seat.row + 1}</Text>
                         })
                       }
                     </View>
@@ -91,7 +91,7 @@ const TicketScreen = ({ navigation }) => {
                       <Text style={styles.subHeading}>Asiento</Text>
                       {
                         selectedTicket.items.map((item, index) => {
-                          return <Text key={`seat-number-data-${index}`} style={styles.seatData}>{item.seat.number}</Text>
+                          return <Text key={`seat-number-data-${index}`} style={styles.ticketInfo}>{item.seat.number}</Text>
                         })
                       }
                     </View>
@@ -106,7 +106,7 @@ const TicketScreen = ({ navigation }) => {
                       <Text style={styles.subHeading}>Producto</Text>
                       {
                         selectedTicket.items.map((item, index) => {
-                          return <Text key={`product-text-data-${index}`} style={styles.seatData}>{item.text}</Text>
+                          return <Text key={`product-text-data-${index}`} style={styles.ticketInfo}>{item.text}</Text>
                         })
                       }
                     </View>
@@ -114,7 +114,7 @@ const TicketScreen = ({ navigation }) => {
                       <Text style={styles.subHeading}>Cantidad</Text>
                       {
                         selectedTicket.items.map((item, index) => {
-                          return <Text key={`product-quantity-data-${index}`} style={styles.seatData}>{item.quantity}</Text>
+                          return <Text key={`product-quantity-data-${index}`} style={styles.ticketInfo}>{item.quantity}</Text>
                         })
                       }
                     </View>
@@ -154,13 +154,6 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZE.TEXT_LG,
     letterSpacing: 0.5,
     marginTop: SPACE.LG * 2.5,
-  },
-  seatData: {
-    color: COLORS.WHITE,
-    fontFamily: FONTS.TEXT,
-    fontSize: FONT_SIZE.TEXT_SM,
-    letterSpacing: 1,
-    marginTop: SPACE.SM,
   },
   subHeading: {
     color: COLORS.WHITE,
@@ -213,6 +206,13 @@ const styles = StyleSheet.create({
     paddingBottom: SPACE.LG * 2.8,
     paddingTop: SPACE.LG,
     width: 300,
+  },
+  ticketInfo: {
+    color: COLORS.WHITE,
+    fontFamily: FONTS.TEXT,
+    fontSize: FONT_SIZE.TEXT_SM,
+    letterSpacing: 1,
+    marginTop: SPACE.SM,
   },
   ticketScreeningData: {
     alignItems: 'center',
