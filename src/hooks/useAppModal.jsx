@@ -34,7 +34,7 @@ const useAppModal = (type = "normal", visible = false) => {
           onPress={closeModal}
         >
           <View style={[styles.modalView, modalType === "error" && styles.errorModalView]}>
-            <Text style={styles.modalText}>{modalMessage}</Text>
+            <Text style={[styles.modalText, modalType === "error" && styles.errorModalText]}>{modalMessage}</Text>
           </View>
         </TouchableOpacity>
       </Modal>
@@ -60,19 +60,23 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.WHITE,
     borderRadius: BORDER_RADIUS.MD * 2,
     elevation: 5,
-    marginHorizontal: SPACE.SM * 5,
-    paddingHorizontal: SPACE.LG * 1.5,
+    //marginHorizontal: SPACE.SM * 5,
+    paddingHorizontal: SPACE.LG * 2.5,
     paddingVertical: SPACE.LG * 3,
     boxShadowColor: COLORS.BLACK,
     boxShadowOffset: { height: 2, width: 0 },
     boxShadowOpacity: 0.25,
     boxShadowRadius: BORDER_RADIUS.XS,
+    width: '90%',
   },
   errorModalView: {
-    backgroundColor: COLORS.YELLOW,
+    backgroundColor: COLORS.GREY,
     fontFamily: FONTS.TEXT_BLACK,
     fontSize: FONT_SIZE.TEXT_LG,
     letterSpacing: 0.5,
+  },
+  errorModalText: {
+    color: COLORS.RED,
   },
   modalText: {
     fontFamily: FONTS.TEXT_BLACK,

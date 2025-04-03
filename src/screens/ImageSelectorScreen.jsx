@@ -19,8 +19,8 @@ const ImageSelectorScreen = ({ navigation }) => {
   const [image, setImage] = useState(null);
   const [isImageFromCamera, setIsImageFromCamera] = useState(false);
   const [imageUri, setImageUri] = useState("");
-  const {localId} = useSelector(state => state.user.value);
-  const {data: imageFromBase} = useGetProfileImageQuery(localId);
+  const {localId} = useSelector((state) => state.user.value);
+  const {data: imageFromFirebase} = useGetProfileImageQuery(localId);
   const [triggerPostImage, result] = usePostProfileImageMutation();
 
   const verifyCameraPermissions = async () => {
@@ -107,10 +107,10 @@ const ImageSelectorScreen = ({ navigation }) => {
 
         <AppHeaderTopBar buttonType="return" navigation={navigation} />
 
-        {image || imageFromBase ? (
+        {image || imageFromFirebase ? (
           <>
             <View style={styles.selectorHeader}>
-              <Image source={{ uri: image || imageFromBase }} style={styles.selectorImage} />
+              <Image source={{ uri: image || imageFromFirebase }} style={styles.selectorImage} />
               <View style={styles.selectorOptions}>
                 <AppButton
                   title="Tomar otra foto"

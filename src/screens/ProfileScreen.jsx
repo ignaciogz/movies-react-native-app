@@ -14,8 +14,8 @@ const defaultImageRoute = "../assets/images/defaultProfile.png";
 
 const ProfileScreen = ({ navigation }) => {
   const dispatch = useDispatch();
-  const {imageCamera, localId, user} = useSelector(state => state.user.value);
-  const {data: imageFromStorage} = useGetProfileImageQuery(localId);
+  const {imageCamera, localId, user} = useSelector((state) => state.user.value);
+  const {data: imageFromFirebase} = useGetProfileImageQuery(localId);
 
   const changeProfileImage = () => {
     navigation.navigate('ImageSelector');
@@ -37,10 +37,10 @@ const ProfileScreen = ({ navigation }) => {
         <View>
           <AppHeaderTopBar buttonType="return" navigation={navigation} />
 
-          {imageFromStorage || imageCamera ? (
+          {imageFromFirebase || imageCamera ? (
             <Image
               resizeMode="cover"
-              source={{ uri: imageFromStorage?.image || imageCamera }}
+              source={{ uri: imageFromFirebase?.image || imageCamera }}
               style={styles.profileImage}
             />
           ) : (

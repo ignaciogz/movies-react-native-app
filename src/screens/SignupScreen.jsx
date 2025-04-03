@@ -1,22 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { Dimensions, ImageBackground, StatusBar, StyleSheet, Text, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-// import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import AppButton from '../components/AppButton';
 import AppInputForm from '../components/AppInputForm';
-// import { setUser } from '../features/user/UserSlice';
+import { setUser } from '../features/user/userSlice';
 import useAppModal from '../hooks/useAppModal';
-// import { useSignInMutation } from '../services/authService';
-// import { signupSchema } from '../validations/signupSchema';
+import { useSignUpMutation } from '../services/authService';
+/* import { signupSchema } from '../validations/signupSchema'; */
 
 import { COLORS, FONT_SIZE, FONTS, SPACE } from '../global/theme';
 
 const { width, height } = Dimensions.get('window');
 
 const Signup = ({ navigation }) => {
-  // const dispatch = useDispatch();
-  // const [triggerSignUp, result] = useSignUpMutation();
+  const { AppModal, showAppModal } = useAppModal();
+  const dispatch = useDispatch();
+  const [triggerSignUp, result] = useSignUpMutation();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -25,47 +26,51 @@ const Signup = ({ navigation }) => {
   const [errorPassword, setErrorPassword] = useState('');
   const [errorConfirmPassword, setErrorConfirmPassword] = useState('');
 
-
-  /* useEffect(() => {
+  useEffect(() => {
     if(result.isSuccess) {
-      dispatch( setUser({
+      dispatch(setUser({
           email: result.data.email,
-          token: result.data.idToken
-      })
-    )};
-  }, [result]); */
+          idToken: result.data.idToken,
+          localId: result.data.localId,
+      }));
+    } else if(result.isError) {
+      showAppModal('error', `Error al registrar el nuevo usuario`);
+    };
+  }, [result]);
 
-  /* const onSubmit = () => {
-    try {
-      setErrorMail('')
-      setErrorPassword('')
-      setErrorConfirmPassword('')
+  const registerNow = () => {
+    triggerSignUp({ email, password, returnSecureToken: true });
+    /* try {
+      setErrorMail('');
+      setErrorPassword('');
+      setErrorConfirmPassword('');
       signupSchema.validateSync({
         email, password, confirmPassword
-      })
+      });
 
-      triggerSignUp({email, password, returnSecureToken: true})
+      triggerSignUp({ email, password, returnSecureToken: true });
     } catch (err) {
       //console.log(err);
-      //console.log(err.path)
-      //console.log(err.message)
+      //console.log(err.path);
+      //console.log(err.message);
       switch(err.path) {
         case 'email':
-          setErrorMail(err.message)
+          setErrorMail(err.message);
           break;
         case 'password':
-          setErrorPassword(err.message)
+          setErrorPassword(err.message);
           break;
         case 'confirmPassword':
-          setErrorConfirmPassword(err.message)
+          setErrorConfirmPassword(err.message);
           break;
       }
-    }
-  } */
+    } */
+  }
 
   return (
     <View style={styles.container}>
       <StatusBar hidden />
+      <AppModal />
 
       <View style={styles.backgroundImageContainer}>
         <ImageBackground
@@ -102,8 +107,7 @@ const Signup = ({ navigation }) => {
           <View style={styles.authButtonsContainer}>
             <AppButton
               onPress={() => {
-                //triggerSignIn({ email, password });
-                console.log("login SUCCESS: ", email, password);
+                registerNow();
               }}
               title={"Registrarme"}
             />

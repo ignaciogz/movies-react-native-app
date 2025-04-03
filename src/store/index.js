@@ -7,7 +7,7 @@ import countersReducer from '../features/counters/countersSlice';
 import searchReducer from '../features/search/searchSlice';
 import userReducer from '../features/user/userSlice';
 
-/* import { authApi } from '../services/authService'; */
+import { authApi } from '../services/authService';
 import { cinemaApi } from '../services/cinemaService';
 
 const store = configureStore({
@@ -17,12 +17,12 @@ const store = configureStore({
     counters: countersReducer,
     search: searchReducer,
     user: userReducer,
-    /* [authApi.reducerPath]: authApi.reducer, */
+    [authApi.reducerPath]: authApi.reducer,
     [cinemaApi.reducerPath]: cinemaApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
-      /* .concat(authApi.middleware) */
+      .concat(authApi.middleware)
       .concat(cinemaApi.middleware)
 });
 

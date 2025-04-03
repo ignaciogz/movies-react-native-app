@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Dimensions, ImageBackground, StatusBar, StyleSheet, Text, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-// import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import AppButton from '../components/AppButton';
 import AppInputForm from '../components/AppInputForm';
-// import { setUser } from '../features/user/UserSlice';
+import { setUser } from '../features/user/userSlice';
 import useAppModal from '../hooks/useAppModal';
-// import { useSignInMutation } from '../services/authService';
+import { useSignInMutation } from '../services/authService';
 
 import { COLORS, FONT_SIZE, FONTS, SPACE } from '../global/theme';
 
@@ -15,28 +15,33 @@ const { width, height } = Dimensions.get('window');
 
 const Login = ({ navigation }) => {
   const { AppModal, showAppModal } = useAppModal();
-  // const dispatch = useDispatch();
-  // const [triggerSignIn, result] = useSignInMutation();
+  const dispatch = useDispatch();
+  const [triggerSignIn, result] = useSignInMutation();
 
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
-  /* useEffect(() => {
+  useEffect(() => {
     if (result.isSuccess) {
-      (async () => {
-        try {
-          dispatch(
-            setUser({
-              email: result.data.email,
-              idToken: result.data.idToken,
-              localId: result.data.localId,
-          }));
-        } catch(err) {
-          showAppModal('error', `Login function FAILED: ${err}`);
-        }
-      })();
+      dispatch(setUser({
+        email: result.data.email,
+        idToken: result.data.idToken,
+        localId: result.data.localId,
+      }));
+    } else if(result.isError) {
+      showAppModal('error', `Usuario o contraseña incorrectos`);
+    };
+  }, [result]);
+
+  const signIn = async () => {
+    try {
+      if(email && password) {
+        await triggerSignIn({ email, password });
+      }
+    } catch (err) {
+      showAppModal("error", `Error al enviar los datos: ${err}`);
     }
-  }, [result]); */
+  }
 
   return (
     <View style={styles.container}>
@@ -71,10 +76,7 @@ const Login = ({ navigation }) => {
 
           <View style={styles.authButtonsContainer}>
             <AppButton
-              onPress={() => {
-                //triggerSignIn({ email, password });
-                console.log("login SUCCESS: ", email, password);
-              }}
+              onPress={signIn}
               title={"Ingresar"}
             />
 

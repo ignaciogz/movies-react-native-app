@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FlatList, ScrollView, StatusBar, StyleSheet, Text, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import AppHeaderTopBar from '../components/AppHeaderTopBar';
 import ListItem from '../components/ListItem';
@@ -10,16 +10,15 @@ import { useGetTicketsQuery } from '../services/cinemaService';
 
 import { COLORS, FONTS, FONT_SIZE, SPACE } from '../global/theme';
 
-const userID = "Ignacio ID";
-
 const TicketsListScreen = ({ navigation }) => {
   const dispatch = useDispatch();
   const [userTickets, setUserTickets] = useState([]);
   const {data: ticketsData, error, isLoading} = useGetTicketsQuery();
+  const {user} = useSelector((state) => state.user.value);
 
   useEffect(() => {
     if(!isLoading) {
-      const ticketsFiltered = ticketsData.filter((ticket) => ticket.user === userID);
+      const ticketsFiltered = ticketsData.filter((ticket) => ticket.user === user);
       const ticketsSorted = ticketsFiltered.sort((a, b) => new Date(a.screeningDate.date) - new Date(b.screeningDate.date));
       setUserTickets(ticketsSorted);
     }

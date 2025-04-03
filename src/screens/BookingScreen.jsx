@@ -38,7 +38,7 @@ const BookingScreen = ({ navigation, route }) => {
   const {data: timesData, error: errorTimes, isLoading: isTimesLoading} = useGetScreeningTimesQuery();
   const cart = useSelector( state => state.cart.value);
   const {selectedMovie, appSelectedSeats} = useSelector((state)=> state.cinema.value);
-  const userLogged = useSelector( state => state.user.value);
+  const {user} = useSelector((state) => state.user.value);
 
   useEffect(() => {
     clearBooking();
@@ -71,7 +71,7 @@ const BookingScreen = ({ navigation, route }) => {
 
     if (areSeatsSelected && isDateSelected && isTimeSelected) {
       dispatch(addCartItems({
-        user: userLogged.localId || "Ignacio ID",
+        user: user,
         type: "Movie",
         seats: selectedSeatsArray,
         movieID: route.params.movieID,
@@ -85,7 +85,7 @@ const BookingScreen = ({ navigation, route }) => {
 
       navigation.navigate('Cinema', { screen: 'CandyBar' });
     } else {
-      let message = "Por favor, seleccione: ";
+      let message = "Por favor, seleccione:\n";
 
       const missingSelections = [];
       if (!areSeatsSelected) missingSelections.push("uno o más asientos");
