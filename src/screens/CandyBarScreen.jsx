@@ -23,7 +23,7 @@ const CandyBarScreen = ({ navigation }) => {
   useEffect(() => {
     if(!isLoading) {
       const products = [...candyBarData];
-      const productsSorted = products.sort((a, b) => a.text.localeCompare(b.text));
+      const productsSorted = getProductsSortByText(products);
       setCandyBarProducts(productsSorted);
     }
   }, [candyBarData, isLoading]);
@@ -36,14 +36,19 @@ const CandyBarScreen = ({ navigation }) => {
 
   const addProductsToCart = () => {
     const selectedProductsArray = getSelectedProductsArray();
+    const selectedProductsSorted = getProductsSortByText(selectedProductsArray);
 
     dispatch(addCartItems({
       type: "CandyBar",
-      products: selectedProductsArray,
+      products: selectedProductsSorted,
     }));
 
     navigation.navigate('Cinema', { screen: 'CheckOut' });
-  }
+  };
+
+  const getProductsSortByText = (products) => {
+    return products.sort((a, b) => a.text.localeCompare(b.text));
+  };
 
   const getSelectedProductsArray = () => {
     return Object.entries(counters)
@@ -57,7 +62,7 @@ const CandyBarScreen = ({ navigation }) => {
                     price: product.price
                   }
                 });
-  }
+  };
 
   const getTotalPrice = () => {
     const totalPrice = candyBarProducts.reduce((total, product) => {
@@ -65,7 +70,7 @@ const CandyBarScreen = ({ navigation }) => {
     }, 0);
 
     return totalPrice;
-  }
+  };
 
   return (
     <LinearGradient

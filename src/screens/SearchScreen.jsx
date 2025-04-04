@@ -21,10 +21,6 @@ const SearchScreen = ({ navigation }) => {
   const [nowPlayingMovies, setNowPlayingMovies] = useState(moviesData);
 
   useEffect(() => {
-    searchText.length === 0 && setSearchResults(nowPlayingMovies);
-  }, [searchText]);
-
-  useEffect(() => {
     if(!isLoadingMovies && !isLoadingMovieGenres) {
       const movies = moviesData.map((movie) => {
         return {
@@ -36,6 +32,12 @@ const SearchScreen = ({ navigation }) => {
       searchText ? searchMoviesFunction(searchText) : setSearchResults(movies);
     }
   }, [moviesData, isLoadingMovies, isLoadingMovieGenres]);
+
+  useEffect(() => {
+    if(!isLoadingMovies && !isLoadingMovieGenres) {
+      searchText.length === 0 && setSearchResults(nowPlayingMovies);
+    }
+  }, [searchText, isLoadingMovies, isLoadingMovieGenres]);
 
   const getMovieGenresSorted = (movie) => {
     return movie.genre_ids.slice(0, 3)
@@ -67,7 +69,7 @@ const SearchScreen = ({ navigation }) => {
           />
         </View>
 
-        {searchResults.length ? (
+        {searchResults && searchResults.length ? (
           <FlatList
             data={searchResults}
             keyExtractor={(item) => item.id}

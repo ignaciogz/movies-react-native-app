@@ -47,6 +47,7 @@ const useBooking = () => {
           number: seatNumberSelected,
           row: rowNumber,
         });
+        selectedSeats.sort((a, b) => a.number - b.number);
         setSelectedSeatsArray(selectedSeats);
       } else {
         selectedSeats = selectedSeats.filter(seat => seat.number !== seatNumberSelected);
