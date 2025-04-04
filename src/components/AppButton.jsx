@@ -6,13 +6,13 @@ import { BORDER_RADIUS, COLORS, FONT_SIZE, FONTS, SPACE } from '../global/theme'
 
 const AppButton = ({
     title = "",
-    onPress = async () => {},
+    onPress = () => {},
     startColor = COLORS.VIOLET_LIGHT,
     endColor = COLORS.BLACK,
   }) => {
 
   return (
-    <Pressable onPress={() => onPress()}>
+    <Pressable onPress={onPress}>
       <LinearGradient
         colors={[endColor, startColor]}
         style={styles.buttonBox}

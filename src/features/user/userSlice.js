@@ -19,6 +19,8 @@ export const userSlice = createSlice({
     clearUser: (state)=> {
         state.value.user = null;
         state.value.idToken = null;
+        state.value.localId = null;
+        state.value.imageCamera = null;
     },
     setCameraImage: (state, { payload }) => {
         state.value.imageCamera = payload;

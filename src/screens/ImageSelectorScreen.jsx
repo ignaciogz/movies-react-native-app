@@ -35,7 +35,7 @@ const ImageSelectorScreen = ({ navigation }) => {
 
   const pickLibraryImage = async () => {
     try {
-      setIsImageFromCamera(false)
+      setIsImageFromCamera(false);
       const galleryPermissions = await verifyGalleryPermissions();
       if(galleryPermissions) {
         const result = await ImagePicker.launchImageLibraryAsync({
@@ -59,7 +59,7 @@ const ImageSelectorScreen = ({ navigation }) => {
   const pickImage = async () => {
     setIsImageFromCamera(true);
     try {
-      const cameraPermissions = await verifyCameraPermissions()
+      const cameraPermissions = await verifyCameraPermissions();
       if(cameraPermissions) {
         let result = await ImagePicker.launchCameraAsync({
           mediaTypes: (ImagePicker.MediaType = ['images', 'videos']),
@@ -83,7 +83,7 @@ const ImageSelectorScreen = ({ navigation }) => {
   const confirmImage = async () => {
     try {
       dispatch(setCameraImage(image));
-      triggerPostImage({image, localId});
+      await triggerPostImage({image, localId});
 
       if(isImageFromCamera) {
         await MediaLibrary.createAssetAsync(imageUri);
