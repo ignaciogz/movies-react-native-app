@@ -29,12 +29,21 @@ const CheckOutScreen = ({ navigation }) => {
     }
   }, [cart]);
 
+  const checkout = async () => {
+    try {
+      await triggerPostTickets({ ...cart });
+      finishCheckout();
+    } catch (err) {
+      showAppModal("error", `Error al enviar los tickets y/o productos: ${err}`);
+    }
+  };
+
   const finishCheckout = () => {
     dispatch(resetCinema());
     dispatch(resetCart());
     dispatch(resetAllCounters());
     navigation.navigate('Movies', { screen: 'Home' });
-  }
+  };
 
   return (
     <LinearGradient
@@ -110,15 +119,7 @@ const CheckOutScreen = ({ navigation }) => {
       </ScrollView>
 
       <PurchaseFlowFooter
-        buttonFunction={async () => {
-            try {
-              await triggerPostTickets({ ...cart });
-              finishCheckout();
-            } catch (err) {
-              showAppModal("error", `Error al enviar los tickets y/o productos: ${err}`);
-            }
-          }
-        }
+        buttonFunction={checkout}
         purchaseStage={"checkOut"}
         totalPrice={cart.totalCandyBar + cart.totalTickets}
       />

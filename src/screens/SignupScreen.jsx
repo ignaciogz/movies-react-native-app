@@ -8,7 +8,7 @@ import AppInputForm from '../components/AppInputForm';
 import { setUser } from '../features/user/userSlice';
 import useAppModal from '../hooks/useAppModal';
 import { useSignUpMutation } from '../services/authService';
-/* import { signupSchema } from '../validations/signupSchema'; */
+import { signupSchema } from '../validations/signupSchema';
 
 import { COLORS, FONT_SIZE, FONTS, SPACE } from '../global/theme';
 
@@ -22,40 +22,35 @@ const Signup = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [errorMail, setErrorMail] = useState('');
+  const [errorEmail, setErrorEmail] = useState('');
   const [errorPassword, setErrorPassword] = useState('');
   const [errorConfirmPassword, setErrorConfirmPassword] = useState('');
 
   useEffect(() => {
     if(result.isSuccess) {
       dispatch(setUser({
-          email: result.data.email,
-          idToken: result.data.idToken,
-          localId: result.data.localId,
+        email: result.data.email,
+        idToken: result.data.idToken,
+        localId: result.data.localId,
       }));
     } else if(result.isError) {
       showAppModal('error', `Error al registrar el nuevo usuario`);
     };
   }, [result]);
 
-  const registerNow = () => {
-    triggerSignUp({ email, password, returnSecureToken: true });
-    /* try {
-      setErrorMail('');
+  const signUp = async () => {
+    try {
+      setErrorEmail('');
       setErrorPassword('');
       setErrorConfirmPassword('');
       signupSchema.validateSync({
         email, password, confirmPassword
       });
-
-      triggerSignUp({ email, password, returnSecureToken: true });
+      await triggerSignUp({ email, password, returnSecureToken: true });
     } catch (err) {
-      //console.log(err);
-      //console.log(err.path);
-      //console.log(err.message);
       switch(err.path) {
         case 'email':
-          setErrorMail(err.message);
+          setErrorEmail(err.message);
           break;
         case 'password':
           setErrorPassword(err.message);
@@ -64,7 +59,7 @@ const Signup = ({ navigation }) => {
           setErrorConfirmPassword(err.message);
           break;
       }
-    } */
+    }
   }
 
   return (
@@ -89,16 +84,16 @@ const Signup = ({ navigation }) => {
           <AppInputForm
             label={"email"}
             onChange={setEmail}
-            error={errorMail}
+            error={errorEmail}
           />
           <AppInputForm
-            label={"password"}
+            label={"contraseña"}
             onChange={setPassword}
             error={errorPassword}
             isSecure={true}
           />
           <AppInputForm
-            label={"confirm password"}
+            label={"confirmar contraseña"}
             onChange={setConfirmPassword}
             error={errorConfirmPassword}
             isSecure={true}
@@ -106,9 +101,7 @@ const Signup = ({ navigation }) => {
 
           <View style={styles.authButtonsContainer}>
             <AppButton
-              onPress={() => {
-                registerNow();
-              }}
+              onPress={signUp}
               title={"Registrarme"}
             />
 

@@ -5,8 +5,8 @@ import { LinearGradient } from 'expo-linear-gradient';
 import AppHeaderTopBar from './AppHeaderTopBar';
 import AppLabel from './AppLabel';
 import MovieFooterCard from './MovieFooterCard';
+import { getImagePathToApi } from '../services/tmdbService';
 
-import { CONFIG } from '../global/config';
 import { COLORS, FONT_SIZE, SPACE } from '../global/theme';
 import { formatMovieRuntime } from '../utils/formatter';
 
@@ -16,7 +16,7 @@ const MovieDetailCard = ({ movieData, navigation }) => {
       <View>
         <ImageBackground
           source={{
-            uri: CONFIG.GET_IMAGE_PATH('w780', movieData?.backdrop_path),
+            uri: getImagePathToApi('w780', movieData?.backdrop_path),
           }}
           style={styles.cardImageBackground}
         >
@@ -39,7 +39,7 @@ const MovieDetailCard = ({ movieData, navigation }) => {
 
         <Image
           source={{
-            uri: CONFIG.GET_IMAGE_PATH('w342', movieData?.poster_path)
+            uri: getImagePathToApi('w342', movieData?.poster_path)
           }}
           style={styles.cardImage}
         />

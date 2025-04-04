@@ -7,8 +7,8 @@ import MovieDetailCard from '../components/MovieDetailCard';
 import { resetCart } from "../features/cart/cartSlice";
 import { resetAppSelectedSeats } from '../features/cinema/cinemaSlice';
 import { resetAllCounters } from "../features/counters/countersSlice";
+import { getImagePathToApi } from '../services/tmdbService';
 
-import { CONFIG } from '../global/config';
 import { COLORS, SPACE } from '../global/theme';
 
 const MovieDetailScreen = ({ navigation, route }) => {
@@ -34,8 +34,7 @@ const MovieDetailScreen = ({ navigation, route }) => {
             navigation.navigate('Cinema', { screen: 'Booking', params: {
               movieID: movieData.id,
               title: movieData.title,
-              bgImage: CONFIG.GET_IMAGE_PATH('w780', movieData.backdrop_path),
-              posterImage: CONFIG.GET_IMAGE_PATH('original', movieData.poster_path),
+              bgImage: getImagePathToApi('w780', movieData.backdrop_path),
             }});
           }}
           title={"Seleccionar butacas"}

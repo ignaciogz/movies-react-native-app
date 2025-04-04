@@ -5,8 +5,8 @@ import { useSelector } from 'react-redux';
 import AppHeaderTopBar from '../components/AppHeaderTopBar';
 import AppLabel from '../components/AppLabel';
 import { useGetMovieByIdQuery } from '../services/cinemaService';
+import { getImagePathToApi } from '../services/tmdbService';
 
-import { CONFIG } from '../global/config';
 import { BORDER_RADIUS, COLORS, FONT_SIZE, FONTS, SPACE } from '../global/theme';
 
 const TicketScreen = ({ navigation }) => {
@@ -16,7 +16,7 @@ const TicketScreen = ({ navigation }) => {
 
   useEffect(() => {
     if(!isLoading) {
-      const imagePath = CONFIG.GET_IMAGE_PATH('original', movieData.poster_path);
+      const imagePath = getImagePathToApi('original', movieData.poster_path);
       setTicketImage(imagePath);
     }
   }, [movieData, isLoading]);

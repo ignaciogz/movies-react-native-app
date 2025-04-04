@@ -2,8 +2,8 @@ import React from 'react';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import MovieFooterCard from './MovieFooterCard';
+import { getImagePathToApi } from '../services/tmdbService';
 
-import { CONFIG } from '../global/config';
 import { BORDER_RADIUS, SPACE } from '../global/theme';
 
 const MovieCard = ({
@@ -33,8 +33,8 @@ const MovieCard = ({
           { maxWidth: cardWidth },
       ]}>
         <Image
-          style={[styles.cardImage, {width: cardWidth}]}
-          source={{uri: CONFIG.GET_IMAGE_PATH(showDataOf === "Home" ? "w780" : "w342", movieData.poster_path)}}
+          style={[styles.cardImage, { width: cardWidth }]}
+          source={{uri: getImagePathToApi(showDataOf === "Home" ? "w780" : "w342", movieData.poster_path)}}
         />
 
         <MovieFooterCard movieData={movieData} showDataOf={showDataOf} />

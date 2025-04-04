@@ -8,6 +8,7 @@ import AppInputForm from '../components/AppInputForm';
 import { setUser } from '../features/user/userSlice';
 import useAppModal from '../hooks/useAppModal';
 import { useSignInMutation } from '../services/authService';
+import { signinSchema } from '../validations/signinSchema';
 
 import { COLORS, FONT_SIZE, FONTS, SPACE } from '../global/theme';
 
@@ -18,8 +19,10 @@ const Login = ({ navigation }) => {
   const dispatch = useDispatch();
   const [triggerSignIn, result] = useSignInMutation();
 
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorEmail, setErrorEmail] = useState('');
+  const [errorPassword, setErrorPassword] = useState('');
 
   useEffect(() => {
     if (result.isSuccess) {
@@ -35,11 +38,21 @@ const Login = ({ navigation }) => {
 
   const signIn = async () => {
     try {
-      if(email && password) {
-        await triggerSignIn({ email, password });
-      }
+      setErrorEmail('');
+      setErrorPassword('');
+      signinSchema.validateSync({
+        email, password,
+      });
+      await triggerSignIn({ email, password });
     } catch (err) {
-      showAppModal("error", `Error al enviar los datos: ${err}`);
+      switch(err.path) {
+        case 'email':
+          setErrorEmail(err.message);
+          break;
+        case 'password':
+          setErrorPassword(err.message);
+          break;
+      }
     }
   }
 
@@ -65,12 +78,12 @@ const Login = ({ navigation }) => {
           <AppInputForm
             label={"email"}
             onChange={setEmail}
-            error={""}
+            error={errorEmail}
           />
           <AppInputForm
-            label={"password"}
+            label={"contraseña"}
             onChange={setPassword}
-            error={""}
+            error={errorPassword}
             isSecure={true}
           />
 
