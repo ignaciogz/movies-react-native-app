@@ -11,7 +11,7 @@ import { setCameraImage } from '../features/user/userSlice';
 import useAppModal from '../hooks/useAppModal';
 import { useGetProfileImageQuery, usePostProfileImageMutation } from '../services/cinemaService';
 
-import { BORDER_RADIUS, COLORS, FONT_SIZE, FONTS, SPACE } from '../global/theme';
+import { COLORS, FONT_SIZE, FONTS, SPACE } from '../global/theme';
 
 const ImageSelectorScreen = ({ navigation }) => {
   const { AppModal, showAppModal } = useAppModal();
@@ -186,7 +186,7 @@ const styles = StyleSheet.create({
   },
   selectorImage: {
     alignSelf: 'center',
-    borderRadius: BORDER_RADIUS.ROUND,
+    borderRadius: 90.5,
     height: 181,
     width: 181,
   },

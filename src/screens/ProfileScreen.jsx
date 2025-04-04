@@ -8,7 +8,7 @@ import AppHeaderTopBar from '../components/AppHeaderTopBar';
 import { clearUser } from '../features/user/userSlice';
 import { useGetProfileImageQuery } from '../services/cinemaService';
 
-import { BORDER_RADIUS, COLORS, FONT_SIZE, FONTS, SPACE } from '../global/theme';
+import { COLORS, FONT_SIZE, FONTS, SPACE } from '../global/theme';
 
 const defaultImageRoute = "../assets/images/defaultProfile.png";
 
@@ -50,7 +50,7 @@ const ProfileScreen = ({ navigation }) => {
               style={styles.profileImage}
             />
           )}
-          <Text style={styles.profileText}>{user || "fake@email.com"}</Text>
+          <Text style={styles.profileText}>{user || "user@email.com"}</Text>
 
           <View style={styles.profileOptions}>
             <AppButton
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
   },
   profileImage: {
     alignSelf: 'center',
-    borderRadius: BORDER_RADIUS.ROUND,
+    borderRadius: 70,
     height: 140,
     width: 140,
   },

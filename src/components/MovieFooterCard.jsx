@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
 
 import AppLabel from '../components/AppLabel';
 
@@ -52,16 +52,22 @@ const MovieFooterCard = ({
             {movieData.title}
           </Text>
 
-          <View style={styles.genreContainer}>
-            {movieData.genres.map((genre, index) => {
+          
+          <FlatList
+            data={movieData.genres}
+            contentContainerStyle={styles.genreContainer}
+            renderItem={({ item, index}) => {
               return (
-                <AppLabel key={index}
-                  title={genre}
+                <AppLabel
+                  key={index}
+                  title={item}
                   fontSize={FONT_SIZE.TEXT_SM}
                 />
               );
-            })}
-          </View>
+              }
+            }
+          />
+          
 
           {
             showDataOfDetail
@@ -109,7 +115,6 @@ const styles = StyleSheet.create({
   genreContainer: {
     flex: 1,
     flexDirection: 'row',
-    flexWrap: 'wrap',
     gap: SPACE.SM,
     justifyContent: 'center',
     marginTop: SPACE.LG * 1.4,
