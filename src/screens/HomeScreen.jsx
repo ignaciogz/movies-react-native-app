@@ -99,7 +99,6 @@ export default HomeScreen;
 
 const styles = StyleSheet.create({
   container: {
-    display: 'flex',
     flex: 1,
   },
   linearGradient: {
@@ -107,9 +106,9 @@ const styles = StyleSheet.create({
   },
   nowPlayingContainer: {
     gap: SPACE.LG * 3,
-    marginTop: SPACE.LG * 2.5,
+    marginVertical: SPACE.LG * 2.5,
   },
   searchBoxContainer: {
-    marginTop: SPACE.LG * 5,
+    marginTop: SPACE.LG * 4,
   },
 });

@@ -117,10 +117,11 @@ const styles = StyleSheet.create({
   },
   searchBoxContainer: {
     marginBottom: SPACE.LG * 2.5,
-    marginTop: SPACE.LG * 5,
+    marginTop: SPACE.LG * 4,
   },
   searchResultsContainer: {
     alignItems: 'center',
     gap: SPACE.LG * 3,
+    marginBottom: SPACE.LG * 2.5,
   },
 });
