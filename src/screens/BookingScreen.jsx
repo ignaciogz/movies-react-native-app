@@ -52,7 +52,7 @@ const BookingScreen = ({ navigation, route }) => {
 
   useEffect(() => {
     if(appSelectedSeats.length > 0) {
-      const cartTickets = cart.items.filter((item) => item.type === "Pelicula");
+      const cartTickets = cart.items.filter((item) => item.type === "Movie");
       const cartSeats = cartTickets.map((item) => item.seat);
 
       if(cartSeats.length !== appSelectedSeats.length) {
@@ -70,6 +70,7 @@ const BookingScreen = ({ navigation, route }) => {
     const isTimeSelected = bookingTimesArray[selectedTimeIndex] !== undefined;
 
     if (areSeatsSelected && isDateSelected && isTimeSelected) {
+      dispatch(setAppSelectedSeats(selectedSeatsArray));
       dispatch(addCartItems({
         user: user,
         type: "Movie",
@@ -80,8 +81,6 @@ const BookingScreen = ({ navigation, route }) => {
         screeningTime: bookingTimesArray[selectedTimeIndex],
         price: bookingTicketPrice
       }));
-
-      dispatch(setAppSelectedSeats(selectedSeatsArray));
 
       navigation.navigate('Cinema', { screen: 'CandyBar' });
     } else {

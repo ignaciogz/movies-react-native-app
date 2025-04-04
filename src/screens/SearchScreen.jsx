@@ -6,39 +6,46 @@ import { useDispatch, useSelector } from 'react-redux';
 import MovieCard from '../components/MovieCard';
 import SearchBox from '../components/SearchBox';
 import { setSelectedMovie } from '../features/cinema/cinemaSlice';
+import { useGetMoviesQuery, useGetMovieGenresQuery } from '../services/cinemaService';
 
 import { COLORS, FONT_SIZE, FONTS, SPACE } from '../global/theme';
 
-import genresList from '../global/data/genres.json';
-import nowPlaying from '../global/data/nowplaying.json';
-
 const { width, height } = Dimensions.get('window');
 
-const SearchScreen = ({ navigation, route }) => {
+const SearchScreen = ({ navigation }) => {
   const dispatch = useDispatch();
-  const [nowPlayingMoviesData, setNowPlayingMoviesData] = useState(nowPlaying);
-  const [genresData, setGenresData] = useState(genresList);
-
+  const [searchResults, setSearchResults] = useState([]);
   const searchText = useSelector((state) => state.search.searchText);
-  const [searchResults, setSearchResults] = useState(nowPlayingMoviesData);
+  const {data: moviesData, error: errorMovies, isLoading: isLoadingMovies} = useGetMoviesQuery();
+  const {data: movieGenresData, error: errorMovieGenres, isLoading: isLoadingMovieGenres} = useGetMovieGenresQuery();
+  const [nowPlayingMovies, setNowPlayingMovies] = useState(moviesData);
 
   useEffect(() => {
-    searchText && searchMoviesFunction(searchText);
-  }, []);
-
-  useEffect(() => {
-    searchText.length === 0 && setSearchResults(nowPlayingMoviesData);
+    searchText.length === 0 && setSearchResults(nowPlayingMovies);
   }, [searchText]);
+
+  useEffect(() => {
+    if(!isLoadingMovies && !isLoadingMovieGenres) {
+      const movies = moviesData.map((movie) => {
+        return {
+          ...movie,
+          genres: getMovieGenresSorted(movie),
+        }
+      });
+      setNowPlayingMovies(movies);
+      searchText ? searchMoviesFunction(searchText) : setSearchResults(movies);
+    }
+  }, [moviesData, isLoadingMovies, isLoadingMovieGenres]);
 
   const getMovieGenresSorted = (movie) => {
     return movie.genre_ids.slice(0, 3)
-                            .map((genre_id) => genresData[genre_id])
+                            .map((genre_id) => movieGenresData[genre_id])
                             .sort();
   };
 
   const searchMoviesFunction = (searchText) => {
     if (searchText.length > 0) {
-      const results = nowPlayingMoviesData.filter((movieData) =>
+      const results = nowPlayingMovies.filter((movieData) =>
         movieData.title.toLowerCase().includes(searchText.toLowerCase())
       );
       setSearchResults(results);
@@ -69,21 +76,16 @@ const SearchScreen = ({ navigation, route }) => {
             showsVerticalScrollIndicator={false}
             contentContainerStyle={styles.searchResultsContainer}
             renderItem={({ item }) => {
-              let movieData = {
-                ...item,
-                genres: getMovieGenresSorted(item),
-              }
-
               return (
                 <MovieCard
                   cardFunction={() => {
-                    dispatch(setSelectedMovie(movieData));
+                    dispatch(setSelectedMovie(item));
                     navigation.navigate('Movies', { screen: 'MovieDetail', params: {
-                      movieData
+                      movieData: item
                     }});
                   }}
                   cardWidth={width / 2 - SPACE.LG * 2}
-                  movieData={movieData}
+                  movieData={item}
                   showDataOf={'Search'}
                   withMarginAround={true}
                   withMarginAtEnd={false}

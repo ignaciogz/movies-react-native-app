@@ -7,26 +7,37 @@ import MovieCard from '../components/MovieCard';
 import SearchBox from '../components/SearchBox';
 import { setSelectedMovie } from '../features/cinema/cinemaSlice';
 import { clearSearchText } from '../features/search/searchSlice';
+import { useGetMoviesQuery, useGetMovieGenresQuery } from '../services/cinemaService';
 
 import { COLORS, SPACE } from '../global/theme';
-
-import genresList from '../global/data/genres.json';
-import nowPlaying from '../global/data/nowplaying.json';
 
 const { width, height } = Dimensions.get('window');
 
 const HomeScreen = ({ navigation }) => {
   const dispatch = useDispatch();
-  const [nowPlayingMoviesData, setNowPlayingMoviesData] = useState(nowPlaying);
-  const [genresData, setGenresData] = useState(genresList);
+  const [nowPlayingMovies, setNowPlayingMovies] = useState();
+  const {data: moviesData, error: errorMovies, isLoading: isLoadingMovies} = useGetMoviesQuery();
+  const {data: movieGenresData, error: errorMovieGenres, isLoading: isLoadingMovieGenres} = useGetMovieGenresQuery();
 
   useEffect(() => {
     dispatch(clearSearchText());
   }, []);
 
+  useEffect(() => {
+    if(!isLoadingMovies && !isLoadingMovieGenres) {
+      const movies = moviesData.map((movie) => {
+        return {
+          ...movie,
+          genres: getMovieGenresSorted(movie),
+        }
+      });
+      setNowPlayingMovies(movies);
+    }
+  }, [moviesData, isLoadingMovies, isLoadingMovieGenres]);
+
   const getMovieGenresSorted = (movie) => {
     return movie.genre_ids.slice(0, 3)
-                            .map((genre_id) => genresData[genre_id])
+                            .map((genre_id) => movieGenresData[genre_id])
                             .sort();
   };
 
@@ -54,7 +65,7 @@ const HomeScreen = ({ navigation }) => {
         </View>
 
         <FlatList
-          data={nowPlayingMoviesData}
+          data={nowPlayingMovies}
           keyExtractor={(item) => item.id}
           bounces={false}
           snapToInterval={width * 0.8 + SPACE.LG * 3}
@@ -63,21 +74,16 @@ const HomeScreen = ({ navigation }) => {
           decelerationRate={0}
           contentContainerStyle={styles.nowPlayingContainer}
           renderItem={({item, index}) => {
-            let movieData = {
-              ...item,
-              genres: getMovieGenresSorted(item),
-            }
-
             return (
               <MovieCard
                 cardFunction={() => {
-                  dispatch(setSelectedMovie(movieData));
-                  navigation.navigate('MovieDetail', { movieData });
+                  dispatch(setSelectedMovie(item));
+                  navigation.navigate('MovieDetail', { movieData: item });
                 }}
                 cardWidth={width * 0.75}
                 isFirst={index == 0 ? true : false}
-                isLast={index == nowPlayingMoviesData?.length - 1 ? true : false}
-                movieData={movieData}
+                isLast={index == nowPlayingMovies?.length - 1 ? true : false}
+                movieData={item}
                 showDataOf={"Home"}
                 withMarginAtEnd={true}
               />
