@@ -93,6 +93,6 @@ const styles = StyleSheet.create({
   },
   itemText: {
     fontFamily: FONTS.TEXT_BOLD,
-    fontSize: FONT_SIZE.TEXT,
+    fontSize: FONT_SIZE.TEXT_SM,
   },
 });
