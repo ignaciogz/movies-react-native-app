@@ -2,10 +2,6 @@
 
 # dependencies
 node_modules/
-src/assets/
-src/features/
-src/global/
-src/services/
 
 # Expo
 .expo/

@@ -35,7 +35,7 @@ const ProfileScreen = ({ navigation }) => {
         <StatusBar hidden />
 
         <View>
-          <AppHeaderTopBar buttonType="return" navigation={navigation} />
+          <AppHeaderTopBar navigation={navigation} />
 
           {imageFromFirebase || imageCamera ? (
             <Image

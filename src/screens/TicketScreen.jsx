@@ -29,7 +29,11 @@ const TicketScreen = ({ navigation }) => {
     >
       <StatusBar hidden />
 
-      <AppHeaderTopBar marginHorizontal={SPACE.LG * 3} navigation={navigation} />
+      <AppHeaderTopBar
+        buttonType="return"
+        marginHorizontal={SPACE.LG * 3}
+        navigation={navigation}
+      />
 
       {!isLoading && ticketImage ? (
         <View style={styles.ticketContainer}>
