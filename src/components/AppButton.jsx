@@ -12,7 +12,7 @@ const AppButton = ({
   }) => {
 
   return (
-    <Pressable onPress={async () => await onPress()}>
+    <Pressable onPress={() => onPress()}>
       <LinearGradient
         colors={[endColor, startColor]}
         style={styles.buttonBox}

@@ -38,7 +38,7 @@ const Signup = ({ navigation }) => {
     };
   }, [result]);
 
-  const signUp = async () => {
+  const signUp = () => {
     try {
       setErrorEmail('');
       setErrorPassword('');
@@ -46,7 +46,7 @@ const Signup = ({ navigation }) => {
       signupSchema.validateSync({
         email, password, confirmPassword
       });
-      await triggerSignUp({ email, password, returnSecureToken: true });
+      triggerSignUp({ email, password, returnSecureToken: true });
     } catch (err) {
       switch(err.path) {
         case 'email':

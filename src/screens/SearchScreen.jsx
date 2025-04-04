@@ -80,9 +80,7 @@ const SearchScreen = ({ navigation }) => {
                 <MovieCard
                   cardFunction={() => {
                     dispatch(setSelectedMovie(item));
-                    navigation.navigate('Movies', { screen: 'MovieDetail', params: {
-                      movieData: item,
-                    }});
+                    navigation.navigate('MovieDetail', { movieData: item })
                   }}
                   cardWidth={width / 2 - SPACE.LG * 2}
                   movieData={item}

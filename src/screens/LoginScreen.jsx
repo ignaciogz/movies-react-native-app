@@ -36,14 +36,14 @@ const Login = ({ navigation }) => {
     };
   }, [result]);
 
-  const signIn = async () => {
+  const signIn = () => {
     try {
       setErrorEmail('');
       setErrorPassword('');
       signinSchema.validateSync({
         email, password,
       });
-      await triggerSignIn({ email, password });
+      triggerSignIn({ email, password });
     } catch (err) {
       switch(err.path) {
         case 'email':

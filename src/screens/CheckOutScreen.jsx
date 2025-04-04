@@ -29,9 +29,9 @@ const CheckOutScreen = ({ navigation }) => {
     }
   }, [cart]);
 
-  const checkout = async () => {
+  const checkout = () => {
     try {
-      await triggerPostTickets({ ...cart });
+      triggerPostTickets({ ...cart });
       finishCheckout();
     } catch (err) {
       showAppModal("error", `Error al enviar los tickets y/o productos: ${err}`);
