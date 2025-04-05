@@ -17,14 +17,6 @@ const useBooking = () => {
   const [selectedSeatsArray, setSelectedSeatsArray] = useState([]);
   const [selectedTimeIndex, setSelectedTimeIndex] = useState(null);
 
-  /* console.log("------------------")
-  console.log(":: Seats - Array: ", bookingSeatsArray)
-  console.log("Selected Seat - Array: ", selectedSeatsArray)
-  console.log("Selected Date - Index: ", bookingAvailableDatesArray[selectedDateIndex])
-  console.log("Selected Time - Index: ", bookingTimesArray[selectedTimeIndex])
-  console.log(":: Total Price: ", bookingTotalPrice)
-  console.log("------------------") */
-
   const clearBooking = () => {
     setBookingSeatsArray(generateSeats(rows, columns));
     setBookingTotalPrice(0);

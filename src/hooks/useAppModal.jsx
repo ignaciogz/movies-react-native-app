@@ -60,7 +60,6 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.WHITE,
     borderRadius: BORDER_RADIUS.MD * 2,
     elevation: 5,
-    //marginHorizontal: SPACE.SM * 5,
     paddingHorizontal: SPACE.LG * 2.5,
     paddingVertical: SPACE.LG * 3,
     boxShadowColor: COLORS.BLACK,
