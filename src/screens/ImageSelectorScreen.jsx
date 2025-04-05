@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Image, StatusBar, StyleSheet, Text, View } from 'react-native'
+import React, { useState } from 'react';
+import { Image, Platform, StatusBar, StyleSheet, Text, View } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as MediaLibrary from 'expo-media-library';
@@ -85,7 +85,7 @@ const ImageSelectorScreen = ({ navigation }) => {
       dispatch(setCameraImage(image));
       await triggerPostImage({image, localId});
 
-      if(isImageFromCamera) {
+      if(Platform.OS !== "web" && isImageFromCamera) {
         await MediaLibrary.createAssetAsync(imageUri);
       }
 
